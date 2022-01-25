@@ -1,12 +1,14 @@
 package com.devagit.springbootstudy.service;
 
-import com.devagit.springbootstudy.domain.user.LoginRequest;
 import com.devagit.springbootstudy.domain.user.User;
 import com.devagit.springbootstudy.domain.user.UserRequest;
 import com.devagit.springbootstudy.domain.user.UserView;
-import com.devagit.springbootstudy.exceptions.UserIdNotFindException;
+import com.devagit.springbootstudy.handler.UserIdNotFoundException;
 import com.devagit.springbootstudy.repository.UserRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,23 +39,14 @@ public class UserService {
         UserView userView = UserView.from(user);
         return userView;
     }
-
-    public String login(String userId, String password) {
-        User user = null;
-        try {
-            user = userRepository.findByUserId(userId);
-            if (user != null) {
-                if (user.getPassword().equals(password)) {
-                    return UserView.loginSuccess(user.getUserId());
-                }
-            }
-        } catch (NullPointerException e) {
-            throw new UserIdNotFindException("로그인 실패",e.getCause());
-        }
-
-
-        return null;
+    public UserView login(String userId, String password) {
+        User user = userRepository.findByUserId(userId);
+        return UserView.from(user);
     }
 
-
 }
+
+
+
+
+
