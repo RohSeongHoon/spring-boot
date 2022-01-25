@@ -1,0 +1,11 @@
+spring:
+  dataSource:
+    url: jdbc:mysql://127.0.0.1:3306/spring_boot_study
+    username: root
+    password: qsc20215
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
