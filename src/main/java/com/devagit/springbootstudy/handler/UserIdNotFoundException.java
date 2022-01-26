@@ -1,12 +1,16 @@
 package com.devagit.springbootstudy.handler;
 
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
+@Getter
 public class UserIdNotFoundException extends RuntimeException {
-    private static final String DETAILMESSAGE = "로그인 실패!";
+    private HttpStatus status;
+    private String detailMessage;
 
-    public UserIdNotFoundException() {
-    super(DETAILMESSAGE);
-        }
+    public UserIdNotFoundException(String message, HttpStatus status, String detailMessage) {
+        super(detailMessage);
+        this.status = status;
+
+    }
 }
