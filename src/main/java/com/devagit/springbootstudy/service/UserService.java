@@ -5,10 +5,7 @@ import com.devagit.springbootstudy.domain.user.UserRequest;
 import com.devagit.springbootstudy.domain.user.UserView;
 import com.devagit.springbootstudy.handler.UserIdNotFoundException;
 import com.devagit.springbootstudy.repository.UserRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,7 +38,10 @@ public class UserService {
     }
     public UserView login(String userId, String password) {
         User user = userRepository.findByUserId(userId);
-        return UserView.from(user);
+        if (user != null){
+
+        }
+        return null;
     }
 
 }
