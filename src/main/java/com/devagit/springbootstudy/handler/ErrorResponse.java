@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 
 import java.time.LocalDateTime;
 
@@ -11,14 +13,11 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 public class ErrorResponse {
-    private LocalDateTime timestamp = LocalDateTime.now();
     private String massage;
-    private HttpStatus status;
-    private String errorCode;
+    private int status;
+    private String code;
 
-    public ErrorResponse(String massage, HttpStatus status, String errorCode) {
-        this.massage = massage;
-        this.status = status;
-        this.errorCode = errorCode;
+    public ResponseEntity<ErrorResponse> toResponseEntity(ErrorCode errorCode){
+        return ResponseEntity.status(errorCode.getStatus()).body(ErrorResponse.)
     }
 }
