@@ -32,7 +32,7 @@ public class UserController {
     //비밀번호에 특수문자 있어야함
 
     @PostMapping("/api/v1/users/login")
-    public String login(@RequestBody LoginRequest req){
+    public UserView login(@RequestBody LoginRequest req){
         return userService.login(req.getUserId(),req.getPassword());
     }
 

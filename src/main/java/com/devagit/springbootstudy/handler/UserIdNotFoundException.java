@@ -5,12 +5,12 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 public class UserIdNotFoundException extends RuntimeException {
-    private HttpStatus status;
-    private String detailMessage;
+    private int status;
+    private String message;
 
-    public UserIdNotFoundException(String message, HttpStatus status, String detailMessage) {
-        super(detailMessage);
-        this.status = status;
+    public UserIdNotFoundException(ErrorCode errorCode) {
+        super(errorCode.getMessage());
+        this.status = errorCode.getStatus();
 
     }
 }
