@@ -6,10 +6,10 @@ import org.springframework.http.HttpStatus;
 @Getter
 public class ErrorCode {
     private String message;
-    private int status;
+    private HttpStatus status;
     private String errorCode;
 
-    public ErrorCode(String message, int status, String errorCode) {
+    public ErrorCode(String message, HttpStatus status, String errorCode) {
         this.message = message;
         this.status = status;
         this.errorCode = errorCode;
