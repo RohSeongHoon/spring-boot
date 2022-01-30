@@ -3,12 +3,15 @@ package com.devagit.springbootstudy.service;
 import com.devagit.springbootstudy.domain.user.User;
 import com.devagit.springbootstudy.domain.user.UserRequest;
 import com.devagit.springbootstudy.domain.user.UserView;
-import com.devagit.springbootstudy.handler.UserIdNotFoundException;
+import com.devagit.springbootstudy.handler.UserNotFoundException;
 import com.devagit.springbootstudy.repository.UserRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.devagit.springbootstudy.handler.ErrorCode.USER_ID_NOT_THE_SAME;
 
 @Service
 public class UserService {
@@ -39,7 +42,7 @@ public class UserService {
     public UserView login(String userId, String password) {
         User user = userRepository.findByUserId(userId);
         if (user != null){
-
+        throw new UserNotFoundException(USER_ID_NOT_THE_SAME);
         }
         return null;
     }
