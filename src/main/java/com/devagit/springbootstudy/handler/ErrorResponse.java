@@ -1,23 +1,30 @@
 package com.devagit.springbootstudy.handler;
 
+import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
-@NoArgsConstructor
 public class ErrorResponse {
-    private String massage;
-    private int status;
-    private String code;
+    private String message;
+    private String error;
 
-    public ResponseEntity<ErrorResponse> toResponseEntity(ErrorCode errorCode){
-        return ResponseEntity.status(errorCode.getStatus()).body(ErrorResponse.)
+    @Builder
+    private ErrorResponse(String error, String message) {
+        this.error = error;
+        this.message = message;
     }
+
+    public static ResponseEntity<ErrorResponse> toResponseEntity(ErrorCode errorCode) {
+      return  ResponseEntity.status(errorCode.getHttpStatus())
+                .body(ErrorResponse.builder()
+                        .error(errorCode.getHttpStatus().name())
+                        .message(errorCode.getDetailMessage()).build()
+                );
+    }
+
+
 }
