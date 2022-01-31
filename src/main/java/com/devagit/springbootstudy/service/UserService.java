@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.devagit.springbootstudy.handler.ErrorCode.USER_ID_NOT_THE_SAME;
+import static com.devagit.springbootstudy.handler.ErrorCode.USER_PASSWORD_NOT_THE_SAME;
 
 @Service
 public class UserService {
@@ -39,12 +40,16 @@ public class UserService {
         return userView;
     }
 
-    public UserView login(String userId, String password) {
+    public String login(String userId, String password) {
         User user = userRepository.findByUserId(userId);
         if (user != null) {
-            throw new UserNotFoundException(USER_ID_NOT_THE_SAME);
+            if (user.getPassword().equals(password)){
+                return "로그인 성공";
+            }else {
+                throw new UserNotFoundException(USER_PASSWORD_NOT_THE_SAME);
+            }
         }
-        return null;
+        throw new UserNotFoundException(USER_ID_NOT_THE_SAME);
     }
 
 }
