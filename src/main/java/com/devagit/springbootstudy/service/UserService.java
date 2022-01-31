@@ -5,7 +5,6 @@ import com.devagit.springbootstudy.domain.user.UserRequest;
 import com.devagit.springbootstudy.domain.user.UserView;
 import com.devagit.springbootstudy.handler.UserNotFoundException;
 import com.devagit.springbootstudy.repository.UserRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,10 +38,11 @@ public class UserService {
         UserView userView = UserView.from(user);
         return userView;
     }
+
     public UserView login(String userId, String password) {
         User user = userRepository.findByUserId(userId);
-        if (user != null){
-        throw new UserNotFoundException(USER_ID_NOT_THE_SAME);
+        if (user != null) {
+            throw new UserNotFoundException(USER_ID_NOT_THE_SAME);
         }
         return null;
     }
