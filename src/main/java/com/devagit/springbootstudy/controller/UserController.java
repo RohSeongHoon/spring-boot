@@ -20,20 +20,20 @@ public class UserController {
 
     //로그인 기능
     //아이디 중복확인
-        //post로 아이디와 비번을 보냄
-        //db에서 기본키인 아이디를 검색
-          //아이디가 있으면 비밀번호 비교
-            //비밀번호가 같다면 로그인 성공
-            //비밀번호가 틀리다면 로그인 실패
-          //아이디가 없다면 예외처리
+    //post로 아이디와 비번을 보냄
+    //db에서 기본키인 아이디를 검색
+    //아이디가 있으면 비밀번호 비교
+    //비밀번호가 같다면 로그인 성공
+    //비밀번호가 틀리다면 로그인 실패
+    //아이디가 없다면 예외처리
 
 
     //회워가입
     //비밀번호에 특수문자 있어야함
 
     @PostMapping("/api/v1/users/login")
-    public String login(@RequestBody LoginRequest req){
-        return userService.login(req.getUserId(),req.getPassword());
+    public String login(@RequestBody LoginRequest req) {
+        return userService.login(req.getUserId(), req.getPassword());
     }
 
     //회원가입 만들기
@@ -42,8 +42,14 @@ public class UserController {
         return userService.signUp(req);
     }
 
+    @PostMapping("api/v1/users/")
+    public UserView findPasswordByUserId(@RequestBody UserRequest req){
+        return userService.findPasswordByUserId(req);
+
+    }
+
     @GetMapping("/api/v1/users")
-    public List<UserView> findAllUsers(@RequestParam (required = false) String username) {
+    public List<UserView> findAllUsers(@RequestParam(required = false) String username) {
         return userService.findAllUsers();
     }
 
