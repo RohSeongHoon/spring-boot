@@ -34,4 +34,6 @@ public class UserRepositoryImpl implements UserRepository {
     public User findByUserId(String userId) {
         return userJPARepository.findByUserId(userId);
     }
+
+
 }

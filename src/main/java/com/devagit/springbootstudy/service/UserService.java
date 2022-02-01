@@ -43,15 +43,29 @@ public class UserService {
     public String login(String userId, String password) {
         User user = userRepository.findByUserId(userId);
         if (user != null) {
-            if (user.getPassword().equals(password)){
+            if (user.getPassword().equals(password)) {
                 return "로그인 성공";
-            }else {
+            } else {
                 throw new UserNotFoundException(USER_PASSWORD_NOT_THE_SAME);
             }
         }
         throw new UserNotFoundException(USER_ID_NOT_THE_SAME);
     }
 
+
+    public String findPasswordByUserId(String userId, String username, String userPhoneNumber) {
+        User user = userRepository.findByUserId(userId);
+        if (user.getUsername() != null) {
+            if (username.equals(user.getUsername()) && userPhoneNumber.equals(user.getPhoneNumber())) {
+                String password = user.getPassword().substring(0, 2);
+                for (int i = 0; i < user.getPassword().length() - password.length(); i++) {
+                    password += "*";
+                }
+                return password;
+            }
+        }
+        throw new UserNotFoundException(USER_ID_NOT_THE_SAME);
+    }
 }
 
 
