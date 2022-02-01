@@ -19,8 +19,5 @@ public class UserView {
     public static UserView from(User user) {
         return new UserView(user.getId(), user.getUsername(), user.getUserId());
     }
-    public static String loginSuccess(String userId){
-        String result = userId +" 로그인 성공";
-        return result;
-    }
+
 }
