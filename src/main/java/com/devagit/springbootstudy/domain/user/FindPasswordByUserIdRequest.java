@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Getter
 public class FindPasswordByUserIdRequest {
     private String userId;
-    private String userName;
+    private String username;
     private String phoneNumber;
 
 
