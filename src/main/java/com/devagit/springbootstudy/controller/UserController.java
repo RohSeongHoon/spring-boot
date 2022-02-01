@@ -1,10 +1,7 @@
 package com.devagit.springbootstudy.controller;
 
 
-import com.devagit.springbootstudy.domain.user.LoginRequest;
-import com.devagit.springbootstudy.domain.user.User;
-import com.devagit.springbootstudy.domain.user.UserRequest;
-import com.devagit.springbootstudy.domain.user.UserView;
+import com.devagit.springbootstudy.domain.user.*;
 import com.devagit.springbootstudy.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,9 +39,9 @@ public class UserController {
         return userService.signUp(req);
     }
 
-    @PostMapping("api/v1/users/")
-    public UserView findPasswordByUserId(@RequestBody UserRequest req){
-        return userService.findPasswordByUserId(req);
+    @PostMapping("api/v1/users/findPassword")
+    public String findPasswordByUserId(@RequestBody FindPasswordByUserIdRequest req){
+        return userService.findPasswordByUserId(req.getUserId(),req.getUsername(),req.getPhoneNumber());
 
     }
 
