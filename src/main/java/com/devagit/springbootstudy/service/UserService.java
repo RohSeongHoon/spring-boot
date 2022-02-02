@@ -10,8 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.devagit.springbootstudy.handler.ErrorCode.USER_ID_NOT_THE_SAME;
-import static com.devagit.springbootstudy.handler.ErrorCode.USER_PASSWORD_NOT_THE_SAME;
+import static com.devagit.springbootstudy.handler.ErrorCode.*;
 
 @Service
 public class UserService {
@@ -65,6 +64,12 @@ public class UserService {
             }
         }
         throw new UserNotFoundException(USER_ID_NOT_THE_SAME);
+    }
+
+    public String findIdByUserPhoneNumber(String userPhoneNumber, String username) {
+        User user = userRepository.findByUserPhoneNumber(userPhoneNumber);
+
+        throw new UserNotFoundException(USER_PHONE_NUMBER_NOT_THE_SAME);
     }
 }
 
