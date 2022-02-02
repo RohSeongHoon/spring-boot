@@ -40,9 +40,12 @@ public class UserController {
     }
 
     @PostMapping("api/v1/users/findPassword")
-    public String findPasswordByUserId(@RequestBody FindPasswordByUserIdRequest req){
-        return userService.findPasswordByUserId(req.getUserId(),req.getUsername(),req.getPhoneNumber());
-
+    public String findPasswordByUserId(@RequestBody FindPasswordByUserIdRequest req) {
+        return userService.findPasswordByUserId(req.getUserId(), req.getUsername(), req.getPhoneNumber())
+    }
+    @PostMapping("api/v1/users/findId")
+    public String findIdByUserPhoneNumber(@RequestBody FindIdByUserPhoneNumRequest req){
+        return userService.findIdByUserPhoneNumber(req.getUserPhoneNumber(),req.getUsername());
     }
 
     @GetMapping("/api/v1/users")
