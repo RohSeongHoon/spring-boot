@@ -10,6 +10,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 public enum ErrorCode {
 
     USER_ID_NOT_THE_SAME(BAD_REQUEST, "ID가 올바르지 않습니다"),
+    USER_PHONE_NUMBER_NOT_THE_SAME(BAD_REQUEST,"PHONENUMER가 올바르지 않습니다"),
     USER_PASSWORD_NOT_THE_SAME(BAD_REQUEST, "PASSWORD가 올바르지 않습니다");
 
     private final HttpStatus httpStatus;
