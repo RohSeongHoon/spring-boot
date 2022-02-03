@@ -35,5 +35,10 @@ public class UserRepositoryImpl implements UserRepository {
         return userJPARepository.findByUserId(userId);
     }
 
+    @Override
+    public User findByPhoneNumber(String userPhoneNumber) {
+        return userJPARepository.findByPhoneNumber(userPhoneNumber);
+    }
+
 
 }
