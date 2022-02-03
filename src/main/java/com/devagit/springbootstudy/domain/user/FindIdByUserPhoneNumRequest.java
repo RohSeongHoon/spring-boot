@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FindIdByUserPhoneNumRequest {
-    private String userPhoneNumber;
+    private String phoneNumber;
     private String username;
 }
