@@ -56,20 +56,27 @@ public class UserService {
         User user = userRepository.findByUserId(userId);
         if (user.getUsername() != null) {
             if (username.equals(user.getUsername()) && userPhoneNumber.equals(user.getPhoneNumber())) {
-                String password = user.getPassword().substring(0, 2);
-                for (int i = 0; i < user.getPassword().length() - password.length(); i++) {
-                    password += "*";
-                }
+                String password = userInfoBlind(user.getPassword());
                 return password;
             }
         }
         throw new UserNotFoundException(USER_ID_NOT_THE_SAME);
     }
 
-    public String findIdByUserPhoneNumber(String userPhoneNumber, String username) {
-        User user = userRepository.findByUserPhoneNumber(userPhoneNumber);
-
+    public String findIdByPhoneNumber(String phoneNumber, String username) {
+        User user = userRepository.findByPhoneNumber(phoneNumber);
+        if (user.getPhoneNumber().equals(phoneNumber)&&user.getUsername().equals(username)){
+            String userId = userInfoBlind(user.getUserId());
+            return userId;
+        }
         throw new UserNotFoundException(USER_PHONE_NUMBER_NOT_THE_SAME);
+    }
+    public String userInfoBlind(String userInfo){
+        String result = userInfo.substring(0, 2);
+        for (int i = 0; i < userInfo.length() - result.length(); i++) {
+            result += "*";
+        }
+        return result;
     }
 }
 
