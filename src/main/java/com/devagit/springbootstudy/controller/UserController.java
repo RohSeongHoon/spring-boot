@@ -25,31 +25,27 @@ public class UserController {
     //아이디가 없다면 예외처리
 
 
-    //회워가입
-    //비밀번호에 특수문자 있어야함
-
-    @PostMapping("/api/v1/users/login")
-    public String login(@RequestBody LoginRequest req) {
-        return userService.login(req.getUserId(), req.getPassword());
-    }
-
-    //회원가입 만들기
+    //회원 가입  ===================================
     @PostMapping("/api/v1/users")
     public UserView signUp(@RequestBody UserRequest req) {
         return userService.signUp(req);
     }
 
+    //로그인 ===================================
+    @PostMapping("/api/v1/users/login")
+    public String login(@RequestBody LoginRequest req) {
+        return userService.login(req.getUserId(), req.getPassword());
+    }
+
+    //회원 정보 조회 ===================================
     @PostMapping("api/v1/users/findPassword")
     public String findPasswordByUserId(@RequestBody FindPasswordByUserIdRequest req) {
         return userService.findPasswordByUserId(req.getUserId(), req.getUsername(), req.getPhoneNumber());
     }
+
     @PostMapping("api/v1/users/findId")
-    public String findIdByUserPhoneNumber(@RequestBody FindIdByUserPhoneNumRequest req){
-        return userService.findIdByPhoneNumber(req.getPhoneNumber(),req.getUsername());
-    }
-    @PostMapping("api/v1/users/changeUserPassword")
-    public String changeId(@RequestBody ChangeUserPasswordRequest req){
-        return userService.changeUserPassword(req.getUserId(),req.getPassword(),req.getNewPassword());
+    public String findIdByUserPhoneNumber(@RequestBody FindIdByUserPhoneNumRequest req) {
+        return userService.findIdByPhoneNumber(req.getPhoneNumber(), req.getUsername());
     }
 
     @GetMapping("/api/v1/users")
@@ -60,5 +56,16 @@ public class UserController {
     @GetMapping(value = "/api/v1/users", params = "username")
     public UserView findUserByUserName(@RequestParam(required = false) String username) {
         return userService.findByUsername(username);
+    }
+
+    //회원 정보 변경 ===================================
+    @PostMapping("api/v1/users/changeUserPassword")
+    public String changeId(@RequestBody ChangeUserPasswordRequest req) {
+        return userService.changeUserPassword(req.getUserId(), req.getPassword(), req.getNewPassword());
+    }
+    //회원 정보 삭제 ===================================
+    @PostMapping("api/v1/users/deleteUser")
+    public String deleteUser(@RequestBody DeleteUserRequest req ){
+        return userService.deleteUser(req.getUserId(),req.getPassword());
     }
 }
