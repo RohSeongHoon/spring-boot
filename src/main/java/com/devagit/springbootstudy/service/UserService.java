@@ -65,19 +65,35 @@ public class UserService {
 
     public String findIdByPhoneNumber(String phoneNumber, String username) {
         User user = userRepository.findByPhoneNumber(phoneNumber);
-        if (user.getPhoneNumber().equals(phoneNumber)&&user.getUsername().equals(username)){
+        if (user.getPhoneNumber().equals(phoneNumber) && user.getUsername().equals(username)) {
             String userId = userInfoBlind(user.getUserId());
             return userId;
         }
         throw new UserNotFoundException(USER_PHONE_NUMBER_NOT_THE_SAME);
     }
-    public String userInfoBlind(String userInfo){
+
+    public String changeUserPassword(String userId, String password,String newPassword) {
+        User user = userRepository.findByUserId(userId);
+        if (user == null) {
+            throw new UserNotFoundException(USER_ID_NOT_THE_SAME);
+        }
+        if (user.getPassword().equals(password)) {
+            user.setPassword(newPassword);
+            userRepository.save(user);
+            return "비밀번호 변경 성공";
+        }
+        throw new UserNotFoundException(USER_PASSWORD_NOT_THE_SAME);
+    }
+
+    public String userInfoBlind(String userInfo) {
         String result = userInfo.substring(0, 2);
         for (int i = 0; i < userInfo.length() - result.length(); i++) {
             result += "*";
         }
         return result;
     }
+
+
 }
 
 
