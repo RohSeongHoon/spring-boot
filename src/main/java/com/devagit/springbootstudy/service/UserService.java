@@ -72,7 +72,7 @@ public class UserService {
         throw new UserNotFoundException(USER_PHONE_NUMBER_NOT_THE_SAME);
     }
 
-    public String changeUserPassword(String userId, String password,String newPassword) {
+    public String changeUserPassword(String userId, String password, String newPassword) {
         User user = userRepository.findByUserId(userId);
         if (user == null) {
             throw new UserNotFoundException(USER_ID_NOT_THE_SAME);
@@ -85,6 +85,18 @@ public class UserService {
         throw new UserNotFoundException(USER_PASSWORD_NOT_THE_SAME);
     }
 
+    public String deleteUser(String userId, String password) {
+        User user = userRepository.findByUserId(userId);
+        if (user == null) {
+            throw new UserNotFoundException(USER_ID_NOT_THE_SAME);
+        }
+        if (user.getPassword().equals(password)) {
+            userRepository.deleteByUserId(userId);
+            return "삭제 왼료";
+        }
+        throw new UserNotFoundException(USER_PASSWORD_NOT_THE_SAME);
+    }
+
     public String userInfoBlind(String userInfo) {
         String result = userInfo.substring(0, 2);
         for (int i = 0; i < userInfo.length() - result.length(); i++) {
@@ -92,7 +104,6 @@ public class UserService {
         }
         return result;
     }
-
 
 }
 
