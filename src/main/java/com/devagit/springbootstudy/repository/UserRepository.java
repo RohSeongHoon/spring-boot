@@ -16,4 +16,7 @@ public interface UserRepository {
 
     public User findByPhoneNumber(String userPhoneNumber);
 
+
+    public void deleteByUserId(String userId);
+
 }

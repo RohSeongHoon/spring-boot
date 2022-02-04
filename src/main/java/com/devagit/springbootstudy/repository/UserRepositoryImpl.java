@@ -16,6 +16,11 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public void deleteByUserId(String userId) {
+         userJPARepository.deleteByUserId(userId);
+    }
+
+    @Override
     public User save(User user) {
         return userJPARepository.save(user);
     }
