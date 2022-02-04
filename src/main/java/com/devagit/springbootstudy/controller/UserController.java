@@ -47,6 +47,10 @@ public class UserController {
     public String findIdByUserPhoneNumber(@RequestBody FindIdByUserPhoneNumRequest req){
         return userService.findIdByPhoneNumber(req.getPhoneNumber(),req.getUsername());
     }
+    @PostMapping("api/v1/users/changeUserPassword")
+    public String changeId(@RequestBody ChangeUserPasswordRequest req){
+        return userService.changeUserPassword(req.getUserId(),req.getPassword(),req.getNewPassword());
+    }
 
     @GetMapping("/api/v1/users")
     public List<UserView> findAllUsers(@RequestParam(required = false) String username) {
