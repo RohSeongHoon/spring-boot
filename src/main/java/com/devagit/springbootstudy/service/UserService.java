@@ -20,11 +20,26 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    //회원 가입 ===================================
     public UserView signUp(UserRequest req) {
         User user = new User(req.getUsername(), req.getUserId(), req.getPassword(), req.getPhoneNumber());
         User signUpUser = userRepository.save(user);
         return UserView.from(signUpUser);
     }
+
+    //로그인 ===================================
+    public String login(String userId, String password) {
+        User user = userRepository.findByUserId(userId);
+        if (user != null) {
+            if (user.getPassword().equals(password)) {
+                return "로그인 성공";
+            } else {
+                throw new UserNotFoundException(USER_PASSWORD_NOT_THE_SAME);
+            }
+        }
+        throw new UserNotFoundException(USER_ID_NOT_THE_SAME);
+    }
+    //회원 정보 조회 ===================================
 
     public List<UserView> findAllUsers() {
         return userRepository.findAll().stream().map(UserView::from).collect(Collectors.toList());
@@ -37,18 +52,6 @@ public class UserService {
         }
         UserView userView = UserView.from(user);
         return userView;
-    }
-
-    public String login(String userId, String password) {
-        User user = userRepository.findByUserId(userId);
-        if (user != null) {
-            if (user.getPassword().equals(password)) {
-                return "로그인 성공";
-            } else {
-                throw new UserNotFoundException(USER_PASSWORD_NOT_THE_SAME);
-            }
-        }
-        throw new UserNotFoundException(USER_ID_NOT_THE_SAME);
     }
 
 
@@ -72,6 +75,7 @@ public class UserService {
         throw new UserNotFoundException(USER_PHONE_NUMBER_NOT_THE_SAME);
     }
 
+    //회원 정보 변경 ===================================
     public String changeUserPassword(String userId, String password, String newPassword) {
         User user = userRepository.findByUserId(userId);
         if (user == null) {
@@ -84,6 +88,7 @@ public class UserService {
         }
         throw new UserNotFoundException(USER_PASSWORD_NOT_THE_SAME);
     }
+    //회원 정보 삭제 ===================================
 
     public String deleteUser(String userId, String password) {
         User user = userRepository.findByUserId(userId);
@@ -97,6 +102,7 @@ public class UserService {
         throw new UserNotFoundException(USER_PASSWORD_NOT_THE_SAME);
     }
 
+    //여러 메소드에서 사용되는 기능 ===================================
     public String userInfoBlind(String userInfo) {
         String result = userInfo.substring(0, 2);
         for (int i = 0; i < userInfo.length() - result.length(); i++) {
