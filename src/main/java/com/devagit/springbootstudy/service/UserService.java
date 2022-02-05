@@ -61,6 +61,8 @@ public class UserService {
             if (username.equals(user.getUsername()) && userPhoneNumber.equals(user.getPhoneNumber())) {
                 String password = userInfoBlind(user.getPassword());
                 return password;
+            }else{
+                throw new UserNotFoundException(USER_INFO_NOT_THE_SAME);
             }
         }
         throw new UserNotFoundException(USER_ID_NOT_THE_SAME);
@@ -72,7 +74,7 @@ public class UserService {
             String userId = userInfoBlind(user.getUserId());
             return userId;
         }
-        throw new UserNotFoundException(USER_PHONE_NUMBER_NOT_THE_SAME);
+        throw new UserNotFoundException(USER_INFO_NOT_THE_SAME);
     }
 
     //회원 정보 변경 ===================================
