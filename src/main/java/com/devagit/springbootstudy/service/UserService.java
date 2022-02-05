@@ -45,10 +45,10 @@ public class UserService {
         return userRepository.findAll().stream().map(UserView::from).collect(Collectors.toList());
     }
 
-    public UserView findByUsername(String username) throws NullPointerException {
+    public UserView findByUsername(String username) {
         User user = userRepository.findByUsername(username);
         if (user == null) {
-            throw new NullPointerException();
+            throw new UserNotFoundException(USER_INFO_NOT_THE_SAME);
         }
         UserView userView = UserView.from(user);
         return userView;
@@ -61,7 +61,7 @@ public class UserService {
             if (username.equals(user.getUsername()) && userPhoneNumber.equals(user.getPhoneNumber())) {
                 String password = userInfoBlind(user.getPassword());
                 return password;
-            }else{
+            } else {
                 throw new UserNotFoundException(USER_INFO_NOT_THE_SAME);
             }
         }
@@ -70,6 +70,9 @@ public class UserService {
 
     public String findIdByPhoneNumber(String phoneNumber, String username) {
         User user = userRepository.findByPhoneNumber(phoneNumber);
+        if (user == null) {
+            throw new UserNotFoundException(USER_INFO_NOT_THE_SAME);
+        }
         if (user.getPhoneNumber().equals(phoneNumber) && user.getUsername().equals(username)) {
             String userId = userInfoBlind(user.getUserId());
             return userId;
