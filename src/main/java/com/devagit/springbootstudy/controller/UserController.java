@@ -28,7 +28,7 @@ public class UserController {
     //회원 가입  ===================================
     @PostMapping("/api/v1/users")
     public UserView signUp(@RequestBody UserRequest req) {
-        return userService.signUp(req);
+        return userService.signUp(req.getUserId(), req.getUsername(), req.getPassword(), req.getPhoneNumber());
     }
 
     //로그인 ===================================
@@ -63,13 +63,15 @@ public class UserController {
     public String changeId(@RequestBody ChangeUserPasswordRequest req) {
         return userService.changeUserPassword(req.getUserId(), req.getPassword(), req.getNewPassword());
     }
+
     @PostMapping("api/v1/users/changePersonalInfo")
-    public String changePersonalInfo(@RequestBody User req){
-        return userService.changePersonalInfo(req.getUserId(),req.getUsername(),req.getPhoneNumber());
+    public String changePersonalInfo(@RequestBody User req) {
+        return userService.changePersonalInfo(req.getUserId(), req.getUsername(), req.getPhoneNumber());
     }
+
     //회원 정보 삭제 ===================================
     @PostMapping("api/v1/users/deleteUser")
-    public String deleteUser(@RequestBody DeleteUserRequest req ){
-        return userService.deleteUser(req.getUserId(),req.getPassword());
+    public String deleteUser(@RequestBody DeleteUserRequest req) {
+        return userService.deleteUser(req.getUserId(), req.getPassword());
     }
 }

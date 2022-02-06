@@ -21,8 +21,8 @@ public class UserService {
     }
 
     //회원 가입 ===================================
-    public UserView signUp(UserRequest req) {
-        User user = new User(req.getUsername(), req.getUserId(), req.getPassword(), req.getPhoneNumber());
+    public UserView signUp(String userId, String username, String password, String phoneNumber) {
+        User user = new User(userId, username, password, phoneNumber);
         User signUpUser = userRepository.save(user);
         return UserView.from(signUpUser);
     }
@@ -115,6 +115,7 @@ public class UserService {
         }
         return result;
     }
+
 
 }
 
