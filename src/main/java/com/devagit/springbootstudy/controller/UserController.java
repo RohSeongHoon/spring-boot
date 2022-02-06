@@ -66,7 +66,7 @@ public class UserController {
 
     @PostMapping("api/v1/users/changePersonalInfo")
     public String changePersonalInfo(@RequestBody User req) {
-        return userService.changePersonalInfo(req.getUserId(), req.getUsername(), req.getPhoneNumber());
+        return userService.changePersonalInfo(req.getUserId(),req.getPassword(), req.getUsername(), req.getPhoneNumber());
     }
 
     //회원 정보 삭제 ===================================
