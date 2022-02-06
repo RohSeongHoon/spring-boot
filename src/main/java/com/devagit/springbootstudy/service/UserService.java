@@ -1,16 +1,15 @@
 package com.devagit.springbootstudy.service;
 
 import com.devagit.springbootstudy.domain.user.User;
-import com.devagit.springbootstudy.domain.user.UserRequest;
 import com.devagit.springbootstudy.domain.user.UserView;
-import com.devagit.springbootstudy.handler.UserNotFoundException;
+import com.devagit.springbootstudy.exceptionHandler.UserNotFoundException;
 import com.devagit.springbootstudy.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.devagit.springbootstudy.handler.ErrorCode.*;
+import static com.devagit.springbootstudy.exceptionHandler.ErrorCode.*;
 
 @Service
 public class UserService {
@@ -93,6 +92,20 @@ public class UserService {
         }
         throw new UserNotFoundException(USER_PASSWORD_NOT_THE_SAME);
     }
+    public String changePersonalInfo(String userId,String password, String username, String phoneNumber) {
+        User user = userRepository.findByUserId(userId);
+        if (user == null){
+            throw new UserNotFoundException(USER_ID_NOT_THE_SAME);
+        }
+        if (user.getPassword().equals(password)){
+            user.setUsername(username);
+            user.setPhoneNumber(phoneNumber);
+             userRepository.save(user);
+             return "변경성공";
+        }
+        throw new UserNotFoundException(USER_PASSWORD_NOT_THE_SAME);
+
+    }
     //회원 정보 삭제 ===================================
 
     public String deleteUser(String userId, String password) {
@@ -107,6 +120,7 @@ public class UserService {
         throw new UserNotFoundException(USER_PASSWORD_NOT_THE_SAME);
     }
 
+
     //여러 메소드에서 사용되는 기능 ===================================
     public String userInfoBlind(String userInfo) {
         String result = userInfo.substring(0, 2);
@@ -115,7 +129,6 @@ public class UserService {
         }
         return result;
     }
-
 
 }
 
