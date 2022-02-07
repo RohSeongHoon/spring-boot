@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
@@ -17,7 +18,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void deleteByUserId(String userId) {
-         userJPARepository.deleteByUserId(userId);
+        userJPARepository.deleteByUserId(userId);
     }
 
     @Override
@@ -33,6 +34,11 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User findByUsername(String username) {
         return userJPARepository.findByUsername(username);
+    }
+
+    @Override
+    public Optional<User> findByUsername(String username, String a) {
+        return Optional.empty();
     }
 
     @Override
