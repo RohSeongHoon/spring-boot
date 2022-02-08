@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class DeleteUserRequest {
     private String userId;
-    private String  password;
+    private String password;
 }
