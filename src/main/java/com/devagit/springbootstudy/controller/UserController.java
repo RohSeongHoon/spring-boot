@@ -66,11 +66,11 @@ public class UserController {
 
     @PostMapping("api/v1/users/changePersonalInfo")
     public String changePersonalInfo(@RequestBody User req) {
-        return userService.changePersonalInfo(req.getUserId(),req.getPassword(), req.getUsername(), req.getPhoneNumber());
+        return userService.changePersonalInfo(req.getUserId(), req.getPassword(), req.getUsername(), req.getPhoneNumber());
     }
 
     //회원 정보 삭제 ===================================
-    @PostMapping("api/v1/users/deleteUser")
+    @DeleteMapping("api/v1/users")
     public String deleteUser(@RequestBody DeleteUserRequest req) {
         return userService.deleteUser(req.getUserId(), req.getPassword());
     }
