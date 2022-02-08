@@ -1,5 +1,6 @@
 package com.devagit.springbootstudy.domain.user;
 
+//request만 따로 관리함
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
