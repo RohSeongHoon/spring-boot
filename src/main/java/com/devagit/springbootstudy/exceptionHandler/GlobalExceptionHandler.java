@@ -4,13 +4,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-
 @ControllerAdvice
-public class GlobalExceptionHandler{
+public class GlobalExceptionHandler {
 
-    @ExceptionHandler(value = {UserNotFoundException.class})
-    public ResponseEntity<ErrorResponse> handleUserNotFoundException(UserNotFoundException e){
+    @ExceptionHandler(value = {BusinessException.class})
+    public ResponseEntity<ErrorResponse> handleUserNotFoundException(BusinessException e) {
         return ErrorResponse.toResponseEntity(e.getErrorCode());
     }
-
 }

@@ -1,17 +1,8 @@
 package com.devagit.springbootstudy.exceptionHandler;
 
+public class UserNotFoundException extends  BusinessException{
 
-import lombok.Getter;
-
-@Getter
-public class UserNotFoundException extends RuntimeException {
-    private final ErrorCode errorCode;
     public UserNotFoundException(ErrorCode errorCode) {
-        this.errorCode = errorCode;
+        super(errorCode);
     }
-    @Override
-    public String getMessage(){
-        return errorCode.getDetailMessage();
-    }
-
 }

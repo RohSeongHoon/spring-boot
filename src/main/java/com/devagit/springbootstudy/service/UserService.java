@@ -59,60 +59,61 @@ public class UserService {
         if (users == null) {
             throw new BusinessException(USER_INFO_NOT_THE_SAME);
         }
-        UserView userView = UserView.from(users);
-        return userView;
+        //UserView userView = UserView.from();
+        return null;
     }
 
 
     public String findPasswordByUserId(String userId, String username, String userPhoneNumber) {
         User user = Optional.ofNullable(userRepository.findByUserId(userId)).orElseThrow(() -> new UserNotFoundException(USER_ID_NOT_THE_SAME));
-        if (username.equals(user.getUsername()) && userPhoneNumber.equals(user.getPhoneNumber())) {
-            String password = userInfoBlind(user.getPassword());
-            return password;
+        if (!username.equals(user.getUsername()) && userPhoneNumber.equals(user.getPhoneNumber())) {
+            throw new BusinessException(USER_INFO_NOT_THE_SAME);
         }
-        throw new BusinessException(USER_INFO_NOT_THE_SAME);
+        String password = userInfoBlind(user.getPassword());
+        return password;
+
     }
 
     public String findIdByPhoneNumber(String phoneNumber, String username) {
         User user = Optional.ofNullable(userRepository.findByPhoneNumber(phoneNumber)).orElseThrow(() -> new UserNotFoundException(USER_INFO_NOT_THE_SAME));
-        if (user.getPhoneNumber().equals(phoneNumber) && user.getUsername().equals(username)) {
-            String userId = userInfoBlind(user.getUserId());
-            return userId;
+        if (!user.getPhoneNumber().equals(phoneNumber) && user.getUsername().equals(username)) {
+            throw new BusinessException(USER_INFO_NOT_THE_SAME);
         }
-        throw new BusinessException(USER_INFO_NOT_THE_SAME);
+        String userId = userInfoBlind(user.getUserId());
+        return userId;
     }
 
     //회원 정보 변경 ===================================
     public String changeUserPassword(String userId, String password, String newPassword) {
         User user = Optional.ofNullable(userRepository.findByUserId(userId)).orElseThrow(() -> new UserNotFoundException(USER_ID_NOT_THE_SAME));
-        if (user.getPassword().equals(password)) {
-            user.setPassword(newPassword);
-            userRepository.save(user);
-            return "비밀번호 변경 성공";
+        if (!user.getPassword().equals(password)) {
+            throw new BusinessException(USER_PASSWORD_NOT_THE_SAME);
         }
-        throw new BusinessException(USER_PASSWORD_NOT_THE_SAME);
+        user.setPassword(newPassword);
+        userRepository.save(user);
+        return "비밀번호 변경 성공";
     }
 
     public String changePersonalInfo(String userId, String password, String username, String phoneNumber) {
         User user = Optional.ofNullable(userRepository.findByUserId(userId)).orElseThrow(() -> new UserNotFoundException(USER_ID_NOT_THE_SAME));
-        if (user.getPassword().equals(password)) {
-            user.setUsername(username);
-            user.setPhoneNumber(phoneNumber);
-            userRepository.save(user);
-            return "변경성공";
+        if (!user.getPassword().equals(password)) {
+            throw new BusinessException(USER_PASSWORD_NOT_THE_SAME);
         }
-        throw new BusinessException(USER_PASSWORD_NOT_THE_SAME);
+        user.setUsername(username);
+        user.setPhoneNumber(phoneNumber);
+        userRepository.save(user);
+        return "변경성공";
 
     }
     //회원 정보 삭제 ===================================
 
     public String deleteUser(String userId, String password) {
         User user = Optional.ofNullable(userRepository.findByUserId(userId)).orElseThrow(() -> new UserNotFoundException(USER_ID_NOT_THE_SAME));
-        if (user.getPassword().equals(password)) {
-            userRepository.deleteByUserId(userId);
-            return "삭제 왼료";
+        if (!user.getPassword().equals(password)) {
+            throw new BusinessException(USER_PASSWORD_NOT_THE_SAME);
         }
-        throw new BusinessException(USER_PASSWORD_NOT_THE_SAME);
+        userRepository.deleteByUserId(userId);
+        return "삭제 왼료";
     }
 
 
