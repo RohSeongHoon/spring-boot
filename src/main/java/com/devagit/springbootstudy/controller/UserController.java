@@ -28,7 +28,7 @@ public class UserController {
     //회원 가입  ===================================
     @PostMapping("/api/v1/users")
     public UserView signUp(@RequestBody UserRequest req) {
-        return userService.signUp(req.getUserId(), req.getUsername(), req.getPassword(), req.getPhoneNumber());
+        return userService.signUp(req.getUserId(), req.getUsername(), req.getPassword(), req.getPhoneNumber(), req.getEmail());
     }
 
     //로그인 ===================================
@@ -38,7 +38,7 @@ public class UserController {
     }
 
     //회원 정보 조회 ===================================
-    @PostMapping("api/v1/users/findPassword")
+    @PostMapping("api/v1/users/find-password") //대쉬
     public String findPasswordByUserId(@RequestBody FindPasswordByUserIdRequest req) {
         return userService.findPasswordByUserId(req.getUserId(), req.getUsername(), req.getPhoneNumber());
     }
@@ -56,6 +56,11 @@ public class UserController {
     @GetMapping(value = "/api/v1/users", params = "username")
     public UserView findUserByUserName(@RequestParam(required = false) String username) {
         return userService.findByUsername(username);
+    }
+
+    @GetMapping(value = "/api/v1/users", params = "emailPlatform") //플렛폼이 아니라 도메인으로
+    public List<UserView> findUserByEmailPlatform(@RequestParam(required = false) String emailPlatform) {
+        return userService.findUserByEmailPlatform(emailPlatform);
     }
 
     //회원 정보 변경 ===================================
