@@ -28,8 +28,8 @@ public class UserService {
     }
 
     //회원 가입 ===================================
-    public UserView signUp(String userId, String username, String password, String phoneNumber) {
-        User user = new User(userId, username, password, phoneNumber);
+    public UserView signUp(String userId, String username, String password, String phoneNumber, String email) {
+        User user = new User(userId, username, password, phoneNumber, email);
         User signUpUser = userRepository.save(user);
         return UserView.from(signUpUser);
     }
@@ -61,9 +61,10 @@ public class UserService {
         User user = Optional.ofNullable(userRepository.findByUserId(userId))
                 .orElseThrow(() -> new UserNotFoundException(USER_ID_NOT_THE_SAME));
         if (!username.equals(user.getUsername()) && userPhoneNumber.equals(user.getPhoneNumber())) {
+            //equals를 쓸때 주의사항 확인 매개변수로 받는 것은 있다는 가정하에 앞으로 쓴다 국룰 
             throw new BusinessException(USER_INFO_NOT_THE_SAME);
         }
-        String password = userInfoBlind(user.getPassword());
+        String password = blindUserInfo(user.getPassword());
         return password;
 
     }
@@ -74,8 +75,16 @@ public class UserService {
         if (!user.getPhoneNumber().equals(phoneNumber) && user.getUsername().equals(username)) {
             throw new BusinessException(USER_INFO_NOT_THE_SAME);
         }
-        String userId = userInfoBlind(user.getUserId());
+        String userId = blindUserInfo(user.getUserId());
         return userId;
+    }
+
+    public List<UserView> findUserByEmailPlatform(String emailPlatform) {
+        return userRepository.findAll()
+                .stream()
+                .filter(user -> user.getEmail().contains(emailPlatform))
+                .map(UserView::from)
+                .collect(Collectors.toList());
     }
 
     //회원 정보 변경 ===================================
@@ -112,17 +121,18 @@ public class UserService {
         }
         userRepository.deleteByUserId(userId);
         return "삭제 왼료";
-    }
+    }//void로 변경
 
 
     //여러 메소드에서 사용되는 기능 ===================================
-    public String userInfoBlind(String userInfo) {
+    public String blindUserInfo(String userInfo) { // 메소드명 수정
         String result = userInfo.substring(0, 2);
         for (int i = 0; i < userInfo.length() - result.length(); i++) {
             result += "*";
         }
         return result;
     }
+
 
 }
 

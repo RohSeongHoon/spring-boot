@@ -28,11 +28,15 @@ public class User {
     private String password;
     @Column(columnDefinition = "VARCHAR(20)", nullable = true)
     private String phoneNumber;
+    @Column(columnDefinition = "VARCHAR(128)")
+    private String email;
 
-    public User(String username, String userId, String password, String phoneNumber) {
+
+    public User(String username, String userId, String password, String phoneNumber, String email) {
         this.username = username;
         this.userId = userId;
         this.password = password;
         this.phoneNumber = phoneNumber;
+        this.email = email;
     }
 }
