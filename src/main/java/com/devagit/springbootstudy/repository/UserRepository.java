@@ -13,9 +13,6 @@ public interface UserRepository {
 
     public User findByUsername(String username);
 
-    public Optional<User> findByUsername(String username, String a);
-
-
     public User findByUserId(String userId);
 
     public User findByPhoneNumber(String userPhoneNumber);

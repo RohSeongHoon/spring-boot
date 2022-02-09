@@ -36,10 +36,7 @@ public class UserRepositoryImpl implements UserRepository {
         return userJPARepository.findByUsername(username);
     }
 
-    @Override
-    public Optional<User> findByUsername(String username, String a) {
-        return Optional.empty();
-    }
+
 
     @Override
     public User findByUserId(String userId) {
