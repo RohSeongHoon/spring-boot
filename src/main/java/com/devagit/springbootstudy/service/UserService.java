@@ -3,14 +3,12 @@ package com.devagit.springbootstudy.service;
 import com.devagit.springbootstudy.domain.user.User;
 import com.devagit.springbootstudy.domain.user.UserView;
 import com.devagit.springbootstudy.exceptionHandler.BusinessException;
-import com.devagit.springbootstudy.exceptionHandler.ErrorCode;
 import com.devagit.springbootstudy.exceptionHandler.UserNotFoundException;
 import com.devagit.springbootstudy.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -38,7 +36,8 @@ public class UserService {
 
     //로그인 ===================================
     public String login(String userId, String password) {
-        User user = Optional.ofNullable(userRepository.findByUserId(userId)).orElseThrow(() -> new UserNotFoundException(USER_ID_NOT_THE_SAME));
+        User user = Optional.ofNullable(userRepository.findByUserId(userId))
+                .orElseThrow(() -> new UserNotFoundException(USER_ID_NOT_THE_SAME));
         if (!user.getPassword().equals(password)) {
             throw new BusinessException(USER_PASSWORD_NOT_THE_SAME);
         }
@@ -52,20 +51,15 @@ public class UserService {
     }
 
     public UserView findByUsername(String username) {
-        //  User user3 = userRepository.findByUsername(username, "123").orElseThrow(()->new BusinessException(USER_INFO_NOT_THE_SAME));
-        List<User> users = new ArrayList<>();
-        Optional<User> user1;
-
-        if (users == null) {
-            throw new BusinessException(USER_INFO_NOT_THE_SAME);
-        }
-        //UserView userView = UserView.from();
-        return null;
+        User user = Optional.ofNullable(userRepository.findByUserId(username))
+                .orElseThrow(() -> new UserNotFoundException(USER_INFO_NOT_THE_SAME));
+        return UserView.from(user);
     }
 
 
     public String findPasswordByUserId(String userId, String username, String userPhoneNumber) {
-        User user = Optional.ofNullable(userRepository.findByUserId(userId)).orElseThrow(() -> new UserNotFoundException(USER_ID_NOT_THE_SAME));
+        User user = Optional.ofNullable(userRepository.findByUserId(userId))
+                .orElseThrow(() -> new UserNotFoundException(USER_ID_NOT_THE_SAME));
         if (!username.equals(user.getUsername()) && userPhoneNumber.equals(user.getPhoneNumber())) {
             throw new BusinessException(USER_INFO_NOT_THE_SAME);
         }
@@ -75,7 +69,8 @@ public class UserService {
     }
 
     public String findIdByPhoneNumber(String phoneNumber, String username) {
-        User user = Optional.ofNullable(userRepository.findByPhoneNumber(phoneNumber)).orElseThrow(() -> new UserNotFoundException(USER_INFO_NOT_THE_SAME));
+        User user = Optional.ofNullable(userRepository.findByPhoneNumber(phoneNumber))
+                .orElseThrow(() -> new UserNotFoundException(USER_INFO_NOT_THE_SAME));
         if (!user.getPhoneNumber().equals(phoneNumber) && user.getUsername().equals(username)) {
             throw new BusinessException(USER_INFO_NOT_THE_SAME);
         }
@@ -85,7 +80,8 @@ public class UserService {
 
     //회원 정보 변경 ===================================
     public String changeUserPassword(String userId, String password, String newPassword) {
-        User user = Optional.ofNullable(userRepository.findByUserId(userId)).orElseThrow(() -> new UserNotFoundException(USER_ID_NOT_THE_SAME));
+        User user = Optional.ofNullable(userRepository.findByUserId(userId))
+                .orElseThrow(() -> new UserNotFoundException(USER_ID_NOT_THE_SAME));
         if (!user.getPassword().equals(password)) {
             throw new BusinessException(USER_PASSWORD_NOT_THE_SAME);
         }
@@ -95,7 +91,8 @@ public class UserService {
     }
 
     public String changePersonalInfo(String userId, String password, String username, String phoneNumber) {
-        User user = Optional.ofNullable(userRepository.findByUserId(userId)).orElseThrow(() -> new UserNotFoundException(USER_ID_NOT_THE_SAME));
+        User user = Optional.ofNullable(userRepository.findByUserId(userId))
+                .orElseThrow(() -> new UserNotFoundException(USER_ID_NOT_THE_SAME));
         if (!user.getPassword().equals(password)) {
             throw new BusinessException(USER_PASSWORD_NOT_THE_SAME);
         }
@@ -108,7 +105,8 @@ public class UserService {
     //회원 정보 삭제 ===================================
 
     public String deleteUser(String userId, String password) {
-        User user = Optional.ofNullable(userRepository.findByUserId(userId)).orElseThrow(() -> new UserNotFoundException(USER_ID_NOT_THE_SAME));
+        User user = Optional.ofNullable(userRepository.findByUserId(userId))
+                .orElseThrow(() -> new UserNotFoundException(USER_ID_NOT_THE_SAME));
         if (!user.getPassword().equals(password)) {
             throw new BusinessException(USER_PASSWORD_NOT_THE_SAME);
         }
