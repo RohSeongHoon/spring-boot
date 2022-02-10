@@ -1,4 +1,4 @@
-package com.devagit.springbootstudy.domain.user;
+package com.devagit.springbootstudy.request.user;
 
 //request만 따로 관리함
 

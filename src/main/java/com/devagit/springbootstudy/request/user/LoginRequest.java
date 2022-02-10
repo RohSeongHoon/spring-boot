@@ -1,4 +1,4 @@
-package com.devagit.springbootstudy.domain.user;
+package com.devagit.springbootstudy.request.user;
 
 
 import lombok.AllArgsConstructor;

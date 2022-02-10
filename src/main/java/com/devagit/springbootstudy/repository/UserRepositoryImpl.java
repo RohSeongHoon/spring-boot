@@ -1,12 +1,10 @@
 package com.devagit.springbootstudy.repository;
 
 import com.devagit.springbootstudy.domain.user.User;
-import com.devagit.springbootstudy.domain.user.UserRequest;
 import org.springframework.stereotype.Repository;
 
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {

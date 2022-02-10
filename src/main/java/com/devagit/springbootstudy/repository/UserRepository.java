@@ -1,10 +1,8 @@
 package com.devagit.springbootstudy.repository;
 
 import com.devagit.springbootstudy.domain.user.User;
-import com.devagit.springbootstudy.domain.user.UserRequest;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface UserRepository {
     public User save(User user);
