@@ -65,18 +65,18 @@ public class UserController {
 
     //회원 정보 변경 ===================================
     @PutMapping("api/v1/users/changeUserPassword")
-    public String changeId(@RequestBody ChangeUserPasswordRequest req) {
-        return userService.changeUserPassword(req.getUserId(), req.getPassword(), req.getNewPassword());
+    public void changeId(@RequestBody ChangeUserPasswordRequest req) {
+         userService.changeUserPassword(req.getUserId(), req.getPassword(), req.getNewPassword());
     }
 
     @PutMapping("api/v1/users/changePersonalInfo")
-    public String changePersonalInfo(@RequestBody User req) {
-        return userService.changePersonalInfo(req.getUserId(), req.getPassword(), req.getUsername(), req.getPhoneNumber());
+    public void changePersonalInfo(@RequestBody User req) {
+        userService.changePersonalInfo(req.getUserId(), req.getPassword(), req.getUsername(), req.getPhoneNumber());
     }
 
     //회원 정보 삭제 ===================================
     @DeleteMapping("api/v1/users")
-    public String deleteUser(@RequestBody DeleteUserRequest req) {
-        return userService.deleteUser(req.getUserId(), req.getPassword());
+    public void deleteUser(@RequestBody DeleteUserRequest req) {
+         userService.deleteUser(req.getUserId(), req.getPassword());
     }
 }

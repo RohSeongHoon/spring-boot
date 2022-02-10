@@ -61,7 +61,7 @@ public class UserService {
         User user = Optional.ofNullable(userRepository.findByUserId(userId))
                 .orElseThrow(() -> new UserNotFoundException(USER_ID_NOT_THE_SAME));
         if (!username.equals(user.getUsername()) && userPhoneNumber.equals(user.getPhoneNumber())) {
-            //equals를 쓸때 주의사항 확인 매개변수로 받는 것은 있다는 가정하에 앞으로 쓴다 국룰 
+            //equals를 쓸때 주의사항 확인 매개변수로 받는 것은 있다는 가정하에 앞으로 쓴다 국룰
             throw new BusinessException(USER_INFO_NOT_THE_SAME);
         }
         String password = blindUserInfo(user.getPassword());
@@ -88,7 +88,7 @@ public class UserService {
     }
 
     //회원 정보 변경 ===================================
-    public String changeUserPassword(String userId, String password, String newPassword) {
+    public void changeUserPassword(String userId, String password, String newPassword) {
         User user = Optional.ofNullable(userRepository.findByUserId(userId))
                 .orElseThrow(() -> new UserNotFoundException(USER_ID_NOT_THE_SAME));
         if (!user.getPassword().equals(password)) {
@@ -96,10 +96,9 @@ public class UserService {
         }
         user.setPassword(newPassword);
         userRepository.save(user);
-        return "비밀번호 변경 성공";
     }
 
-    public String changePersonalInfo(String userId, String password, String username, String phoneNumber) {
+    public void changePersonalInfo(String userId, String password, String username, String phoneNumber) {
         User user = Optional.ofNullable(userRepository.findByUserId(userId))
                 .orElseThrow(() -> new UserNotFoundException(USER_ID_NOT_THE_SAME));
         if (!user.getPassword().equals(password)) {
@@ -108,19 +107,17 @@ public class UserService {
         user.setUsername(username);
         user.setPhoneNumber(phoneNumber);
         userRepository.save(user);
-        return "변경성공";
 
     }
     //회원 정보 삭제 ===================================
 
-    public String deleteUser(String userId, String password) {
+    public void deleteUser(String userId, String password) {
         User user = Optional.ofNullable(userRepository.findByUserId(userId))
                 .orElseThrow(() -> new UserNotFoundException(USER_ID_NOT_THE_SAME));
         if (!user.getPassword().equals(password)) {
             throw new BusinessException(USER_PASSWORD_NOT_THE_SAME);
         }
         userRepository.deleteByUserId(userId);
-        return "삭제 왼료";
     }//void로 변경
 
 
