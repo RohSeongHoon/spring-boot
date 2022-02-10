@@ -1,10 +1,10 @@
 package com.devagit.springbootstudy.service;
 
 import com.devagit.springbootstudy.domain.user.User;
-import com.devagit.springbootstudy.view.user.UserView;
+import com.devagit.springbootstudy.view.UserView;
 import com.devagit.springbootstudy.exceptionHandler.BusinessException;
 import com.devagit.springbootstudy.exceptionHandler.UserNotFoundException;
-import com.devagit.springbootstudy.repository.UserRepository;
+import com.devagit.springbootstudy.repository.user.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
