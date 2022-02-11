@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 public class PostService {
     private PostRepository postRepository;
     public void writePost(int categoryId,int subCategoryId, String userId, String title, String contents, String source) {
-        Post post = new Post(categoryId,subCategoryId,userId,title,contents,source);
+        String writDate = null;
+        Post post = new Post(categoryId,subCategoryId,userId,title,contents,writDate,source);
         postRepository.save(post);
 
     }

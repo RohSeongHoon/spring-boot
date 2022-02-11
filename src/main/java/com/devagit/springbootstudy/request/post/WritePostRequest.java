@@ -13,6 +13,5 @@ public class WritePostRequest {
     private String userId;
     private String title;
     private String contents;
-    private String writeDate;
     private String source;
 }

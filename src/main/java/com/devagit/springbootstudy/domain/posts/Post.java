@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 
@@ -28,7 +29,7 @@ public class Post {
     private String title;
     @Column(columnDefinition = "VARCHAR(1024)", nullable = false)
     private String contents;
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(columnDefinition = "DATETIME",nullable = false)
     private String writeDate;
     @Column(columnDefinition = "VARCHAR(64)", nullable = true)
     private String source;
