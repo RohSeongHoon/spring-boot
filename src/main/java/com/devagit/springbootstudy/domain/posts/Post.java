@@ -1,10 +1,6 @@
 package com.devagit.springbootstudy.domain.posts;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -29,19 +25,21 @@ public class Post {
     private String title;
     @Column(columnDefinition = "VARCHAR(1024)", nullable = false)
     private String contents;
-    @Column(columnDefinition = "DATETIME",nullable = false)
+    @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP",nullable = true)
     private String writeDate;
     @Column(columnDefinition = "VARCHAR(64)", nullable = true)
     private String source;
 
-    public Post(int categoryId, int subCategoryId, String userId, String title, String contents, String writeDate, String source) {
+    @Builder
+    public Post(int categoryId, int subCategoryId, String userId, String title, String contents, String source,String writeDate) {
         this.categoryId = categoryId;
         this.subCategoryId = subCategoryId;
         this.userId = userId;
         this.title = title;
         this.contents = contents;
-        this.writeDate = writeDate;
         this.source = source;
+        this.writeDate = writeDate;
     }
+
 }
 
