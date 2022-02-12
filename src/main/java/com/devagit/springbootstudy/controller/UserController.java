@@ -13,7 +13,7 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    public  UserController(UserService userService) {
         this.userService = userService;
     }
 
@@ -35,8 +35,8 @@ public class UserController {
 
     //로그인 ===================================
     @PostMapping("/api/v1/users/login")
-    public String login(@RequestBody LoginRequest req) {
-        return userService.login(req.getUserId(), req.getPassword());
+    public void login(@RequestBody LoginRequest req) {
+         userService.login(req.getUserId(), req.getPassword());
     }
 
     //회원 정보 조회 ===================================
@@ -45,7 +45,7 @@ public class UserController {
         return userService.findPasswordByUserId(req.getUserId(), req.getUsername(), req.getPhoneNumber());
     }
 
-    @PostMapping("api/v1/users/findId")
+    @PostMapping("api/v1/users/find-id")
     public String findIdByUserPhoneNumber(@RequestBody FindIdByUserPhoneNumRequest req) {
         return userService.findIdByPhoneNumber(req.getPhoneNumber(), req.getUsername());
     }
@@ -66,12 +66,12 @@ public class UserController {
     }
 
     //회원 정보 변경 ===================================
-    @PutMapping("api/v1/users/changeUserPassword")
+    @PutMapping("api/v1/users/change-userPassword")
     public void changeId(@RequestBody ChangeUserPasswordRequest req) {
          userService.changeUserPassword(req.getUserId(), req.getPassword(), req.getNewPassword());
     }
 
-    @PutMapping("api/v1/users/changePersonalInfo")
+    @PutMapping("api/v1/users/chang-personalInfo")
     public void changePersonalInfo(@RequestBody User req) {
         userService.changePersonalInfo(req.getUserId(), req.getPassword(), req.getUsername(), req.getPhoneNumber());
     }
