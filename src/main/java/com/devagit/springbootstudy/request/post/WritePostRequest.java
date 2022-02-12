@@ -14,4 +14,6 @@ public class WritePostRequest {
     private String title;
     private String contents;
     private String source;
+
+
 }

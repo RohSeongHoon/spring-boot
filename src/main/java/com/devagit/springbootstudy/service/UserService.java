@@ -34,14 +34,12 @@ public class UserService {
     }
 
     //로그인 ===================================
-    public String login(String userId, String password) {
+    public void login(String userId, String password) {
         User user = Optional.ofNullable(userRepository.findByUserId(userId))
                 .orElseThrow(() -> new UserNotFoundException(USER_ID_NOT_THE_SAME));
         if (!user.getPassword().equals(password)) {
             throw new BusinessException(USER_PASSWORD_NOT_THE_SAME);
         }
-        return "로그인 성공";
-
     }
     //회원 정보 조회 ===================================
 
