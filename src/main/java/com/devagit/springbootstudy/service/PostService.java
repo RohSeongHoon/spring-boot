@@ -2,10 +2,13 @@ package com.devagit.springbootstudy.service;
 
 import com.devagit.springbootstudy.domain.posts.Post;
 import com.devagit.springbootstudy.repository.post.PostRepository;
-import com.devagit.springbootstudy.view.PostView;
+import com.devagit.springbootstudy.view.post.PostView;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -35,5 +38,15 @@ public class PostService {
     public PostView getPost(int id) {
         Post post = postRepository.findById(id);
         return PostView.from(post);
+    }
+
+    public List<PostView> getPostList(int subCategoryId) {
+        return postRepository.findAll()
+                .stream()
+                .filter(post -> post.getSubCategoryId() == subCategoryId)
+                .sorted(Comparator.comparing(Post::getWriteDate))
+                .map(PostView::postList)
+                .collect(Collectors.toList());
+
     }
 }
