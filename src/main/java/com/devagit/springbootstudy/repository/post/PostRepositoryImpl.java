@@ -1,8 +1,10 @@
 package com.devagit.springbootstudy.repository.post;
 
 import com.devagit.springbootstudy.domain.posts.Post;
-import com.devagit.springbootstudy.view.PostView;
+import com.devagit.springbootstudy.view.post.PostView;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class PostRepositoryImpl implements PostRepository {
@@ -20,5 +22,10 @@ public class PostRepositoryImpl implements PostRepository {
     @Override
     public Post findById(int id) {
         return postJpaRepository.findById(id);
+    }
+
+    @Override
+    public List<Post> findAll() {
+        return postJpaRepository.findAll();
     }
 }
