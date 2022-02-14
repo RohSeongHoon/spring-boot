@@ -1,7 +1,10 @@
 package com.devagit.springbootstudy.controller;
 
+import com.devagit.springbootstudy.request.post.DeletePostById;
+import com.devagit.springbootstudy.request.post.UpdateRequest;
 import com.devagit.springbootstudy.request.post.WritePostRequest;
 import com.devagit.springbootstudy.service.PostService;
+import com.devagit.springbootstudy.view.post.PostListView;
 import com.devagit.springbootstudy.view.post.PostView;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,8 +30,22 @@ public class PostController {
     }
 
     @GetMapping("api/v1/posts/list")
-    public List<PostView> getPostList(@RequestParam(required = false) int subCategoryId) {
+    public List<PostListView> getPostList(@RequestParam(required = false) int subCategoryId) {
         return postService.getPostList(subCategoryId);
+    }
+
+    @GetMapping("api/v1/posts/find")
+    public List<PostListView> findPostsByUserId(@RequestParam(required = false) String userId) {
+        return postService.findPostsByUserId(userId);
+    }
+    @DeleteMapping("api/v1/posts/delete")
+    public void deletePost(@RequestBody DeletePostById req){
+        postService.deletePostById(req.getId());
+    }
+    @PutMapping("api/v1/posts/update")
+    public void updatePost(@RequestBody UpdateRequest req){
+        postService.updatePost(req.getId());
+
     }
 }
 
