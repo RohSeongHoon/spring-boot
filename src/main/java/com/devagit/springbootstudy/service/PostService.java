@@ -1,14 +1,20 @@
 package com.devagit.springbootstudy.service;
 
 import com.devagit.springbootstudy.domain.posts.Post;
+import com.devagit.springbootstudy.exceptionHandler.ErrorCode;
+import com.devagit.springbootstudy.exceptionHandler.PostNotFoundException;
 import com.devagit.springbootstudy.repository.post.PostRepository;
+import com.devagit.springbootstudy.view.post.PostListView;
 import com.devagit.springbootstudy.view.post.PostView;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.devagit.springbootstudy.exceptionHandler.ErrorCode.POST_NOT_FOUND;
 
 
 @Service
@@ -40,13 +46,31 @@ public class PostService {
         return PostView.from(post);
     }
 
-    public List<PostView> getPostList(int subCategoryId) {
+    public List<PostListView> getPostList(int subCategoryId) {
         return postRepository.findAll()
                 .stream()
                 .filter(post -> post.getSubCategoryId() == subCategoryId)
                 .sorted(Comparator.comparing(Post::getWriteDate))
-                .map(PostView::postList)
+                .map(PostListView::postList)
+                .collect(Collectors.toList());
+    }
+
+    public List<PostListView> findPostsByUserId(String userId) {
+        return Optional.ofNullable(postRepository.findByUserId(userId))
+                .orElseThrow(() -> new PostNotFoundException(POST_NOT_FOUND))
+                .stream()
+                .sorted(Comparator.comparing(Post::getWriteDate))
+                .map(PostListView::postList)
                 .collect(Collectors.toList());
 
+
+    }
+    public void deletePostById(int id) {
+        postRepository.deletePostById(id);
+    }
+
+    public void updatePost(int id) {
+        Post post = postRepository.findById(id);
+        postRepository.save(post);
     }
 }
