@@ -30,13 +30,6 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User findByUsername(String username) {
-        return userJPARepository.findByUsername(username);
-    }
-
-
-
-    @Override
     public User findByUserId(String userId) {
         return userJPARepository.findByUserId(userId);
     }

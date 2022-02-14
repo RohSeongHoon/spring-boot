@@ -28,4 +28,15 @@ public class PostRepositoryImpl implements PostRepository {
     public List<Post> findAll() {
         return postJpaRepository.findAll();
     }
+
+    @Override
+    public List<Post> findByUserId(String userId) {
+        return postJpaRepository.findByUserId(userId);
+    }
+
+    @Override
+    public void deletePostById(int id) {
+        postJpaRepository.deletePostById(id);
+
+    }
 }
