@@ -40,13 +40,4 @@ public class PostView {
                 .writeDate(post.getWriteDate())
                 .build();
     }
-    public static PostView postList(Post post){
-        return PostView.builder()
-                .id(post.getId())
-                .subCategoryId(post.getSubCategoryId())
-                .userId(post.getUserId())
-                .title(post.getTitle())
-                .writeDate(post.getWriteDate())
-                .build();
-    }
 }
