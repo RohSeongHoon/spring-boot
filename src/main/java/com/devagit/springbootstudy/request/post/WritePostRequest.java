@@ -1,10 +1,9 @@
 package com.devagit.springbootstudy.request.post;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
+
 @NoArgsConstructor
 @Getter
 public class WritePostRequest {
@@ -16,4 +15,12 @@ public class WritePostRequest {
     private String source;
 
 
+    public WritePostRequest(int categoryId, int subCategoryId, String userId, String title, String contents, String source) {
+        this.categoryId = categoryId;
+        this.subCategoryId = subCategoryId;
+        this.userId = userId;
+        this.title = title;
+        this.contents = contents;
+        this.source = source;
+    }
 }
