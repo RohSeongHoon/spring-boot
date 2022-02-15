@@ -38,12 +38,14 @@ public class PostController {
     public List<PostListView> findPostsByUserId(@RequestParam(required = false) String userId) {
         return postService.findPostsByUserId(userId);
     }
+
     @DeleteMapping("api/v1/posts/delete")
-    public void deletePost(@RequestBody DeletePostById req){
+    public void deletePost(@RequestBody DeletePostById req) {
         postService.deletePostById(req.getId());
     }
+
     @PutMapping("api/v1/posts/update")
-    public void updatePost(@RequestBody UpdateRequest req){
+    public void updatePost(@RequestBody UpdateRequest req) {
         postService.updatePost(req.getId());
 
     }
