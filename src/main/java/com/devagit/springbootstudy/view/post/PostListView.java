@@ -1,6 +1,6 @@
 package com.devagit.springbootstudy.view.post;
 
-import com.devagit.springbootstudy.domain.posts.Post;
+import com.devagit.springbootstudy.domain.post.Post;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +23,7 @@ public class PostListView {
         this.writeDate = writeDate;
     }
 
-    public static PostListView postList(Post post){
+    public static PostListView from(Post post){
         return PostListView.builder()
                 .id(post.getId())
                 .subCategoryId(post.getSubCategoryId())

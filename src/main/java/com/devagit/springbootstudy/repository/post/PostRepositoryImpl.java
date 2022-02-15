@@ -1,7 +1,6 @@
 package com.devagit.springbootstudy.repository.post;
 
-import com.devagit.springbootstudy.domain.posts.Post;
-import com.devagit.springbootstudy.view.post.PostView;
+import com.devagit.springbootstudy.domain.post.Post;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

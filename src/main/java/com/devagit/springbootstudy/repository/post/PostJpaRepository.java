@@ -1,6 +1,6 @@
 package com.devagit.springbootstudy.repository.post;
 
-import com.devagit.springbootstudy.domain.posts.Post;
+import com.devagit.springbootstudy.domain.post.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.transaction.Transactional;
