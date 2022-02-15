@@ -60,9 +60,9 @@ public class UserController {
         return userService.findByUsername(username);
     }
 
-    @GetMapping(value = "/api/v1/users", params = "emailPlatform") //플렛폼이 아니라 도메인으로
-    public List<UserView> findUserByEmailPlatform(@RequestParam(required = false) String emailPlatform) {
-        return userService.findUserByEmailPlatform(emailPlatform);
+    @GetMapping(value = "/api/v1/users", params = "emailDomain")
+    public List<UserView> findUserByEmailDomain(@RequestParam(required = false) String emailDomain) {
+        return userService.findUserByEmailDomain(emailDomain);
     }
 
     //회원 정보 변경 ===================================

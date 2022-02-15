@@ -58,7 +58,6 @@ public class UserService {
         User user = Optional.ofNullable(userRepository.findByUserId(userId))
                 .orElseThrow(() -> new UserNotFoundException(USER_ID_NOT_THE_SAME));
         if (!username.equals(user.getUsername()) && userPhoneNumber.equals(user.getPhoneNumber())) {
-            //equals를 쓸때 주의사항 확인 매개변수로 받는 것은 있다는 가정하에 앞으로 쓴다 국룰
             throw new BusinessException(USER_INFO_NOT_THE_SAME);
         }
         String password = blindUserInfo(user.getPassword());
@@ -76,9 +75,10 @@ public class UserService {
         return userId;
     }
 
-    public List<UserView> findUserByEmailPlatform(String emailPlatform) {
+    public List<UserView> findUserByEmailDomain(String emailPlatform) {
         return userRepository.findAll()
                 .stream()
+                .filter(user -> !user.getEmail().equals(null))
                 .filter(user -> user.getEmail().contains(emailPlatform))
                 .map(UserView::from)
                 .collect(Collectors.toList());
