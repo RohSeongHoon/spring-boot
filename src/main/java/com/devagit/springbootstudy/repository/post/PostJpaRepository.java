@@ -15,4 +15,6 @@ public interface PostJpaRepository extends JpaRepository<Post,Integer> {
 
     @Transactional
     void deletePostById(int id);
+
+    List<Post> findBySubCategoryId(int subCategoryId);
 }

@@ -15,4 +15,6 @@ public interface PostRepository {
     List<Post> findByUserId(String userId);
 
     void deletePostById(int id);
+
+    List<Post> findBySubCategoryId(int subCategoryId);
 }

@@ -1,6 +1,7 @@
 package com.devagit.springbootstudy.repository.post;
 
 import com.devagit.springbootstudy.domain.post.Post;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -36,6 +37,10 @@ public class PostRepositoryImpl implements PostRepository {
     @Override
     public void deletePostById(int id) {
         postJpaRepository.deletePostById(id);
+    }
 
+    @Override
+    public List<Post> findBySubCategoryId(int subCategoryId) {
+      return  postJpaRepository.findBySubCategoryId(subCategoryId);
     }
 }
