@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Getter
 @NoArgsConstructor
 public class PostListView {
@@ -12,15 +14,15 @@ public class PostListView {
     private int subCategoryId;
     private String userId;
     private String title;
-    private String writeDate;
+    private Date createAt;
 
     @Builder
-    public PostListView(int id, int subCategoryId, String userId, String title, String writeDate) {
+    public PostListView(int id, int subCategoryId, String userId, String title, Date createAt) {
         this.id = id;
         this.subCategoryId = subCategoryId;
         this.userId = userId;
         this.title = title;
-        this.writeDate = writeDate;
+        this.createAt=createAt;
     }
 
     public static PostListView from(Post post){
@@ -29,7 +31,7 @@ public class PostListView {
                 .subCategoryId(post.getSubCategoryId())
                 .userId(post.getUserId())
                 .title(post.getTitle())
-                .writeDate(post.getWriteDate())
+                .createAt(post.getCreateAt())
                 .build();
     }
 }
