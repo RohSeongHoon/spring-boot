@@ -20,8 +20,8 @@ public class PostController {
     }
 
     @PostMapping("api/v1/posts")
-    public void writePost(@RequestBody WritePostRequest req) {
-        postService.addPost(req.getCategoryId(), req.getSubCategoryId(), req.getUserId(), req.getTitle(), req.getContents(), req.getSource());
+    public int addPost(@RequestBody WritePostRequest req) {
+        return postService.addPost(req.getCategoryId(), req.getSubCategoryId(), req.getUserId(), req.getTitle(), req.getContents(), req.getSource());
     }
 
     @GetMapping("api/v1/posts")
@@ -41,13 +41,13 @@ public class PostController {
 
     @DeleteMapping("api/v1/posts/delete")
     public void deletePost(@RequestBody DeletePostById req) {
-        postService.deletePostById(req.getId());
+        postService.deletePostById(req.getId(),req.getUserId());
     }
 
     @PutMapping("api/v1/posts/update")
-    public void updatePost(@RequestBody UpdateRequest req) {
-        postService.updatePost(req.getId());
-
+    public int updatePost(@RequestBody UpdateRequest req) {
+        return postService.updatePost(req.getId(), req.getSubCategoryId(), req.getUserId(), req.getTitle(), req.getContents(), req.getSource(),req.getCreateAt());
     }
+    //req.getId(), req.getSubCategoryId(), req.getUserId(), req.getTitle(), req.getContents(), req.getSource(),req.getCreateAt()
 }
 
