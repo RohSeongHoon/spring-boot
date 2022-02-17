@@ -39,15 +39,14 @@ public class PostController {
         return postService.findPostsByUserId(userId);
     }
 
-    @DeleteMapping("api/v1/posts/delete")
+    @DeleteMapping("api/v1/posts")
     public void deletePost(@RequestBody DeletePostById req) {
         postService.deletePostById(req.getId(),req.getUserId());
     }
 
-    @PutMapping("api/v1/posts/update")
+    @PutMapping("api/v1/posts")
     public int updatePost(@RequestBody UpdateRequest req) {
         return postService.updatePost(req.getId(), req.getSubCategoryId(), req.getUserId(), req.getTitle(), req.getContents(), req.getSource(),req.getCreateAt());
     }
-    //req.getId(), req.getSubCategoryId(), req.getUserId(), req.getTitle(), req.getContents(), req.getSource(),req.getCreateAt()
 }
 
