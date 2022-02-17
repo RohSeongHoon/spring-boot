@@ -47,14 +47,14 @@ public class PostService {
     }
 
     public List<PostListView> getPostList(int subCategoryId) {
-        return postRepository.findBySubCategoryId(subCategoryId) //subCategoryId로 조회 findAll을 사용하는것이 아니다. (limit를 사용하기),(인덱스를 더공부)
+        return postRepository.findBySubCategoryId(subCategoryId)
                 .stream()
                 .filter(post -> post.getSubCategoryId() == subCategoryId)
-                .sorted(Comparator.comparing(Post::getCreateAt)) //여기서 하지말고 db에서 꺼낼때 orderBy사용하는것이 좋음
+                .sorted(Comparator.comparing(Post::getCreateAt))
                 .map(PostListView::from)
-                .limit(20)
+                .limit(20)          //db에서
                 .collect(Collectors.toList());
-    }
+    } //db에서 페이지 나누는것 찾아보기
 
     public List<PostListView> findPostsByUserId(String userId) {
         List<PostListView> posts = postRepository.findByUserId(userId)
@@ -62,7 +62,7 @@ public class PostService {
                 .sorted(Comparator.comparing(Post::getCreateAt))
                 .map(PostListView::from)
                 .collect(Collectors.toList());
-        return posts;
+        return posts; //db에서 정렬해서 가지고오기
     }
 
     public void deletePostById(int id, String userId) {
