@@ -1,9 +1,14 @@
 package com.devagit.springbootstudy.repository.post;
 
 import com.devagit.springbootstudy.domain.post.Post;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
+import org.springframework.data.domain.Pageable;
+
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -40,7 +45,12 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public List<Post> findBySubCategoryId(int subCategoryId) {
-      return  postJpaRepository.findBySubCategoryId(subCategoryId);
+    public List<Post> findBySubCategoryIdOrderByIdDesc(int subCategoryId,Pageable page){
+        return postJpaRepository.findBySubCategoryIdOrderByIdDesc(subCategoryId,page);
     }
+
+//    @Override
+//    public List<Post> findBySubCategoryIdAndCreatedAtLessThanEqualOrderByCreatedAtDesc(int subCategoryId, Pageable page, Date createAt) {
+//        return  postJpaRepository.findBySubCategoryIdAndCreatedAtLessThanEqualOrderByCreatedAtDesc(subCategoryId,page);
+//    }
 }
