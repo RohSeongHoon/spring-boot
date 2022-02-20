@@ -14,15 +14,15 @@ public class PostListView {
     private int subCategoryId;
     private String userId;
     private String title;
-    private Date createAt;
+    private Date createdAt;
 
     @Builder
-    public PostListView(int id, int subCategoryId, String userId, String title, Date createAt) {
+    public PostListView(int id, int subCategoryId, String userId, String title, Date createdAt) {
         this.id = id;
         this.subCategoryId = subCategoryId;
         this.userId = userId;
         this.title = title;
-        this.createAt=createAt;
+        this.createdAt=createdAt;
     }
 
     public static PostListView from(Post post){
@@ -31,7 +31,7 @@ public class PostListView {
                 .subCategoryId(post.getSubCategoryId())
                 .userId(post.getUserId())
                 .title(post.getTitle())
-                .createAt(post.getCreateAt())
+                .createdAt(post.getCreatedAt())
                 .build();
     }
 }

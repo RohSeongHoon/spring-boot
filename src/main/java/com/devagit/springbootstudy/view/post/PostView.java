@@ -17,17 +17,17 @@ public class PostView {
     private String title;
     private String contents;
     private String source;
-    private Date createAt;
+    private Date createdAt;
 
     @Builder
-    public PostView(int id, int subCategoryId, String userId, String title, String contents, String source, Date createAt) {
+    public PostView(int id, int subCategoryId, String userId, String title, String contents, String source, Date createdAt) {
         this.id = id;
         this.subCategoryId = subCategoryId;
         this.userId = userId;
         this.title = title;
         this.contents = contents;
         this.source = source;
-        this.createAt = createAt;
+        this.createdAt = createdAt;
     }
     public static PostView from(Post post) {
         return PostView.builder()
@@ -37,7 +37,7 @@ public class PostView {
                 .title(post.getTitle())
                 .contents(post.getContents())
                 .source(post.getSource())
-                .createAt(post.getCreateAt())
+                .createdAt(post.getCreatedAt())
                 .build();
     }
 }
