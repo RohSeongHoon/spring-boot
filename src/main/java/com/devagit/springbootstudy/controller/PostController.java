@@ -1,5 +1,6 @@
 package com.devagit.springbootstudy.controller;
 
+import com.devagit.springbootstudy.domain.post.Post;
 import com.devagit.springbootstudy.request.post.DeletePostById;
 import com.devagit.springbootstudy.request.post.UpdateRequest;
 import com.devagit.springbootstudy.request.post.WritePostRequest;
@@ -14,7 +15,6 @@ import java.util.List;
 @RestController
 public class PostController {
     private PostService postService;
-
     public PostController(PostService postService) {
         this.postService = postService;
     }
@@ -30,8 +30,8 @@ public class PostController {
     }
 
     @GetMapping("api/v1/posts/list")
-    public List<PostListView> getPostList(@RequestParam(required = false) int subCategoryId) {
-        return postService.getPostList(subCategoryId);
+    public List<PostListView> getPostList(@RequestParam(required = false) int subCategoryId,Integer cursorId,Integer size) {
+        return postService.getPostList(subCategoryId,cursorId,size);
     }
 
     @GetMapping("api/v1/posts/find")
@@ -48,5 +48,7 @@ public class PostController {
     public int updatePost(@RequestBody UpdateRequest req) {
         return postService.updatePost(req.getId(), req.getSubCategoryId(), req.getUserId(), req.getTitle(), req.getContents(), req.getSource(),req.getCreateAt());
     }
+
+
 }
 
