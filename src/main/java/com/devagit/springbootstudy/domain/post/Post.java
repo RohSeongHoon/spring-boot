@@ -32,10 +32,10 @@ public class Post {
     //createdAt 을 관용 , 업데이트: updatedAt, deletedAt 관용암
     @CreationTimestamp
     @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP",nullable = false)
-    private Date createAt;
+    private Date createdAt;
     @CreationTimestamp
     @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP",nullable = true)
-    private Date updateAt;
+    private Date updatedAt;
     @Column(columnDefinition = "VARCHAR(64)")
     private String source;
 
