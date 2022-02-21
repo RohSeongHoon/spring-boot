@@ -5,10 +5,8 @@ import com.devagit.springbootstudy.exceptionHandler.NotFoundException;
 import com.devagit.springbootstudy.repository.post.PostRepository;
 import com.devagit.springbootstudy.view.post.PostListView;
 import com.devagit.springbootstudy.view.post.PostView;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -47,11 +45,16 @@ public class PostService {
         //예외처리 꼭하기 명심
     }
 
-    public List<PostListView> getPostList(int subCategoryId,Integer cursorId,Integer size) {
-        if (size == null){size = DEFAULT_SIZE;}
-        if (cursorId==null){cursorId = 0;}
-        Pageable page = PageRequest.of(cursorId,size);
-        return postRepository.findBySubCategoryIdOrderByIdDesc(subCategoryId,page)
+    public List<PostListView> getPostList(int subCategoryId,Date postCursor, int page, Integer size) {
+        if (size == null) {
+            size = DEFAULT_SIZE;
+        }
+        if (postCursor  == null){
+            Date now = new Date();
+            postCursor = now;
+        }
+        Pageable pageable = PageRequest.of(page, size);
+        return postRepository.findBySubCategoryIdAndCreatedAtLessThanEqualOrderByCreatedAtDesc(subCategoryId,postCursor, pageable)
                 .stream()
                 .sorted(Comparator.comparing(Post::getCreatedAt))
                 .map(PostListView::from)
