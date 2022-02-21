@@ -1,6 +1,5 @@
 package com.devagit.springbootstudy.controller;
 
-import com.devagit.springbootstudy.domain.post.Post;
 import com.devagit.springbootstudy.request.post.DeletePostById;
 import com.devagit.springbootstudy.request.post.UpdateRequest;
 import com.devagit.springbootstudy.request.post.WritePostRequest;
@@ -31,12 +30,12 @@ public class PostController {
     }
 
     @GetMapping("api/v1/posts/list")
-    public List<PostListView> getPostList(@RequestParam(required = false) int subCategoryId, Date postCursor, int page, Integer size) {
+    public List<PostListView> getPostList(@RequestParam(required = false) int subCategoryId, Date postCursor, int page, int size) {
         return postService.getPostList(subCategoryId,postCursor,page,size);
     }
 
     @GetMapping("api/v1/posts/find")
-    public List<PostListView> findPostsByUserId(@RequestParam(required = false) String userId) {
+    public List<PostListView> findPostsByUserId(@RequestParam String userId) {
         return postService.findPostsByUserId(userId);
     }
 
@@ -48,6 +47,10 @@ public class PostController {
     @PutMapping("api/v1/posts")
     public int updatePost(@RequestBody UpdateRequest req) {
         return postService.updatePost(req.getId(), req.getSubCategoryId(), req.getUserId(), req.getTitle(), req.getContents(), req.getSource(),req.getCreateAt());
+    }
+    @GetMapping("api/v1/posts/search")
+    public List<PostListView> findPostsByTitle(@RequestParam (required = false) String keyword,Date searchCursor,int page,Integer size){
+        return postService.findPostsByTitle(keyword,searchCursor,page,size);
     }
 
 
