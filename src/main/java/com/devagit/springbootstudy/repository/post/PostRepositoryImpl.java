@@ -45,6 +45,9 @@ public class PostRepositoryImpl implements PostRepository {
     public List<Post> findBySubCategoryIdAndCreatedAtLessThanEqualOrderByCreatedAtDesc(int subCategoryId, Date postCursor, Pageable page) {
         return  postJpaRepository.findBySubCategoryIdAndCreatedAtLessThanEqualOrderByCreatedAtDesc(subCategoryId,postCursor,page);
     }
-
+    @Override
+    public List<Post> findByTitleContainsAndCreatedAtLessThanEqualOrderByCreatedAtDesc(String keyword,Date searchCursor,Pageable page){
+        return postJpaRepository.findByTitleContainsAndCreatedAtLessThanEqualOrderByCreatedAtDesc(keyword, searchCursor, page) ;
+    }
 
 }
