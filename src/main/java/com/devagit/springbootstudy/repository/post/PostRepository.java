@@ -20,8 +20,6 @@ public interface PostRepository {
 
     void deletePostById(int id);
 
-    List<Post> findBySubCategoryIdOrderByIdDesc(int subCategoryId,Pageable page);
-
-//    List<Post> findBySubCategoryIdAndCreatedAtLessThanEqualOrderByCreatedAtDesc(int subCategoryId, Pageable page, Date createAt);
+    List<Post> findBySubCategoryIdAndCreatedAtLessThanEqualOrderByCreatedAtDesc(int subCategoryId, Date postCursor, Pageable page);
 
 }
