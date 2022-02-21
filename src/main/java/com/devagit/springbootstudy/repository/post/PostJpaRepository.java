@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
 public interface PostJpaRepository extends JpaRepository<Post,Integer> {
@@ -17,9 +18,7 @@ public interface PostJpaRepository extends JpaRepository<Post,Integer> {
     @Transactional
     void deletePostById(int id);
 
-    List<Post> findBySubCategoryIdOrderByIdDesc(int subCategoryId,Pageable page);
-
-    //List<Post> findBySubCategoryIdAndCreatedAtLessThanEqualOrderByCreatedAtDesc(int subCategoryId,Pageable page);
+    List<Post> findBySubCategoryIdAndCreatedAtLessThanEqualOrderByCreatedAtDesc(int subCategoryId, Date postCursor, Pageable page);
 
 
 }
