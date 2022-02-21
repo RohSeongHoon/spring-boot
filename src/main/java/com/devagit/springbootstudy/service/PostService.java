@@ -56,7 +56,6 @@ public class PostService {
         Pageable pageable = PageRequest.of(page, size);
         return postRepository.findBySubCategoryIdAndCreatedAtLessThanEqualOrderByCreatedAtDesc(subCategoryId,postCursor, pageable)
                 .stream()
-                .sorted(Comparator.comparing(Post::getCreatedAt))
                 .map(PostListView::from)
                 .limit(20)          //db에서
                 .collect(Collectors.toList());
@@ -65,7 +64,6 @@ public class PostService {
     public List<PostListView> findPostsByUserId(String userId) {
         List<PostListView> posts = postRepository.findByUserId(userId)
                 .stream()
-                .sorted(Comparator.comparing(Post::getCreatedAt))
                 .map(PostListView::from)
                 .collect(Collectors.toList());
         return posts; //db에서 정렬해서 가지고오기
@@ -91,5 +89,20 @@ public class PostService {
         postRepository.save(post); //새로들어온걸 from으로 넣어서 save로 하면댄다 이럴때 이해 실패
         return post.getId();
 
+    }
+
+    public List<PostListView> findPostsByTitle(String keyword,Date searchCursor,int page,Integer size) {
+        if (size == null) {
+            size = DEFAULT_SIZE;
+        }
+        if (searchCursor  == null){
+            Date now = new Date();
+            searchCursor = now;
+        }
+        Pageable pageable = PageRequest.of(page, size);
+        return postRepository.findByTitleContainsAndCreatedAtLessThanEqualOrderByCreatedAtDesc(keyword, searchCursor,pageable)
+                .stream()
+                .map(PostListView::from)
+                .collect(Collectors.toList());
     }
 }
