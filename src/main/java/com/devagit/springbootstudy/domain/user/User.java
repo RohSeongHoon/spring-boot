@@ -1,6 +1,6 @@
 package com.devagit.springbootstudy.domain.user;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,10 +10,9 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "users", indexes = {
-        @Index(name = "UNQ_USER_USERNAME", columnList = "username", unique = true)
+        
 }
 )
 public class User {
@@ -24,19 +23,31 @@ public class User {
     private String username;
     @Column(columnDefinition = "VARCHAR(20)", nullable = false, unique = true)
     private String userId;
-    @Column(columnDefinition = "VARCHAR(256)", nullable = false)
+    @Column(columnDefinition = "VARCHAR(32)", nullable = false)
     private String password;
-    @Column(columnDefinition = "VARCHAR(20)", nullable = true)
+    @Column(columnDefinition = "VARCHAR(4)")
+    private String gender;
+    @Column(columnDefinition = "VARCHAR(32)")
     private String phoneNumber;
-    @Column(columnDefinition = "VARCHAR(128)")
+    @Column(columnDefinition = "VARCHAR(128)", nullable = false)
     private String email;
+    @Column(columnDefinition = "VARCHAR(562)")
+    private String profileImg;
+    @Column(columnDefinition = "VARCHAR(1024)")
+    private String introduction;
+    @Column(columnDefinition = "VARCHAR(64)")
+    private String instarId;
 
-
-    public User(String username, String userId, String password, String phoneNumber, String email) {
+    @Builder
+    public User(String username, String userId, String password,String gender, String phoneNumber, String email, String profileImg, String introduction, String instarId) {
         this.username = username;
         this.userId = userId;
         this.password = password;
+        this.gender = gender;
         this.phoneNumber = phoneNumber;
         this.email = email;
+        this.profileImg = profileImg;
+        this.introduction = introduction;
+        this.instarId = instarId;
     }
 }

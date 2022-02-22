@@ -28,8 +28,17 @@ public class UserService {
     }
 
     //회원 가입 ===================================
-    public UserView signUp(String userId, String username, String password, String phoneNumber, String email) {
-        User user = new User(userId, username, password, phoneNumber, email);
+    public UserView signUp(String userId, String username, String password, String phoneNumber, String email,String profileImg,String introduction,String instarId) {
+        User user =  User.builder()
+                .username(username)
+                .userId(userId)
+                .password(password)
+                .phoneNumber(phoneNumber)
+                .email(email)
+                .introduction(introduction)
+                .profileImg(profileImg)
+                .instarId(instarId)
+                .build();
         User signUpUser = userRepository.save(user);
         return UserView.from(signUpUser);
     }
