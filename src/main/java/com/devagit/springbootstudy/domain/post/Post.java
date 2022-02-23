@@ -1,20 +1,28 @@
 package com.devagit.springbootstudy.domain.post;
 
-import lombok.*;
+
+import com.devagit.springbootstudy.domain.comment.Comment;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "posts")
 public class Post {
-    @Id
+
     @GeneratedValue
+    @Id
     @Column(columnDefinition = "INT", nullable = false, unique = true)
     private int id;
     @Column(columnDefinition = "INT", nullable = false)
@@ -27,18 +35,17 @@ public class Post {
     private String title;
     @Column(columnDefinition = "VARCHAR(1024)", nullable = false)
     private String contents;
-    //무조건 있어야하는 것은 DB에서 넣는게 맞다
-    //넣는 방법은 더 생각
-    //createdAt 을 관용 , 업데이트: updatedAt, deletedAt 관용암
     @CreationTimestamp
-    @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP",nullable = false)
+    @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP", nullable = false)
     private Date createdAt;
     @CreationTimestamp
-    @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP",nullable = true)
+    @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP", nullable = true)
     private Date updatedAt;
     @Column(columnDefinition = "VARCHAR(64)")
     private String source;
-
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "posts_id")
+    private List<Comment> comments = new ArrayList<>();
     @Builder
     public Post(int categoryId, int subCategoryId, String userId, String title, String contents, String source) {
         this.categoryId = categoryId;
