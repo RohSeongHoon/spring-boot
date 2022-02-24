@@ -2,7 +2,7 @@ package com.devagit.springbootstudy.controller;
 
 import com.devagit.springbootstudy.request.post.DeletePostById;
 import com.devagit.springbootstudy.request.post.UpdateRequest;
-import com.devagit.springbootstudy.request.post.WritePostRequest;
+import com.devagit.springbootstudy.request.post.addPostRequest;
 import com.devagit.springbootstudy.service.PostService;
 import com.devagit.springbootstudy.view.post.PostListView;
 import com.devagit.springbootstudy.view.post.PostView;
@@ -20,7 +20,7 @@ public class PostController {
     }
 
     @PostMapping("api/v1/posts")
-    public int addPost(@RequestBody WritePostRequest req) {
+    public int addPost(@RequestBody addPostRequest req) {
         return postService.addPost(req.getCategoryId(), req.getSubCategoryId(), req.getUserId(), req.getTitle(), req.getContents(), req.getSource());
     }
 
