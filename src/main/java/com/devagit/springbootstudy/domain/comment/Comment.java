@@ -1,6 +1,6 @@
 package com.devagit.springbootstudy.domain.comment;
 
-import com.devagit.springbootstudy.domain.post.Post;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,22 +18,29 @@ public class Comment {
     @Id
     @GeneratedValue
     private int id;
-    @Column(name = "post_id",columnDefinition = "int", nullable = false)
+    @Column(columnDefinition = "int default 0")
+    private int parentId;
+    @Column(columnDefinition = "int", nullable = false)
     private int postId;
     @Column(columnDefinition = "VARCHAR(32)", nullable = false)
     private String userId;
     @Column(columnDefinition = "VARCHAR(32)", nullable = false)
     private String content;
+    @Column(columnDefinition = "int default 0")
+    private int sorts;
     @CreationTimestamp
     @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
     private Date createdAt;
 
 
-
-
-    public Comment(int postId, String userId, String content) {
+    @Builder
+    public Comment(int postId, int parentId, int sorts, String userId, String content) {
+        this.sorts = sorts;
+        this.parentId = parentId;
         this.postId = postId;
         this.userId = userId;
         this.content = content;
+
+
     }
 }
