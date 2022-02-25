@@ -2,17 +2,15 @@ package com.devagit.springbootstudy.domain.post;
 
 
 import com.devagit.springbootstudy.domain.comment.Comment;
+import com.devagit.springbootstudy.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter
@@ -29,7 +27,7 @@ public class Post {
     private int categoryId;
     @Column(columnDefinition = "INT", nullable = false)
     private int subCategoryId;
-    @Column(columnDefinition = "VARCHAR(32)", nullable = false)
+    @Column(columnDefinition = "VARCHAR(32)",nullable = false)
     private String userId;
     @Column(columnDefinition = "VARCHAR(128)", nullable = false)
     private String title;
@@ -43,11 +41,9 @@ public class Post {
     private Date updatedAt;
     @Column(columnDefinition = "VARCHAR(64)")
     private String source;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "posts_id")
-    private List<Comment> comments = new ArrayList<>();
+
     @Builder
-    public Post(int categoryId, int subCategoryId, String userId, String title, String contents, String source) {
+    public Post(int categoryId, int subCategoryId,String userId, String title, String contents, String source) {
         this.categoryId = categoryId;
         this.subCategoryId = subCategoryId;
         this.userId = userId;
