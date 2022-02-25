@@ -1,15 +1,17 @@
 package com.devagit.springbootstudy.service;
 
+
 import com.devagit.springbootstudy.domain.post.Post;
 import com.devagit.springbootstudy.exceptionHandler.NotFoundException;
 import com.devagit.springbootstudy.repository.post.PostRepository;
+import com.devagit.springbootstudy.util.MakePageAble;
 import com.devagit.springbootstudy.view.post.PostListView;
 import com.devagit.springbootstudy.view.post.PostView;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -19,15 +21,15 @@ import java.util.stream.Collectors;
 @Service
 public class PostService {
     private final PostRepository postRepository;
-    private static final int DEFAULT_SIZE = 5; //컨트롤러에서? 서비스에서?
+
+
 
     public PostService(PostRepository postRepository) {
         this.postRepository = postRepository;
     }
 
-
     public int addPost(int categoryId, int subCategoryId, String userId, String title, String contents, String source) {
-        Post post = Post.builder()      //null값이 들어갈때 명확하게 표현을 해주는게 좋음
+        Post post = Post.builder()
                 .categoryId(categoryId)
                 .subCategoryId(subCategoryId)
                 .userId(userId)
@@ -46,18 +48,10 @@ public class PostService {
     }
 
     public List<PostListView> getPostList(int subCategoryId,Date postCursor, int page, Integer size) {
-        if (size == null) {
-            size = DEFAULT_SIZE;
-        }
-        if (postCursor  == null){
-            Date now = new Date();
-            postCursor = now;
-        }
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = MakePageAble.makePageAble(postCursor,size,page);
         return postRepository.findBySubCategoryIdAndCreatedAtLessThanEqualOrderByCreatedAtDesc(subCategoryId,postCursor, pageable)
                 .stream()
                 .map(PostListView::from)
-                .limit(20)          //db에서
                 .collect(Collectors.toList());
     } //db에서 페이지 나누는것 찾아보기
 
@@ -92,14 +86,7 @@ public class PostService {
     }
 
     public List<PostListView> findPostsByTitle(String keyword,Date searchCursor,int page,Integer size) {
-        if (size == null) {
-            size = DEFAULT_SIZE;
-        }
-        if (searchCursor  == null){
-            Date now = new Date();
-            searchCursor = now;
-        }
-        Pageable pageable = PageRequest.of(page, size);
+               Pageable pageable  = MakePageAble.makePageAble(searchCursor,size,page);
         return postRepository.findByTitleContainsAndCreatedAtLessThanEqualOrderByCreatedAtDesc(keyword, searchCursor,pageable)
                 .stream()
                 .map(PostListView::from)
