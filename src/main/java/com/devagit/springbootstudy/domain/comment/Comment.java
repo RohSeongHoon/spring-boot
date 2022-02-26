@@ -7,7 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Timestamp;
 
 @Getter
 @Setter
@@ -30,7 +30,9 @@ public class Comment {
     private int sorts;
     @CreationTimestamp
     @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
-    private Date createdAt;
+    private Timestamp createdAt;
+    @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
+    private Timestamp updateAt;
 
 
     @Builder
