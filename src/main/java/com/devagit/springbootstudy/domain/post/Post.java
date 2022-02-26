@@ -1,8 +1,6 @@
 package com.devagit.springbootstudy.domain.post;
 
 
-import com.devagit.springbootstudy.domain.comment.Comment;
-import com.devagit.springbootstudy.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
