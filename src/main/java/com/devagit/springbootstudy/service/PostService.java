@@ -3,11 +3,11 @@ package com.devagit.springbootstudy.service;
 
 import com.devagit.springbootstudy.domain.post.Post;
 import com.devagit.springbootstudy.exceptionHandler.NotFoundException;
+import com.devagit.springbootstudy.repository.comment.CommentRepository;
 import com.devagit.springbootstudy.repository.post.PostRepository;
 import com.devagit.springbootstudy.util.MakePageAble;
 import com.devagit.springbootstudy.view.post.PostListView;
 import com.devagit.springbootstudy.view.post.PostView;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -21,11 +21,13 @@ import java.util.stream.Collectors;
 @Service
 public class PostService {
     private final PostRepository postRepository;
+    private final CommentRepository commentRepository;
 
 
 
-    public PostService(PostRepository postRepository) {
+    public PostService(PostRepository postRepository, CommentRepository commentRepository) {
         this.postRepository = postRepository;
+        this.commentRepository = commentRepository;
     }
 
     public int addPost(int categoryId, int subCategoryId, String userId, String title, String contents, String source) {
@@ -67,6 +69,7 @@ public class PostService {
         Post post = Optional.ofNullable(postRepository.findById(id)).orElseThrow(() -> new NotFoundException("삭제할 아이디가 존재하지 않습니다"));
         if (userId.equals(post.getUserId())) {
             postRepository.deletePostById(id);
+            commentRepository.deleteCommentsByPostId(id);
         }
     }
 

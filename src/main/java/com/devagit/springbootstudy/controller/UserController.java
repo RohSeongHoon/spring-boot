@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:8080")
 @RestController
 public class UserController {
     private final UserService userService;
 
-    public  UserController(UserService userService) {
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
@@ -28,15 +29,16 @@ public class UserController {
 
 
     //회원 가입  ===================================
+    @CrossOrigin(origins = "http://localhost:8080")
     @PostMapping("/api/v1/users")
     public UserView signUp(@RequestBody UserRequest req) {
-        return userService.signUp(req.getUserId(), req.getUsername(), req.getPassword(), req.getPhoneNumber(), req.getEmail());
+        return userService.signUp(req.getUserId(), req.getUsername(), req.getPassword(), req.getPhoneNumber(), req.getEmail(), req.getProfileImg(), req.getIntroduction(), req.getInstarId());
     }
 
     //로그인 ===================================
     @PostMapping("/api/v1/users/login")
     public void login(@RequestBody LoginRequest req) {
-         userService.login(req.getUserId(), req.getPassword());
+        userService.login(req.getUserId(), req.getPassword());
     }
 
     //회원 정보 조회 ===================================
@@ -68,7 +70,7 @@ public class UserController {
     //회원 정보 변경 ===================================
     @PutMapping("api/v1/users/change-userPassword")
     public void changeId(@RequestBody ChangeUserPasswordRequest req) {
-         userService.changeUserPassword(req.getUserId(), req.getPassword(), req.getNewPassword());
+        userService.changeUserPassword(req.getUserId(), req.getPassword(), req.getNewPassword());
     }
 
     @PutMapping("api/v1/users/chang-personalInfo")
@@ -79,6 +81,6 @@ public class UserController {
     //회원 정보 삭제 ===================================
     @DeleteMapping("api/v1/users")
     public void deleteUser(@RequestBody DeleteUserRequest req) {
-         userService.deleteUser(req.getUserId(), req.getPassword());
+        userService.deleteUser(req.getUserId(), req.getPassword());
     }
 }
