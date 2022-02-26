@@ -1,0 +1,34 @@
+package com.devagit.springbootstudy.repository.heart;
+
+import com.devagit.springbootstudy.domain.heart.Heart;
+import org.springframework.stereotype.Repository;
+
+import javax.transaction.Transactional;
+import java.util.List;
+
+@Repository
+public class HeartRepositoryImpl implements HeartRepository {
+    private HeartJpaRepository heartJpaRepository;
+
+    public HeartRepositoryImpl(HeartJpaRepository heartJpaRepository) {
+        this.heartJpaRepository = heartJpaRepository;
+    }
+
+    @Override
+    public void addHeart(Heart heart) {
+        heartJpaRepository.save(heart);
+    }
+
+    @Override
+    public Heart findByPostIdAndUserId(int postId, String userId) {
+        return heartJpaRepository.findByPostIdAndUserId(postId,userId);
+    }
+
+    @Override
+    @Transactional
+    public void deleteByPostIdAndUserId(int postId, String userId) {
+        heartJpaRepository.deleteByPostIdAndUserId(postId,userId);
+    }
+
+
+}
