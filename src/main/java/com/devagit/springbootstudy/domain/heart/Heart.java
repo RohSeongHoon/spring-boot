@@ -18,7 +18,7 @@ public class Heart {
     private int id;
     @Column(columnDefinition = "INT")
     private int postId;
-    @Column(columnDefinition = "VARCHAR(32)",nullable = false)
+    @Column(columnDefinition = "VARCHAR(32)", nullable = false)
     private String userId;
 
     public Heart(int postId, String userId) {

@@ -11,5 +11,7 @@ public interface HeartRepository {
 
     void deleteByPostIdAndUserId(int postId, String userId);
 
-    void addHeart(Heart heart);
+    void save(Heart heart);
+
+    int countByPostId(int postId);
 }

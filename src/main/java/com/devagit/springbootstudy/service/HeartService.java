@@ -14,24 +14,29 @@ public class HeartService {
         this.heartRepository = heartRepository;
     }
 
-    public boolean addOrDeleteHeart(int postId,String userId) {
-        if (!findHeartByUserId(postId,userId)){
-            deleteHeart(postId,userId);
+    public boolean addOrDeleteHeart(int postId, String userId) {
+        if (!findHeartByUserId(postId, userId)) {
+            deleteHeart(postId, userId);
             return false;
         }
-        Heart heart = new Heart(postId,userId);
-          heartRepository.addHeart(heart);
+        Heart heart = new Heart(postId, userId);
+        heartRepository.save(heart);
         return true;
     }
 
-    public Boolean findHeartByUserId(int postId,String userId) {
-       Heart heart = heartRepository.findByPostIdAndUserId(postId,userId);
-       if (heart == null){
-          return true;
-       }
-       return false;
+    public Boolean findHeartByUserId(int postId, String userId) {
+        Heart heart = heartRepository.findByPostIdAndUserId(postId, userId);
+        if (heart == null) {
+            return true;
+        }
+        return false;
     }
-    public void deleteHeart(int postId,String userId){
-        heartRepository.deleteByPostIdAndUserId(postId,userId);
+
+    public void deleteHeart(int postId, String userId) {
+        heartRepository.deleteByPostIdAndUserId(postId, userId);
+    }
+
+    public int getHeartCount(int postId) {
+        return heartRepository.countByPostId(postId);
     }
 }

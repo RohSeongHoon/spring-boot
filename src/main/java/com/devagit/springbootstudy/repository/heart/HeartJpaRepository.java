@@ -6,8 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface HeartJpaRepository extends JpaRepository<Heart, Integer> {
 
-    Heart findByPostIdAndUserId(int postId,String userId);
+    Heart findByPostIdAndUserId(int postId, String userId);
 
-    void deleteByPostIdAndUserId(int postId,String userId);
+    void deleteByPostIdAndUserId(int postId, String userId);
 
+    int countByPostId(int postId);
 }
