@@ -8,7 +8,7 @@ import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
-public interface PostJpaRepository extends JpaRepository<Post,Integer> {
+public interface PostJpaRepository extends JpaRepository<Post, Integer> {
     Post findById(int id);
 
     List<Post> findAll();
@@ -20,5 +20,5 @@ public interface PostJpaRepository extends JpaRepository<Post,Integer> {
 
     List<Post> findBySubCategoryIdAndCreatedAtLessThanEqualOrderByCreatedAtDesc(int subCategoryId, Date postCursor, Pageable page);
 
-    List<Post> findByTitleContainsAndCreatedAtLessThanEqualOrderByCreatedAtDesc(String keyword,Date searchCursor,Pageable page);
+    List<Post> findByTitleContainsAndCreatedAtLessThanEqualOrderByCreatedAtDesc(String keyword, Date searchCursor, Pageable page);
 }

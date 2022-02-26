@@ -14,7 +14,7 @@ public interface CommentRepository {
 
     List<Comment> findByPostId(int postIdr, Pageable pageable);
 
-    List<Comment> findAllByPostId(int postId,Pageable pageable);
+    List<Comment> findAllByPostId(int postId, Pageable pageable);
 
     long countByParentId(int parentId);
 

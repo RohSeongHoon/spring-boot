@@ -30,10 +30,11 @@ public class CommentController {
 
     @DeleteMapping("api/v1/comments")
     public long deleteComment(@RequestBody DeleteCommentRequest req) {
-        return commentService.deleteComment(req.getId(),req.getUserId());
+        return commentService.deleteComment(req.getId(), req.getUserId());
     }
+
     @PutMapping("api/v1/comments")
-    public CommentView updateComments(@RequestParam UpdateCommentRequest req){
-        return commentService.updateComments(req.getId(),req.getUserId(),req.getContent(),req.getCreatedAt());
+    public CommentView updateComments(@RequestParam UpdateCommentRequest req) {
+        return commentService.updateComments(req.getId(), req.getUserId(), req.getContent(), req.getCreatedAt());
     }
 }

@@ -9,14 +9,14 @@ public class MakePageAble {
     public static final int DEFAULT_SIZE = 5;
 
 
-    public static Pageable makePageAble(Date cursor,int size,int page){
+    public static Pageable makePageAble(Date cursor, int size, int page) {
         if (size == 0) {
             size = DEFAULT_SIZE;
         }
-        if (cursor  == null){
+        if (cursor == null) {
             Date now = new Date();
             cursor = now;
         }
-        return  PageRequest.of(page, size);
+        return PageRequest.of(page, size);
     }
 }

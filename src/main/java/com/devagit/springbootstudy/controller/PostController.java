@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 public class PostController {
     private PostService postService;
+
     public PostController(PostService postService) {
         this.postService = postService;
     }
@@ -31,7 +32,7 @@ public class PostController {
 
     @GetMapping("api/v1/posts/list")
     public List<PostListView> getPostList(@RequestParam(required = false) int subCategoryId, Date postCursor, int page, int size) {
-        return postService.getPostList(subCategoryId,postCursor,page,size);
+        return postService.getPostList(subCategoryId, postCursor, page, size);
     }
 
     @GetMapping("api/v1/posts/find")
@@ -41,16 +42,17 @@ public class PostController {
 
     @DeleteMapping("api/v1/posts")
     public void deletePost(@RequestBody DeletePostById req) {
-        postService.deletePostById(req.getId(),req.getUserId());
+        postService.deletePostById(req.getId(), req.getUserId());
     }
 
     @PutMapping("api/v1/posts")
     public int updatePost(@RequestBody UpdateRequest req) {
-        return postService.updatePost(req.getId(), req.getSubCategoryId(), req.getUserId(), req.getTitle(), req.getContents(), req.getSource(),req.getCreateAt());
+        return postService.updatePost(req.getId(), req.getSubCategoryId(), req.getUserId(), req.getTitle(), req.getContents(), req.getSource(), req.getCreateAt());
     }
+
     @GetMapping("api/v1/posts/search")
-    public List<PostListView> findPostsByTitle(@RequestParam (required = false) String keyword,Date searchCursor,int page,Integer size){
-        return postService.findPostsByTitle(keyword,searchCursor,page,size);
+    public List<PostListView> findPostsByTitle(@RequestParam(required = false) String keyword, Date searchCursor, int page, Integer size) {
+        return postService.findPostsByTitle(keyword, searchCursor, page, size);
     }
 
 

@@ -25,7 +25,7 @@ public class Post {
     private int categoryId;
     @Column(columnDefinition = "INT", nullable = false)
     private int subCategoryId;
-    @Column(columnDefinition = "VARCHAR(32)",nullable = false)
+    @Column(columnDefinition = "VARCHAR(32)", nullable = false)
     private String userId;
     @Column(columnDefinition = "VARCHAR(128)", nullable = false)
     private String title;
@@ -41,7 +41,7 @@ public class Post {
     private String source;
 
     @Builder
-    public Post(int categoryId, int subCategoryId,String userId, String title, String contents, String source) {
+    public Post(int categoryId, int subCategoryId, String userId, String title, String contents, String source) {
         this.categoryId = categoryId;
         this.subCategoryId = subCategoryId;
         this.userId = userId;
