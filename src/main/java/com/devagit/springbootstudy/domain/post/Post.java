@@ -35,7 +35,7 @@ public class Post {
     @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP", nullable = false)
     private Date createdAt;
     @CreationTimestamp
-    @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP", nullable = true)
+    @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP", nullable = false)
     private Date updatedAt;
     @Column(columnDefinition = "VARCHAR(64)")
     private String source;

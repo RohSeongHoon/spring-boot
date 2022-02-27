@@ -8,7 +8,7 @@ import com.devagit.springbootstudy.view.post.PostListView;
 import com.devagit.springbootstudy.view.post.PostView;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -31,7 +31,7 @@ public class PostController {
     }
 
     @GetMapping("api/v1/posts/list")
-    public List<PostListView> getPostList(@RequestParam(required = false) int subCategoryId, Date postCursor, int page, int size) {
+    public List<PostListView> getPostList(@RequestParam(required = false) int subCategoryId, Timestamp postCursor, int page, int size) {
         return postService.getPostList(subCategoryId, postCursor, page, size);
     }
 
@@ -51,7 +51,7 @@ public class PostController {
     }
 
     @GetMapping("api/v1/posts/search")
-    public List<PostListView> findPostsByTitle(@RequestParam(required = false) String keyword, Date searchCursor, int page, Integer size) {
+    public List<PostListView> findPostsByTitle(@RequestParam(required = false) String keyword,Timestamp searchCursor, int page, Integer size) {
         return postService.findPostsByTitle(keyword, searchCursor, page, size);
     }
 
