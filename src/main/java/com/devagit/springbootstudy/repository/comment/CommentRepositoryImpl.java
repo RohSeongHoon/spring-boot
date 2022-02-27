@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Repository
@@ -22,13 +23,8 @@ public class CommentRepositoryImpl implements CommentRepository {
     }
 
     @Override
-    public List<Comment> findByPostId(int postIdr, Pageable pageable) {
-        return null;
-    }
-
-    @Override
-    public List<Comment> findAllByPostId(int postId, Pageable pageable) {
-        return commentJpaRepository.findAllByPostId(postId, pageable);
+    public List<Comment> findByPostIdAndCreatedAtLessThanEqualOrderBySortsAsc(int postId, Timestamp commentCursor, Pageable pageable) {
+        return commentJpaRepository.findByPostIdAndCreatedAtLessThanEqualOrderBySortsAsc(postId,commentCursor,pageable);
     }
 
     @Override
