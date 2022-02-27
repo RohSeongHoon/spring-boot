@@ -1,5 +1,6 @@
 package com.devagit.springbootstudy.controller;
 
+import com.devagit.springbootstudy.domain.comment.Comment;
 import com.devagit.springbootstudy.request.comment.CommentRequest;
 import com.devagit.springbootstudy.request.comment.DeleteCommentRequest;
 import com.devagit.springbootstudy.request.comment.UpdateCommentRequest;
@@ -7,7 +8,7 @@ import com.devagit.springbootstudy.service.CommentService;
 import com.devagit.springbootstudy.view.comment.CommentView;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -18,13 +19,19 @@ public class CommentController {
         this.commentService = commentService;
     }
 
+    @GetMapping("api/v1/comments/findAll")
+    public List<Comment> allComments() {
+        return commentService.findAll();
+    }
+
+
     @PostMapping("api/v1/comments")
     public CommentView addComment(@RequestBody CommentRequest req) {
         return commentService.addComment(req.getParentId(), req.getPostId(), req.getUserId(), req.getContent(), req.getSorts());
     }
 
     @GetMapping("api/v1/comments/list")
-    public List<CommentView> getCommentsList(@RequestParam int postId, Date commentCursor, int page, int size) {
+    public List<CommentView> getCommentsList(@RequestParam int postId, Timestamp commentCursor, int page, int size) {
         return commentService.getCommentsList(postId, commentCursor, page, size);
     }
 

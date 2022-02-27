@@ -19,7 +19,6 @@ public class PostView {
     private String source;
     private Date createdAt;
 
-
     @Builder
     public PostView(int id, int subCategoryId, String userId, String title, String contents, String source, Date createdAt) {
         this.id = id;

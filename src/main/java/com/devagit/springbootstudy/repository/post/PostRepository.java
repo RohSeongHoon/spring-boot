@@ -1,7 +1,6 @@
 package com.devagit.springbootstudy.repository.post;
 
 import com.devagit.springbootstudy.domain.post.Post;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 
@@ -13,8 +12,6 @@ public interface PostRepository {
     Post save(Post post);
 
     Post findById(int id);
-
-    List<Post> findAll();
 
     List<Post> findByUserId(String userId);
 
