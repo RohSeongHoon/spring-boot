@@ -1,9 +1,9 @@
 package com.devagit.springbootstudy.repository.comment;
 
-import com.devagit.springbootstudy.domain.comment.Comment;
+import com.devagit.springbootstudy.domain.Comment;
 import org.springframework.data.domain.Pageable;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface CommentRepository {
@@ -11,7 +11,7 @@ public interface CommentRepository {
     Comment save(Comment comment);
 
 
-    List<Comment> findByPostIdAndCreatedAtLessThanEqualOrderBySortsAsc(int postIdr, Timestamp commentCursor, Pageable pageable);
+    List<Comment> findByPostIdAndCreatedAtLessThanEqualOrderBySortsAsc(int postIdr, LocalDateTime commentCursor, Pageable pageable);
 
     long countByParentId(int parentId);
 

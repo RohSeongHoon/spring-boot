@@ -1,13 +1,14 @@
-package com.devagit.springbootstudy.domain.comment;
+package com.devagit.springbootstudy.domain;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -18,8 +19,9 @@ public class Comment {
     @Id
     @GeneratedValue
     private int id;
+    @Nullable
     @Column(columnDefinition = "int default 0")
-    private int parentId;
+    private Integer parentId;
     @Column(columnDefinition = "int", nullable = false)
     private int postId;
     @Column(columnDefinition = "VARCHAR(32)", nullable = false)
@@ -30,9 +32,10 @@ public class Comment {
     private int sorts;
     @CreationTimestamp
     @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
-    private Timestamp createdAt;
+    private LocalDateTime createdAt; //dateTime으로 변경
+    @CreationTimestamp
     @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
-    private Timestamp updateAt;
+    private LocalDateTime updatedAt;
 
 
     @Builder

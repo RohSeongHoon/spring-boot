@@ -1,6 +1,6 @@
 package com.devagit.springbootstudy.repository.user;
 
-import com.devagit.springbootstudy.domain.user.User;
+import com.devagit.springbootstudy.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.transaction.Transactional;

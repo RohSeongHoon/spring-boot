@@ -1,6 +1,6 @@
 package com.devagit.springbootstudy.repository.user;
 
-import com.devagit.springbootstudy.domain.user.User;
+import com.devagit.springbootstudy.domain.User;
 
 import java.util.List;
 

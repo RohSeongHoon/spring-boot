@@ -1,10 +1,9 @@
 package com.devagit.springbootstudy.repository.heart;
 
-import com.devagit.springbootstudy.domain.heart.Heart;
+import com.devagit.springbootstudy.domain.Heart;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Repository
 public class HeartRepositoryImpl implements HeartRepository {

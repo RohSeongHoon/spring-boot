@@ -1,10 +1,11 @@
 package com.devagit.springbootstudy.repository.post;
 
-import com.devagit.springbootstudy.domain.post.Post;
+import com.devagit.springbootstudy.domain.Post;
 import org.springframework.stereotype.Repository;
 
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -27,11 +28,6 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public List<Post> findAll() {
-        return postJpaRepository.findAll();
-    }
-
-    @Override
     public List<Post> findByUserId(String userId) {
         return postJpaRepository.findByUserId(userId);
     }
@@ -42,12 +38,12 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public List<Post> findBySubCategoryIdAndCreatedAtLessThanEqualOrderByCreatedAtDesc(int subCategoryId, Date postCursor, Pageable page) {
+    public List<Post> findBySubCategoryIdAndCreatedAtLessThanEqualOrderByCreatedAtDesc(int subCategoryId, LocalDateTime postCursor, Pageable page) {
         return postJpaRepository.findBySubCategoryIdAndCreatedAtLessThanEqualOrderByCreatedAtDesc(subCategoryId, postCursor, page);
     }
 
     @Override
-    public List<Post> findByTitleContainsAndCreatedAtLessThanEqualOrderByCreatedAtDesc(String keyword, Date searchCursor, Pageable page) {
+    public List<Post> findByTitleContainsAndCreatedAtLessThanEqualOrderByCreatedAtDesc(String keyword, LocalDateTime searchCursor, Pageable page) {
         return postJpaRepository.findByTitleContainsAndCreatedAtLessThanEqualOrderByCreatedAtDesc(keyword, searchCursor, page);
     }
 

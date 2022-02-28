@@ -1,12 +1,12 @@
 package com.devagit.springbootstudy.repository.comment;
 
-import com.devagit.springbootstudy.domain.comment.Comment;
+import com.devagit.springbootstudy.domain.Comment;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -23,8 +23,8 @@ public class CommentRepositoryImpl implements CommentRepository {
     }
 
     @Override
-    public List<Comment> findByPostIdAndCreatedAtLessThanEqualOrderBySortsAsc(int postId, Timestamp commentCursor, Pageable pageable) {
-        return commentJpaRepository.findByPostIdAndCreatedAtLessThanEqualOrderBySortsAsc(postId,commentCursor,pageable);
+    public List<Comment> findByPostIdAndCreatedAtLessThanEqualOrderBySortsAsc(int postId, LocalDateTime commentCursor, Pageable pageable) {
+        return commentJpaRepository.findByPostIdAndCreatedAtLessThanEqualOrderBySortsAsc(postId, commentCursor, pageable);
     }
 
     @Override
@@ -32,7 +32,6 @@ public class CommentRepositoryImpl implements CommentRepository {
         return commentJpaRepository.countByParentId(parentId);
     }
 
-    @Transactional
     @Override
     public long deleteCommentsById(int id) {
         return commentJpaRepository.deleteCommentsById(id);

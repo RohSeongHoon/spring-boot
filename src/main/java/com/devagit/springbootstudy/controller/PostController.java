@@ -6,9 +6,11 @@ import com.devagit.springbootstudy.request.post.addPostRequest;
 import com.devagit.springbootstudy.service.PostService;
 import com.devagit.springbootstudy.view.post.PostListView;
 import com.devagit.springbootstudy.view.post.PostView;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -31,7 +33,7 @@ public class PostController {
     }
 
     @GetMapping("api/v1/posts/list")
-    public List<PostListView> getPostList(@RequestParam(required = false) int subCategoryId, Timestamp postCursor, int page, int size) {
+    public List<PostListView> getPostList(@RequestParam(required = false) int subCategoryId,@Nullable LocalDateTime postCursor, int page,@Nullable int size) {
         return postService.getPostList(subCategoryId, postCursor, page, size);
     }
 
@@ -47,11 +49,11 @@ public class PostController {
 
     @PutMapping("api/v1/posts")
     public int updatePost(@RequestBody UpdateRequest req) {
-        return postService.updatePost(req.getId(), req.getSubCategoryId(), req.getUserId(), req.getTitle(), req.getContents(), req.getSource(), req.getCreateAt());
+        return postService.updatePost(req.getId(), req.getSubCategoryId(), req.getUserId(), req.getTitle(), req.getContents(), req.getSource(), req.getCreatedAt());
     }
 
     @GetMapping("api/v1/posts/search")
-    public List<PostListView> findPostsByTitle(@RequestParam(required = false) String keyword,Timestamp searchCursor, int page, Integer size) {
+    public List<PostListView> findPostsByTitle(@RequestParam(required = false) String keyword,LocalDateTime searchCursor, int page,@Nullable Integer size) {
         return postService.findPostsByTitle(keyword, searchCursor, page, size);
     }
 

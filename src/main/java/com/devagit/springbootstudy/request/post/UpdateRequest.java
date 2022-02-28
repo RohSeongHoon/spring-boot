@@ -3,7 +3,7 @@ package com.devagit.springbootstudy.request.post;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 
 @NoArgsConstructor
@@ -15,15 +15,15 @@ public class UpdateRequest {
     private String title;
     private String contents;
     private String source;
-    private Date createAt;
+    private LocalDateTime createdAt;
 
-    public UpdateRequest(int id, int subCategoryId, String userId, String title, String contents, String source, Date createAt) {
+    public UpdateRequest(int id, int subCategoryId, String userId, String title, String contents, String source, LocalDateTime createdAt) {
         this.id = id;
         this.subCategoryId = subCategoryId;
         this.userId = userId;
         this.title = title;
         this.contents = contents;
         this.source = source;
-        this.createAt = createAt;
+        this.createdAt = createdAt;
     }
 }

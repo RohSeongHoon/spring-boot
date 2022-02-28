@@ -1,4 +1,4 @@
-package com.devagit.springbootstudy.domain.heart;
+package com.devagit.springbootstudy.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,10 +1,11 @@
 package com.devagit.springbootstudy.view.post;
 
-import com.devagit.springbootstudy.domain.post.Post;
+import com.devagit.springbootstudy.domain.Post;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -17,10 +18,10 @@ public class PostView {
     private String title;
     private String contents;
     private String source;
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @Builder
-    public PostView(int id, int subCategoryId, String userId, String title, String contents, String source, Date createdAt) {
+    public PostView(int id, int subCategoryId, String userId, String title, String contents, String source, LocalDateTime createdAt) {
         this.id = id;
         this.subCategoryId = subCategoryId;
         this.userId = userId;

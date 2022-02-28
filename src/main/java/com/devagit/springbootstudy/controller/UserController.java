@@ -1,7 +1,7 @@
 package com.devagit.springbootstudy.controller;
 
 
-import com.devagit.springbootstudy.domain.user.*;
+import com.devagit.springbootstudy.domain.User;
 import com.devagit.springbootstudy.request.user.*;
 import com.devagit.springbootstudy.service.UserService;
 import com.devagit.springbootstudy.view.UserView;
@@ -29,7 +29,6 @@ public class UserController {
 
 
     //회원 가입  ===================================
-    @CrossOrigin(origins = "http://localhost:8080")
     @PostMapping("/api/v1/users")
     public UserView signUp(@RequestBody UserRequest req) {
         return userService.signUp(req.getUserId(), req.getUsername(), req.getPassword(), req.getPhoneNumber(), req.getEmail(), req.getProfileImg(), req.getIntroduction(), req.getInstarId());

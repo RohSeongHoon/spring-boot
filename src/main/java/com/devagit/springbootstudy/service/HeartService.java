@@ -1,11 +1,12 @@
 package com.devagit.springbootstudy.service;
 
-import com.devagit.springbootstudy.domain.heart.Heart;
+import com.devagit.springbootstudy.domain.Heart;
 import com.devagit.springbootstudy.repository.heart.HeartRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import javax.transaction.Transactional;
 
+//count대신 컬럼을 생성
 @Service
 public class HeartService {
     private HeartRepository heartRepository;
@@ -14,6 +15,7 @@ public class HeartService {
         this.heartRepository = heartRepository;
     }
 
+    //두개로 나눠야함
     public boolean addOrDeleteHeart(int postId, String userId) {
         if (!findHeartByUserId(postId, userId)) {
             deleteHeart(postId, userId);
@@ -32,10 +34,12 @@ public class HeartService {
         return false;
     }
 
+    @Transactional
     public void deleteHeart(int postId, String userId) {
         heartRepository.deleteByPostIdAndUserId(postId, userId);
     }
 
+    @Transactional
     public int getHeartCount(int postId) {
         return heartRepository.countByPostId(postId);
     }

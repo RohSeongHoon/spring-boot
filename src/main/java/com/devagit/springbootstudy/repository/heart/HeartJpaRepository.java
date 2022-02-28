@@ -1,6 +1,6 @@
 package com.devagit.springbootstudy.repository.heart;
 
-import com.devagit.springbootstudy.domain.heart.Heart;
+import com.devagit.springbootstudy.domain.Heart;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

@@ -1,18 +1,21 @@
 package com.devagit.springbootstudy.service;
 
 
-import com.devagit.springbootstudy.domain.post.Post;
-import com.devagit.springbootstudy.exceptionHandler.NotFoundException;
+import com.devagit.springbootstudy.domain.Post;
+import com.devagit.springbootstudy.exceptionHandler.badrequest.PostBadRequestException;
+import com.devagit.springbootstudy.exceptionHandler.notfound.NotFoundException;
+import com.devagit.springbootstudy.exceptionHandler.notfound.PostNotFoundException;
 import com.devagit.springbootstudy.repository.post.PostRepository;
 import com.devagit.springbootstudy.util.MakePageAble;
 import com.devagit.springbootstudy.view.post.PostListView;
 import com.devagit.springbootstudy.view.post.PostView;
 import org.springframework.data.domain.Pageable;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 
-import java.sql.Timestamp;
-import java.util.Date;
+import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -30,7 +33,7 @@ public class PostService {
     public PostService(PostRepository postRepository) {
         this.postRepository = postRepository;
     }
-
+    @Transactional
     public int addPost(int categoryId, int subCategoryId, String userId, String title, String contents, String source) {
         Post post = Post.builder()
                 .categoryId(categoryId)
@@ -49,7 +52,7 @@ public class PostService {
         return PostView.from(post);
     }
 
-    public List<PostListView> getPostList(int subCategoryId, Timestamp postCursor, int page, Integer size) {
+    public List<PostListView> getPostList(int subCategoryId,@Nullable LocalDateTime postCursor, int page,@Nullable Integer size) {
         if (postCursor == null) {
             postCursor = currentTime;
         }
@@ -67,18 +70,18 @@ public class PostService {
                 .collect(Collectors.toList());
         return posts;
     }
-
+    @Transactional
     public void deletePostById(int id, String userId) {
-        Post post = Optional.ofNullable(postRepository.findById(id)).orElseThrow(() -> new NotFoundException("삭제할 아이디가 존재하지 않습니다"));
+        Post post = Optional.ofNullable(postRepository.findById(id)).orElseThrow(() -> new PostNotFoundException("삭제할 게시글이 존재하지 않습니다"));
         if (userId.equals(post.getUserId())) {
             postRepository.deletePostById(id);
         }
     }
-
-    public int updatePost(int id, int subCategoryId, String userId, String title, String contents, String source, Date createAt) {
+    @Transactional
+    public int updatePost(int id, int subCategoryId, String userId, String title, String contents, @Nullable String source, LocalDateTime createAt) {
         Post post = postRepository.findById(id);
         if (!userId.equals(post.getUserId())) {
-            throw new NotFoundException("아이디가 일치하지 않습니다");
+            throw new PostBadRequestException("아이디가 일치하지 않습니다");
         }
         post.setSubCategoryId(subCategoryId);
         post.setTitle(title);
@@ -90,7 +93,7 @@ public class PostService {
 
     }
 
-    public List<PostListView> findPostsByTitle(String keyword, Timestamp searchCursor, int page, Integer size) {
+    public List<PostListView> findPostsByTitle(String keyword, LocalDateTime searchCursor, int page, Integer size) {
         if (searchCursor == null) {
             searchCursor = currentTime;
         }

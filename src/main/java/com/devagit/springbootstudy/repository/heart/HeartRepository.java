@@ -1,8 +1,6 @@
 package com.devagit.springbootstudy.repository.heart;
 
-import com.devagit.springbootstudy.domain.heart.Heart;
-
-import java.util.List;
+import com.devagit.springbootstudy.domain.Heart;
 
 public interface HeartRepository {
 

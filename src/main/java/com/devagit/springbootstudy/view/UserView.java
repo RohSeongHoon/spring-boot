@@ -1,6 +1,6 @@
 package com.devagit.springbootstudy.view;
 
-import com.devagit.springbootstudy.domain.user.User;
+import com.devagit.springbootstudy.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

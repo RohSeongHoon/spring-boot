@@ -1,4 +1,4 @@
-package com.devagit.springbootstudy.domain.post;
+package com.devagit.springbootstudy.domain;
 
 
 import lombok.Builder;
@@ -8,7 +8,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -33,10 +33,10 @@ public class Post {
     private String contents;
     @CreationTimestamp
     @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP", nullable = false)
-    private Date createdAt;
+    private LocalDateTime createdAt;
     @CreationTimestamp
     @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP", nullable = false)
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
     @Column(columnDefinition = "VARCHAR(64)")
     private String source;
 
