@@ -39,15 +39,21 @@ public class Post {
     private LocalDateTime updatedAt;
     @Column(columnDefinition = "VARCHAR(64)")
     private String source;
+    @Column(columnDefinition = "INT DEFAULT 0")
+    private int commentCnt;
+    @Column(columnDefinition = "INT DEFAULT 0")
+    private  int heartCnt;
 
     @Builder
-    public Post(int categoryId, int subCategoryId, String userId, String title, String contents, String source) {
+    public Post(int categoryId, int subCategoryId, String userId, String title, String contents, String source,int commentCnt,int heartCnt) {
         this.categoryId = categoryId;
         this.subCategoryId = subCategoryId;
         this.userId = userId;
         this.title = title;
         this.contents = contents;
         this.source = source;
+        this.commentCnt = commentCnt;
+        this.heartCnt = heartCnt;
 
     }
 }
