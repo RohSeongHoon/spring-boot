@@ -19,7 +19,7 @@ public class CommentRepositoryImpl implements CommentRepository {
     }
 
     @Override
-    public Optional<Comment> save(Comment comment) {
+    public Comment save(Comment comment) {
         return commentJpaRepository.save(comment);
     }
 
@@ -30,7 +30,7 @@ public class CommentRepositoryImpl implements CommentRepository {
 
     @Override
     public long countByParentId(long parentId) {
-        return commentJpaRepository.countByParentId(parentId);
+        return commentJpaRepository.countByParentId(parentId).orElseThrow();
     }
 
     @Override

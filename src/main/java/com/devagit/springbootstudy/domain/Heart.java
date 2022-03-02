@@ -16,7 +16,7 @@ public class Heart {
     @GeneratedValue
     @Id
     private long id;
-    @Column(columnDefinition = "long")
+    @Column(columnDefinition = "INT")
     private long postId;
     @Column(columnDefinition = "VARCHAR(32)", nullable = false)
     private String userId;

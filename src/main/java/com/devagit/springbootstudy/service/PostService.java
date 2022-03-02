@@ -3,7 +3,6 @@ package com.devagit.springbootstudy.service;
 
 import com.devagit.springbootstudy.domain.Post;
 import com.devagit.springbootstudy.exceptionHandler.badrequest.PostBadRequestException;
-import com.devagit.springbootstudy.exceptionHandler.notfound.NotFoundException;
 import com.devagit.springbootstudy.exceptionHandler.notfound.PostNotFoundException;
 import com.devagit.springbootstudy.repository.post.PostRepository;
 import com.devagit.springbootstudy.util.MakePageAble;
@@ -77,7 +76,7 @@ public class PostService {
 
     @Transactional
     public void deletePostById(long id, String userId) {
-        Post post = Optional.ofNullable(postRepository.findById(id)).orElseThrow(() -> new PostNotFoundException());
+        Post post = Optional.ofNullable(postRepository.findById(id)).orElseThrow(PostNotFoundException::new);
         if (userId.equals(post.getUserId())) {
             postRepository.deletePostById(id);
         }

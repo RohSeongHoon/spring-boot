@@ -9,13 +9,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-public interface CommentJpaRepository extends JpaRepository<Comment, Integer> {
+public interface CommentJpaRepository extends JpaRepository<Comment, Long> {
 
-    Optional<Comment> save(Comment comment);
+    Comment save(Comment comment);
 
     List<Comment> findByPostIdAndCreatedAtLessThanEqualOrderBySortsAsc(long postId, LocalDateTime commentCursor, Pageable pageable);
 
-    long countByParentId(long parentId);
+    Optional<Long> countByParentId(long parentId);
 
     long deleteCommentsById(long id);
 

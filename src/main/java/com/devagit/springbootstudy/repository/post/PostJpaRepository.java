@@ -8,7 +8,7 @@ import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface PostJpaRepository extends JpaRepository<Post, Integer> {
+public interface PostJpaRepository extends JpaRepository<Post, Long> {
     Post findById(long id);
 
     List<Post> findByUserId(String userId);

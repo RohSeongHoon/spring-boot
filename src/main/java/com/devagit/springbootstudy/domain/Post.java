@@ -19,11 +19,11 @@ public class Post {
 
     @GeneratedValue
     @Id
-    @Column(columnDefinition = "long", nullable = false, unique = true)
+    @Column(columnDefinition = "INT", nullable = false, unique = true)
     private long id;
-    @Column(columnDefinition = "long", nullable = false)
+    @Column(columnDefinition = "INT", nullable = false)
     private int categoryId;
-    @Column(columnDefinition = "long", nullable = false)
+    @Column(columnDefinition = "INT", nullable = false)
     private int subCategoryId;
     @Column(columnDefinition = "VARCHAR(32)", nullable = false)
     private String userId;
@@ -39,9 +39,9 @@ public class Post {
     private LocalDateTime updatedAt;
     @Column(columnDefinition = "VARCHAR(64)")
     private String source;
-    @Column(columnDefinition = "long DEFAULT 0")
+    @Column(columnDefinition = "INT DEFAULT 0")
     private long commentCnt;
-    @Column(columnDefinition = "long DEFAULT 0")
+    @Column(columnDefinition = "INT DEFAULT 0")
     private  long heartCnt;
 
     @Builder

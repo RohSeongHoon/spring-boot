@@ -37,7 +37,7 @@ public class CommentService {
                 .content(content)
                 .sorts(sorts)
                 .build();
-        return CommentView.from(commentRepository.save(comment).get());
+        return CommentView.from(commentRepository.save(comment));
     }
 
 

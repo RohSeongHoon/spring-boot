@@ -4,6 +4,7 @@ import com.devagit.springbootstudy.domain.Heart;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Repository
 public class HeartRepositoryImpl implements HeartRepository {
@@ -19,7 +20,7 @@ public class HeartRepositoryImpl implements HeartRepository {
     }
 
     @Override
-    public int countByPostId(long postId) {
+    public long countByPostId(long postId) {
         return heartJpaRepository.countByPostId(postId);
     }
 
@@ -29,7 +30,7 @@ public class HeartRepositoryImpl implements HeartRepository {
     }
 
     @Override
-    public Heart findByPostIdAndUserId(long postId, String userId) {
+    public Optional<Heart> findByPostIdAndUserId(long postId, String userId) {
         return heartJpaRepository.findByPostIdAndUserId(postId, userId);
     }
 

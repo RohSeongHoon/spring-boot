@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface CommentRepository {
 
-    Optional<Comment> save(Comment comment);
+    Comment save(Comment comment);
 
 
     List<Comment> findByPostIdAndCreatedAtLessThanEqualOrderBySortsAsc(long postIdr, LocalDateTime commentCursor, Pageable pageable);

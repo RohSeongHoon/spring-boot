@@ -20,15 +20,15 @@ public class Comment {
     @GeneratedValue
     private long id;
     @Nullable
-    @Column(columnDefinition = "long default 0")
+    @Column(columnDefinition = "INT DEFAULT 0")
     private long parentId;
-    @Column(columnDefinition = "long", nullable = false)
+    @Column(columnDefinition = "INT", nullable = false)
     private long postId;
     @Column(columnDefinition = "VARCHAR(32)", nullable = false)
     private String userId;
     @Column(columnDefinition = "VARCHAR(32)", nullable = false)
     private String content;
-    @Column(columnDefinition = "long default 0")
+    @Column(columnDefinition = "INT DEFAULT 0")
     private long sorts;
     @CreationTimestamp
     @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")

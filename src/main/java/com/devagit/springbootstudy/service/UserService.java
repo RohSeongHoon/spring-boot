@@ -2,7 +2,6 @@ package com.devagit.springbootstudy.service;
 
 import com.devagit.springbootstudy.domain.User;
 import com.devagit.springbootstudy.exceptionHandler.badrequest.UserBadRequestException;
-import com.devagit.springbootstudy.exceptionHandler.notfound.NotFoundException;
 import com.devagit.springbootstudy.exceptionHandler.notfound.UserNotFoundException;
 import com.devagit.springbootstudy.view.UserView;
 import com.devagit.springbootstudy.repository.user.UserRepository;
@@ -57,14 +56,14 @@ public class UserService {
 
     public UserView findByUsername(String username) {
         User user = Optional.ofNullable(userRepository.findByUserId(username))
-                .orElseThrow(() -> new UserNotFoundException("존재하지 않는 회원입니다"));
+                .orElseThrow(UserNotFoundException::new);
         return UserView.from(user);
     }
 
 
     public String findPasswordByUserId(String userId, String username, String userPhoneNumber) {
         User user = Optional.ofNullable(userRepository.findByUserId(userId))
-                .orElseThrow(() -> new UserNotFoundException("존재하지 않는 회원입니다"));
+                .orElseThrow(UserNotFoundException::new);
         if (!username.equals(user.getUsername()) && userPhoneNumber.equals(user.getPhoneNumber())) {
             throw new UserBadRequestException("회원 정보가 일치하지 않습니다");
         }
@@ -75,7 +74,7 @@ public class UserService {
 
     public String findIdByPhoneNumber(String phoneNumber, String username) {
         User user = Optional.ofNullable(userRepository.findByPhoneNumber(phoneNumber))
-                .orElseThrow(() -> new UserNotFoundException("존재하지 않는 전화번호입니다"));
+                .orElseThrow(UserNotFoundException::new);
         if (!user.getPhoneNumber().equals(phoneNumber) && user.getUsername().equals(username)) {
             throw new UserBadRequestException("회원 정보가 일치하지 않습니다");
         }
@@ -95,7 +94,7 @@ public class UserService {
     //회원 정보 변경 ===================================
     public void changeUserPassword(String userId, String password, String newPassword) {
         User user = Optional.ofNullable(userRepository.findByUserId(userId))
-                .orElseThrow(() -> new UserNotFoundException("존재하지 않는 회원입니다"));
+                .orElseThrow(UserNotFoundException::new);
         if (!user.getPassword().equals(password)) {
             throw new UserBadRequestException("회원정보가 일치하지 않습니다");
         }
@@ -105,7 +104,7 @@ public class UserService {
 
     public void changePersonalInfo(String userId, String password, String username, String phoneNumber) {
         User user = Optional.ofNullable(userRepository.findByUserId(userId))
-                .orElseThrow(() -> new UserNotFoundException("존재하지 않는 회원입니다"));
+                .orElseThrow(UserNotFoundException::new);
         if (!user.getPassword().equals(password)) {
             throw new UserBadRequestException("회원정보가 일치하지 않습니다");
         }
@@ -118,7 +117,7 @@ public class UserService {
 
     public void deleteUser(String userId, String password) {
         User user = Optional.ofNullable(userRepository.findByUserId(userId))
-                .orElseThrow(() ->  new UserNotFoundException("존재하지 않는 회원입니다"));
+                .orElseThrow(UserNotFoundException::new);
         if (!user.getPassword().equals(password)) {
             throw  new UserBadRequestException("회원정보가 일치하지 않습니다");
         }
