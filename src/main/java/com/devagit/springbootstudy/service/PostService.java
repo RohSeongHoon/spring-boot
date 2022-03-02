@@ -50,7 +50,7 @@ public class PostService {
     }
 
     public PostView getPost(long id) {
-        Post post = Optional.ofNullable(postRepository.findById(id)).orElseThrow(() -> new NotFoundException("게시글이 존재하지 않습니다"));
+        Post post = Optional.ofNullable(postRepository.findById(id)).orElseThrow(() -> new PostNotFoundException());
         return PostView.from(post);
     }
 
@@ -77,7 +77,7 @@ public class PostService {
 
     @Transactional
     public void deletePostById(long id, String userId) {
-        Post post = Optional.ofNullable(postRepository.findById(id)).orElseThrow(() -> new PostNotFoundException("삭제할 게시글이 존재하지 않습니다"));
+        Post post = Optional.ofNullable(postRepository.findById(id)).orElseThrow(() -> new PostNotFoundException());
         if (userId.equals(post.getUserId())) {
             postRepository.deletePostById(id);
         }
@@ -111,9 +111,16 @@ public class PostService {
     }
 
     @Transactional
-    public void setHeartCnt(long postId, int modifyCnt) {
+    public void plusHeartCnt(long postId) {
         Post post = postRepository.findById(postId); // optional추가 이것도 + - 나누기
-        post.setHeartCnt(post.getHeartCnt() + modifyCnt);
+        post.setHeartCnt(post.getHeartCnt() + 1);
+        postRepository.save(post);
+    }
+
+    @Transactional
+    public void minusHeartCnt(long postId) {
+        Post post = postRepository.findById(postId); // optional추가 이것도 + - 나누기
+        post.setHeartCnt(post.getHeartCnt() - 1);
         postRepository.save(post);
     }
 }

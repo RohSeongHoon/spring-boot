@@ -23,21 +23,19 @@ public class HeartService {
     @Transactional
     public boolean addHeart(long postId, String userId) {
         heartRepository.save(new Heart(postId, userId));
-        postService.setHeartCnt(postId, 1);
+        postService.plusHeartCnt(postId);
         return true;
     }
 
     @Transactional
-    public boolean deleteHeart(long postId, String userId) {
-        Heart heart = Optional.ofNullable(heartRepository.findByPostIdAndUserId(postId, userId)).orElseThrow(HeartNotFoundException::new); // optional로받아오기 jpa
-        //heartRepository.deleteByPostIdAndUserId(postId, userId);
-        heartRepository.delete(heart);
-        postService.setHeartCnt(postId, -1);
+    public boolean deleteHeart(long postId, String userId) {// optional로받아오기 jpa
+        heartRepository.delete(new Heart(postId,userId));
+        postService.minusHeartCnt(postId);
         return false;
     }
   //
-    public Boolean findHeartByUserId(long postId, String userId) {
-        Heart heart = heartRepository.findByPostIdAndUserId(postId, userId);
+    public Boolean findByUserId(long postId, String userId) {
+        Heart heart = heartRepository.findByPostIdAndUserId(postId, userId).orElse(null);
         if (heart == null) {
             return true;
         }
