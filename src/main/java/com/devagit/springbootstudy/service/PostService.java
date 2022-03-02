@@ -5,9 +5,10 @@ import com.devagit.springbootstudy.domain.Post;
 import com.devagit.springbootstudy.exceptionHandler.badrequest.PostBadRequestException;
 import com.devagit.springbootstudy.exceptionHandler.notfound.PostNotFoundException;
 import com.devagit.springbootstudy.repository.post.PostRepository;
-import com.devagit.springbootstudy.util.MakePageAble;
+import com.devagit.springbootstudy.util.Page;
 import com.devagit.springbootstudy.view.post.PostListView;
 import com.devagit.springbootstudy.view.post.PostView;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import static com.devagit.springbootstudy.util.MakePageAble.currentTime;
 
 
 @Service
@@ -53,16 +52,17 @@ public class PostService {
         return PostView.from(post);
     }
 
-    public List<PostListView> getPostList(int subCategoryId, @Nullable LocalDateTime postCursor, int page, @Nullable Integer size) {
+    public Page<PostListView> getPostList(int subCategoryId, @Nullable LocalDateTime postCursor, int page, @Nullable Integer size) {
         if (postCursor == null) { //currentTime은 무조건 메소드내부에서 생성
-            postCursor = LocalDateTime.parse(currentTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+            postCursor = LocalDateTime.now();
         }
+        Pageable pageable = PageRequest.of(page, size);
         postCursor.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-        Pageable pageable = MakePageAble.makePageAble(page, size);
-        return postRepository.findBySubCategoryIdAndCreatedAtLessThanEqualOrderByCreatedAtDesc(subCategoryId, postCursor, pageable)
+        List<PostListView> postListViews = postRepository.findBySubCategoryIdAndCreatedAtLessThanEqualOrderByCreatedAtDesc(subCategoryId, postCursor, pageable)
                 .stream()
                 .map(PostListView::from)
                 .collect(Collectors.toList());
+        return Page.convert(postListViews,PostListView::getCreatedAt,postListViews.size(),null);
     }
 
 
@@ -100,10 +100,9 @@ public class PostService {
 
     public List<PostListView> findPostsByTitle(String keyword, LocalDateTime searchCursor, int page, Integer size) {
         if (searchCursor == null) {
-            searchCursor = currentTime;
+            searchCursor = LocalDateTime.now();
         }
-        Pageable pageable = MakePageAble.makePageAble(size, page);
-        return postRepository.findByTitleContainsAndCreatedAtLessThanEqualOrderByCreatedAtDesc(keyword, searchCursor, pageable)
+        return postRepository.findByTitleContainsAndCreatedAtLessThanEqualOrderByCreatedAtDesc(keyword, searchCursor, PageRequest.of(page, size))
                 .stream()
                 .map(PostListView::from)
                 .collect(Collectors.toList());
