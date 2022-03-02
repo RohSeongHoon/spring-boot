@@ -19,18 +19,23 @@ public class HeartRepositoryImpl implements HeartRepository {
     }
 
     @Override
-    public int countByPostId(int postId) {
+    public int countByPostId(long postId) {
         return heartJpaRepository.countByPostId(postId);
     }
 
     @Override
-    public Heart findByPostIdAndUserId(int postId, String userId) {
+    public void delete(Heart heart) {
+        heartJpaRepository.delete(heart);
+    }
+
+    @Override
+    public Heart findByPostIdAndUserId(long postId, String userId) {
         return heartJpaRepository.findByPostIdAndUserId(postId, userId);
     }
 
     @Override
     @Transactional
-    public void deleteByPostIdAndUserId(int postId, String userId) {
+    public void deleteByPostIdAndUserId(long postId, String userId) {
         heartJpaRepository.deleteByPostIdAndUserId(postId, userId);
     }
 

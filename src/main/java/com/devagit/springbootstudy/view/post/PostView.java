@@ -12,7 +12,7 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 public class PostView {
-    private int id;
+    private long id;
     private int subCategoryId;
     private String userId;
     private String title;
@@ -21,7 +21,7 @@ public class PostView {
     private LocalDateTime createdAt;
 
     @Builder
-    public PostView(int id, int subCategoryId, String userId, String title, String contents, String source, LocalDateTime createdAt) {
+    public PostView(long id, int subCategoryId, String userId, String title, String contents, String source, LocalDateTime createdAt) {
         this.id = id;
         this.subCategoryId = subCategoryId;
         this.userId = userId;

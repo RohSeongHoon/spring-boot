@@ -15,13 +15,13 @@ public class Heart {
 
     @GeneratedValue
     @Id
-    private int id;
-    @Column(columnDefinition = "INT")
-    private int postId;
+    private long id;
+    @Column(columnDefinition = "long")
+    private long postId;
     @Column(columnDefinition = "VARCHAR(32)", nullable = false)
     private String userId;
 
-    public Heart(int postId, String userId) {
+    public Heart(long postId, String userId) {
         this.postId = postId;
         this.userId = userId;
     }

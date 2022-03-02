@@ -23,7 +23,7 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public Post findById(int id) {
+    public Post findById(long id) {
         return postJpaRepository.findById(id);
     }
 
@@ -33,7 +33,7 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public void deletePostById(int id) {
+    public void deletePostById(long id) {
         postJpaRepository.deletePostById(id);
     }
 

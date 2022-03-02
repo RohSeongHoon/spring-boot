@@ -23,12 +23,12 @@ public class PostController {
     }
 
     @PostMapping("api/v1/posts")
-    public int addPost(@RequestBody addPostRequest req) {
+    public long addPost(@RequestBody addPostRequest req) {
         return postService.addPost(req.getCategoryId(), req.getSubCategoryId(), req.getUserId(), req.getTitle(), req.getContents(), req.getSource());
     }
 
     @GetMapping("api/v1/posts")
-    public PostView getPost(@RequestParam(required = false) int id) {
+    public PostView getPost(@RequestParam(required = false) long id) {
         return postService.getPost(id);
     }
 
@@ -48,12 +48,12 @@ public class PostController {
     }
 
     @PutMapping("api/v1/posts")
-    public int updatePost(@RequestBody UpdateRequest req) {
+    public long updatePost(@RequestBody UpdateRequest req) {
         return postService.updatePost(req.getId(), req.getSubCategoryId(), req.getUserId(), req.getTitle(), req.getContents(), req.getSource(), req.getCreatedAt());
     }
 
     @GetMapping("api/v1/posts/search")
-    public List<PostListView> findPostsByTitle(@RequestParam(required = false) String keyword,LocalDateTime searchCursor, int page,@Nullable Integer size) {
+    public List<PostListView> findPostsByTitle(@RequestParam(required = false) String keyword,LocalDateTime searchCursor, int page,@Nullable int size) {
         return postService.findPostsByTitle(keyword, searchCursor, page, size);
     }
 

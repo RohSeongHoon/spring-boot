@@ -8,10 +8,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class DeleteCommentRequest {
-    private int id;
+    private long id;
     private String userId;
 
-    public DeleteCommentRequest(int id, String userId) {
+    public DeleteCommentRequest(long id, String userId) {
         this.id = id;
         this.userId = userId;
     }

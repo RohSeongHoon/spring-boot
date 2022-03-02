@@ -20,15 +20,19 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    //Nullable어노테이션을 붙여야함 integer
+    //Nullable어노테이션을 붙여야함 eger
     @PostMapping("/api/v1/comments")
     public CommentView addComment(@RequestBody CommentRequest req) {
         return commentService.addComment(req.getParentId(), req.getPostId(), req.getUserId(), req.getContent(), req.getSorts());
     }
 
     @GetMapping("/api/v1/comments/list")
-    public List<CommentView> getCommentsList(@RequestParam int postId, @Nullable LocalDateTime commentCursor, int page, int size) {
+    public List<CommentView> getCommentsList(@RequestParam long postId, @Nullable LocalDateTime commentCursor,int page,int size) {
         return commentService.getCommentsList(postId, commentCursor, page, size);
+    }
+    @GetMapping("api/v1/comments")
+    public List<CommentView> getCommentsByUserId(@RequestParam(required = false) String userId){
+        return commentService.getCommentsByUserId(userId);
     }
     @DeleteMapping("/api/v1/comments")
     public long deleteComment(@RequestBody DeleteCommentRequest req) {

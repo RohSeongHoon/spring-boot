@@ -5,11 +5,13 @@ import com.devagit.springbootstudy.domain.Heart;
 public interface HeartRepository {
 
 
-    Heart findByPostIdAndUserId(int postId, String userId);
+    Heart findByPostIdAndUserId(long postId, String userId);
 
-    void deleteByPostIdAndUserId(int postId, String userId);
+    void deleteByPostIdAndUserId(long postId, String userId);
 
     void save(Heart heart);
 
-    int countByPostId(int postId);
+    int countByPostId(long postId);
+
+    void delete(Heart heart);
 }

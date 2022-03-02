@@ -7,18 +7,21 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface CommentJpaRepository extends JpaRepository<Comment, Integer> {
 
-    Comment save(Comment comment);
+    Optional<Comment> save(Comment comment);
 
-    List<Comment> findByPostIdAndCreatedAtLessThanEqualOrderBySortsAsc(int postId, LocalDateTime commentCursor, Pageable pageable);
+    List<Comment> findByPostIdAndCreatedAtLessThanEqualOrderBySortsAsc(long postId, LocalDateTime commentCursor, Pageable pageable);
 
-    long countByParentId(int parentId);
+    long countByParentId(long parentId);
 
-    long deleteCommentsById(int id);
+    long deleteCommentsById(long id);
 
-    void deleteCommentsByPostId(int postId);
+    void deleteCommentsByPostId(long postId);
 
-    Comment findById(int id);
+    Optional<Comment> findById(long id);
+
+    List<Comment> findByUserId(String userId);
 }

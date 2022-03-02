@@ -18,7 +18,7 @@ import javax.persistence.*;
 public class User {
     @Id
     @GeneratedValue
-    private int id;
+    private long id;
     @Column(columnDefinition = "VARCHAR(20)", nullable = false)
     private String username;
     @Column(columnDefinition = "VARCHAR(20)", nullable = false, unique = true)

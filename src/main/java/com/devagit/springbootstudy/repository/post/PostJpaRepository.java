@@ -9,12 +9,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface PostJpaRepository extends JpaRepository<Post, Integer> {
-    Post findById(int id);
+    Post findById(long id);
 
     List<Post> findByUserId(String userId);
 
     @Transactional
-    void deletePostById(int id);
+    void deletePostById(long id);
 
     List<Post> findBySubCategoryIdAndCreatedAtLessThanEqualOrderByCreatedAtDesc(int subCategoryId, LocalDateTime postCursor, Pageable page);
 

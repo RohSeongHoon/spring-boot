@@ -13,11 +13,11 @@ public class HeartController {
     }
 
     @PostMapping("api/v1/{postId}/heart")
-    public boolean addHeart(@PathVariable("postId") int postId, @RequestBody AddOrDeleteHeartRequest req) {
+    public boolean addHeart(@PathVariable("postId") long postId, @RequestBody AddOrDeleteHeartRequest req) {
         return heartService.addHeart(postId, req.getUserId());
     }
     @DeleteMapping("api/v1/{postId}/heart")
-        public boolean deleteHeart(@PathVariable("postId") int postId,@RequestBody AddOrDeleteHeartRequest req){
+        public boolean deleteHeart(@PathVariable("postId") long postId,@RequestBody AddOrDeleteHeartRequest req){
         return heartService.deleteHeart(postId,req.getUserId());
         }
 }

@@ -10,12 +10,12 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 public class UpdateCommentRequest {
-    private int id;
+    private long id;
     private String userId;
     private String content;
     private LocalDateTime createdAt;
 
-    public UpdateCommentRequest(int id,String userId, String content, LocalDateTime createdAt) {
+    public UpdateCommentRequest(long id,String userId, String content, LocalDateTime createdAt) {
         this.id = id;
         this.userId = userId;
         this.content = content;

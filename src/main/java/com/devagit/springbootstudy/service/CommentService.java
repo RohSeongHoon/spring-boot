@@ -3,7 +3,6 @@ package com.devagit.springbootstudy.service;
 import com.devagit.springbootstudy.domain.Comment;
 import com.devagit.springbootstudy.exceptionHandler.badrequest.CommentBadRequestException;
 import com.devagit.springbootstudy.exceptionHandler.notfound.CommentNotFoundException;
-import com.devagit.springbootstudy.exceptionHandler.notfound.NotFoundException;
 import com.devagit.springbootstudy.repository.comment.CommentRepository;
 import com.devagit.springbootstudy.util.MakePageAble;
 import com.devagit.springbootstudy.view.comment.CommentView;
@@ -28,8 +27,9 @@ public class CommentService {
     public CommentService(CommentRepository commentRepository) {
         this.commentRepository = commentRepository;
     }
+
     @Transactional
-    public CommentView addComment(@Nullable Integer parentId, int postId, String userId, String content, int sorts) {
+    public CommentView addComment(@Nullable Integer parentId, long postId, String userId, String content, int sorts) {
         Comment comment = Comment.builder()
                 .parentId(parentId)
                 .postId(postId)
@@ -37,11 +37,11 @@ public class CommentService {
                 .content(content)
                 .sorts(sorts)
                 .build();
-        return CommentView.from(commentRepository.save(comment));
+        return CommentView.from(commentRepository.save(comment).get());
     }
 
 
-    public List<CommentView> getCommentsList(int postId,@Nullable LocalDateTime commentCursor, int page, int size) {
+    public List<CommentView> getCommentsList(long postId, @Nullable LocalDateTime commentCursor, int page, int size) {
         if (commentCursor == null) {
             commentCursor = currentTime;
         }
@@ -54,9 +54,16 @@ public class CommentService {
                 .collect(Collectors.toList());
     }
 
+    public List<CommentView> getCommentsByUserId(String userId) {
+        return Optional.ofNullable(commentRepository.findByUserId(userId)).orElseThrow(CommentNotFoundException::new)
+                .stream()
+                .map(CommentView::from)
+                .collect(Collectors.toList());
+    }
+
     @Transactional
-    public long deleteComment(int id, String userId) {
-        Comment comment = Optional.ofNullable(commentRepository.findById(id)).orElseThrow(() -> new CommentNotFoundException("없는 정보입니다"));
+    public long deleteComment(long id, String userId) {
+        Comment comment = commentRepository.findById(id).orElseThrow(CommentNotFoundException::new);
         if (!userId.equals(comment.getUserId())) {
             throw new CommentBadRequestException("정보가 일치하지 않습니다");
         }//badrequest
@@ -67,9 +74,10 @@ public class CommentService {
         commentRepository.deleteCommentsById(id);
         return 0;
     }
+
     @Transactional
-    public CommentView updateComments(int id, String userId, String content, LocalDateTime createdAt) {
-        Comment comment = Optional.ofNullable(commentRepository.findById(id)).orElseThrow(() -> new CommentNotFoundException("없는 정보입니다"));
+    public CommentView updateComments(long id, String userId, String content, LocalDateTime createdAt) {
+        Comment comment = commentRepository.findById(id).orElseThrow(CommentNotFoundException::new);
         if (!userId.equals(comment.getUserId())) {
             throw new CommentBadRequestException("정보가 일치하지 않습니다");
         }

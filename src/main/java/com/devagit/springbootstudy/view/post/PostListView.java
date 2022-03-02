@@ -11,14 +11,14 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 public class PostListView {
-    private int id;
+    private long id;
     private int subCategoryId;
     private String userId;
     private String title;
     private LocalDateTime createdAt;
 
     @Builder
-    public PostListView(int id, int subCategoryId, String userId, String title, LocalDateTime createdAt) {
+    public PostListView(long id, int subCategoryId, String userId, String title, LocalDateTime createdAt) {
         this.id = id;
         this.subCategoryId = subCategoryId;
         this.userId = userId;

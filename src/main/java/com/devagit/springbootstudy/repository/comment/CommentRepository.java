@@ -5,19 +5,22 @@ import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface CommentRepository {
 
-    Comment save(Comment comment);
+    Optional<Comment> save(Comment comment);
 
 
-    List<Comment> findByPostIdAndCreatedAtLessThanEqualOrderBySortsAsc(int postIdr, LocalDateTime commentCursor, Pageable pageable);
+    List<Comment> findByPostIdAndCreatedAtLessThanEqualOrderBySortsAsc(long postIdr, LocalDateTime commentCursor, Pageable pageable);
 
-    long countByParentId(int parentId);
+    long countByParentId(long parentId);
 
-    long deleteCommentsById(int id);
+    long deleteCommentsById(long id);
 
-    void deleteCommentsByPostId(int postId);
+    void deleteCommentsByPostId(long postId);
 
-    Comment findById(int id);
+    Optional<Comment> findById(long id);
+
+    List<Comment> findByUserId(String userId);
 }

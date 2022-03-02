@@ -12,11 +12,11 @@ public interface PostRepository {
 
     Post save(Post post);
 
-    Post findById(int id);
+    Post findById(long id);
 
     List<Post> findByUserId(String userId);
 
-    void deletePostById(int id);
+    void deletePostById(long id);
 
     List<Post> findBySubCategoryIdAndCreatedAtLessThanEqualOrderByCreatedAtDesc(int subCategoryId, LocalDateTime postCursor, Pageable page);
 

@@ -10,10 +10,10 @@ import org.springframework.http.ResponseEntity;
 public class ErrorResponse {
     private String message;
     private String error;
-    private int status;
+    private long status;
 
     @Builder
-    private ErrorResponse(String error, String message, int status) {
+    private ErrorResponse(String error, String message, long status) {
         this.error = error;
         this.message = message;
         this.status = status;

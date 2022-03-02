@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
 public class HeartService {
     private HeartRepository heartRepository;
-    private PostService postService;
+    private PostService postService; //원래는 event로 한다고함
 
     public HeartService(HeartRepository heartRepository, PostService postService) {
         this.heartRepository = heartRepository;
@@ -21,28 +21,28 @@ public class HeartService {
 
     //두개로 나눠야함
     @Transactional
-    public boolean addHeart(int postId, String userId) {
+    public boolean addHeart(long postId, String userId) {
         heartRepository.save(new Heart(postId, userId));
         postService.setHeartCnt(postId, 1);
         return true;
     }
 
     @Transactional
-    public boolean deleteHeart(int postId, String userId) {
-        Optional.ofNullable(heartRepository.findByPostIdAndUserId(postId, userId)).orElseThrow(() -> new HeartNotFoundException("못찾음"));
-        heartRepository.deleteByPostIdAndUserId(postId, userId);
+    public boolean deleteHeart(long postId, String userId) {
+        Heart heart = Optional.ofNullable(heartRepository.findByPostIdAndUserId(postId, userId)).orElseThrow(HeartNotFoundException::new); // optional로받아오기 jpa
+        //heartRepository.deleteByPostIdAndUserId(postId, userId);
+        heartRepository.delete(heart);
         postService.setHeartCnt(postId, -1);
         return false;
     }
-
-    public Boolean findHeartByUserId(int postId, String userId) {
+  //
+    public Boolean findHeartByUserId(long postId, String userId) {
         Heart heart = heartRepository.findByPostIdAndUserId(postId, userId);
         if (heart == null) {
             return true;
         }
         return false;
     }
-
 
 
 }

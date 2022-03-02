@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -33,8 +34,9 @@ public class PostService {
     public PostService(PostRepository postRepository) {
         this.postRepository = postRepository;
     }
+
     @Transactional
-    public int addPost(int categoryId, int subCategoryId, String userId, String title, String contents, String source) {
+    public long addPost(int categoryId, int subCategoryId, String userId, String title, String contents, String source) {
         Post post = Post.builder()
                 .categoryId(categoryId)
                 .subCategoryId(subCategoryId)
@@ -47,21 +49,23 @@ public class PostService {
         return post.getId();
     }
 
-    public PostView getPost(int id) {
+    public PostView getPost(long id) {
         Post post = Optional.ofNullable(postRepository.findById(id)).orElseThrow(() -> new NotFoundException("게시글이 존재하지 않습니다"));
         return PostView.from(post);
     }
 
-    public List<PostListView> getPostList(int subCategoryId,@Nullable LocalDateTime postCursor, int page,@Nullable Integer size) {
-        if (postCursor == null) {
-            postCursor = currentTime;
+    public List<PostListView> getPostList(int subCategoryId, @Nullable LocalDateTime postCursor, int page, @Nullable Integer size) {
+        if (postCursor == null) { //currentTime은 무조건 메소드내부에서 생성
+            postCursor = LocalDateTime.parse(currentTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
         }
+        postCursor.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         Pageable pageable = MakePageAble.makePageAble(page, size);
         return postRepository.findBySubCategoryIdAndCreatedAtLessThanEqualOrderByCreatedAtDesc(subCategoryId, postCursor, pageable)
                 .stream()
                 .map(PostListView::from)
                 .collect(Collectors.toList());
     }
+
 
     public List<PostListView> findPostsByUserId(String userId) {
         List<PostListView> posts = postRepository.findByUserId(userId)
@@ -70,15 +74,17 @@ public class PostService {
                 .collect(Collectors.toList());
         return posts;
     }
+
     @Transactional
-    public void deletePostById(int id, String userId) {
+    public void deletePostById(long id, String userId) {
         Post post = Optional.ofNullable(postRepository.findById(id)).orElseThrow(() -> new PostNotFoundException("삭제할 게시글이 존재하지 않습니다"));
         if (userId.equals(post.getUserId())) {
             postRepository.deletePostById(id);
         }
     }
+
     @Transactional
-    public int updatePost(int id, int subCategoryId, String userId, String title, String contents, @Nullable String source, LocalDateTime createAt) {
+    public long updatePost(long id, int subCategoryId, String userId, String title, String contents, @Nullable String source, LocalDateTime createAt) {
         Post post = postRepository.findById(id);
         if (!userId.equals(post.getUserId())) {
             throw new PostBadRequestException("아이디가 일치하지 않습니다");
@@ -102,5 +108,12 @@ public class PostService {
                 .stream()
                 .map(PostListView::from)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void setHeartCnt(long postId, int modifyCnt) {
+        Post post = postRepository.findById(postId); // optional추가 이것도 + - 나누기
+        post.setHeartCnt(post.getHeartCnt() + modifyCnt);
+        postRepository.save(post);
     }
 }

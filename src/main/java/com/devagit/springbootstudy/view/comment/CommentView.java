@@ -11,12 +11,12 @@ import java.util.Date;
 @NoArgsConstructor
 public class CommentView {
     private int parentId;
-    private int postId;
+    private long postId;
     private String userName;
     private String content;
     private LocalDateTime createdAt;
 
-    public CommentView( int postId, String userId, String content,LocalDateTime createdAt) {
+    public CommentView( long postId, String userId, String content,LocalDateTime createdAt) {
         this.postId = postId;
         this.userName = userId;
         this.content = content;

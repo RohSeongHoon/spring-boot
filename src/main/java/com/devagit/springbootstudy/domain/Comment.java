@@ -18,18 +18,18 @@ import java.time.LocalDateTime;
 public class Comment {
     @Id
     @GeneratedValue
-    private int id;
+    private long id;
     @Nullable
-    @Column(columnDefinition = "int default 0")
-    private Integer parentId;
-    @Column(columnDefinition = "int", nullable = false)
-    private int postId;
+    @Column(columnDefinition = "long default 0")
+    private long parentId;
+    @Column(columnDefinition = "long", nullable = false)
+    private long postId;
     @Column(columnDefinition = "VARCHAR(32)", nullable = false)
     private String userId;
     @Column(columnDefinition = "VARCHAR(32)", nullable = false)
     private String content;
-    @Column(columnDefinition = "int default 0")
-    private int sorts;
+    @Column(columnDefinition = "long default 0")
+    private long sorts;
     @CreationTimestamp
     @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime createdAt; //dateTime으로 변경
@@ -39,7 +39,7 @@ public class Comment {
 
 
     @Builder
-    public Comment(int postId, int parentId, int sorts, String userId, String content) {
+    public Comment(long postId, long parentId,long sorts, String userId, String content) {
         this.sorts = sorts;
         this.parentId = parentId;
         this.postId = postId;

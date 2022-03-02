@@ -31,7 +31,7 @@ public class UserController {
     //회원 가입  ===================================
     @PostMapping("/api/v1/users")
     public UserView signUp(@RequestBody UserRequest req) {
-        return userService.signUp(req.getUserId(), req.getUsername(), req.getPassword(), req.getPhoneNumber(), req.getEmail(), req.getProfileImg(), req.getIntroduction(), req.getInstarId());
+        return userService.signUp(req.getUserId(), req.getUsername(), req.getPassword(), req.getPhoneNumber(), req.getEmail(), req.getProfileImg(), req.getlongroduction(), req.getInstarId());
     }
 
     //로그인 ===================================

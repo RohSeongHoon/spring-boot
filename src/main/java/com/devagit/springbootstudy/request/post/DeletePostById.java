@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class DeletePostById {
-    private int id;
+    private long id;
     private String userId;
 
 
-    public DeletePostById(int id, String userId) {
+    public DeletePostById(long id, String userId) {
         this.id = id;
         this.userId = userId;
     }

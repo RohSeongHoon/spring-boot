@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class AddOrDeleteHeartRequest {
-    private int postId;
+    private long postId;
    private String userId;
 
     public AddOrDeleteHeartRequest(String userId) {

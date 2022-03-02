@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class UserView {
-    private int id;
+    private long id;
     private String userName;
     private String userId;
 
-    public UserView(int id, String userName, String userId) {
+    public UserView(long id, String userName, String userId) {
         this.id = id;
         this.userName = userName;
         this.userId = userId;
