@@ -4,6 +4,7 @@ import com.devagit.springbootstudy.request.post.DeletePostById;
 import com.devagit.springbootstudy.request.post.UpdateRequest;
 import com.devagit.springbootstudy.request.post.addPostRequest;
 import com.devagit.springbootstudy.service.PostService;
+import com.devagit.springbootstudy.util.Page;
 import com.devagit.springbootstudy.view.post.PostListView;
 import com.devagit.springbootstudy.view.post.PostView;
 import org.springframework.lang.Nullable;
@@ -33,7 +34,7 @@ public class PostController {
     }
 
     @GetMapping("api/v1/posts/list")
-    public List<PostListView> getPostList(@RequestParam(required = false) int subCategoryId,@Nullable LocalDateTime postCursor, int page,@Nullable int size) {
+    public Page<PostListView> getPostList(@RequestParam(required = false) int subCategoryId, @Nullable LocalDateTime postCursor, int page, @Nullable int size) {
         return postService.getPostList(subCategoryId, postCursor, page, size);
     }
 

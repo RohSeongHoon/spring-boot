@@ -1,6 +1,7 @@
 package com.devagit.springbootstudy.repository.post;
 
 import com.devagit.springbootstudy.domain.Post;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Repository;
 
 import org.springframework.data.domain.Pageable;
