@@ -1,8 +1,11 @@
 package com.devagit.springbootstudy.controller;
 
+import com.devagit.springbootstudy.domain.Heart;
 import com.devagit.springbootstudy.request.heart.AddOrDeleteHeartRequest;
 import com.devagit.springbootstudy.service.HeartService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class HeartController {

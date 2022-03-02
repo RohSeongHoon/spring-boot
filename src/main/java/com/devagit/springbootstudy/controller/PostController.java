@@ -57,6 +57,10 @@ public class PostController {
     public List<PostListView> findPostsByTitle(@RequestParam(required = false) String keyword,LocalDateTime searchCursor, int page,@Nullable int size) {
         return postService.findPostsByTitle(keyword, searchCursor, page, size);
     }
+    @GetMapping("api/v1/posts/likedPost")
+    public List<PostListView> test(@RequestParam(required = false)String userId){
+        return postService.getLikedPost(userId);
+    }
 
 
 }
