@@ -1,12 +1,11 @@
 package com.devagit.springbootstudy.service;
 
 import com.devagit.springbootstudy.domain.Heart;
-import com.devagit.springbootstudy.exceptionHandler.notfound.HeartNotFoundException;
 import com.devagit.springbootstudy.repository.heart.HeartRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Optional;
+import java.util.List;
 
 //count대신 컬럼을 생성
 @Service
@@ -41,6 +40,8 @@ public class HeartService {
         }
         return false;
     }
-
+    public List<Heart> findByUserId(String userId){
+        return heartRepository.findByUserId(userId);
+    }
 
 }

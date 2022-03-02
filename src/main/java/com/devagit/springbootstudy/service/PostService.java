@@ -1,9 +1,11 @@
 package com.devagit.springbootstudy.service;
 
 
+import com.devagit.springbootstudy.domain.Heart;
 import com.devagit.springbootstudy.domain.Post;
 import com.devagit.springbootstudy.exceptionHandler.badrequest.PostBadRequestException;
 import com.devagit.springbootstudy.exceptionHandler.notfound.PostNotFoundException;
+import com.devagit.springbootstudy.repository.heart.HeartRepository;
 import com.devagit.springbootstudy.repository.post.PostRepository;
 import com.devagit.springbootstudy.util.Page;
 import com.devagit.springbootstudy.view.post.PostListView;
@@ -25,12 +27,14 @@ import java.util.stream.Collectors;
 @Service
 public class PostService {
     private final PostRepository postRepository;
+    private final HeartRepository heartRepository;
 //    private final CommentService commentService; 서비스에서 묶어서 같이보내는것이 좋은건지 아니면 프론트에서 따로 조회하는것이 좋은지 모륵세
-//    private final HeartService heartService;
 
 
-    public PostService(PostRepository postRepository) {
+    public PostService(PostRepository postRepository, HeartRepository heartRepository) {
         this.postRepository = postRepository;
+
+        this.heartRepository = heartRepository;
     }
 
     @Transactional
@@ -62,7 +66,7 @@ public class PostService {
                 .stream()
                 .map(PostListView::from)
                 .collect(Collectors.toList());
-        return Page.convert(postListViews,PostListView::getCreatedAt,postListViews.size(),null);
+        return Page.convert(postListViews, PostListView::getCreatedAt, postListViews.size(), null);
     }
 
 
@@ -120,5 +124,10 @@ public class PostService {
         Post post = postRepository.findById(postId); // optional추가 이것도 + - 나누기
         post.setHeartCnt(post.getHeartCnt() - 1);
         postRepository.save(post);
+    }
+
+    public List<PostListView> getLikedPost(String userId) {
+        List<Long> hearts = heartRepository.findByUserId(userId).stream().map(Heart::getPostId).collect(Collectors.toList());
+        return postRepository.findByIdIn(hearts).stream().map(PostListView::from).collect(Collectors.toList());
     }
 }
