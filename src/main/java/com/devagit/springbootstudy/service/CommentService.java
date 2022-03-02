@@ -4,9 +4,8 @@ import com.devagit.springbootstudy.domain.Comment;
 import com.devagit.springbootstudy.exceptionHandler.badrequest.CommentBadRequestException;
 import com.devagit.springbootstudy.exceptionHandler.notfound.CommentNotFoundException;
 import com.devagit.springbootstudy.repository.comment.CommentRepository;
-import com.devagit.springbootstudy.util.MakePageAble;
 import com.devagit.springbootstudy.view.comment.CommentView;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +15,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.devagit.springbootstudy.util.MakePageAble.currentTime;
 
 
 @Service
@@ -43,12 +41,11 @@ public class CommentService {
 
     public List<CommentView> getCommentsList(long postId, @Nullable LocalDateTime commentCursor, int page, int size) {
         if (commentCursor == null) {
-            commentCursor = currentTime;
+            commentCursor = LocalDateTime.now();
         }
         // 응답을 짤때 페이지뷰(view)로 응답을 내릴 수 이싸ㄸ
         //dateTime으로 타입변경 page로 받음 list가아닌
-        Pageable pageable = MakePageAble.makePageAble(page, size);
-        return commentRepository.findByPostIdAndCreatedAtLessThanEqualOrderBySortsAsc(postId, commentCursor, pageable)
+        return commentRepository.findByPostIdAndCreatedAtLessThanEqualOrderBySortsAsc(postId, commentCursor, PageRequest.of(page, size))
                 .stream()
                 .map(CommentView::from)
                 .collect(Collectors.toList());
