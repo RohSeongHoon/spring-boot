@@ -1,5 +1,6 @@
 package com.devagit.springbootstudy.repository.post;
 
+import com.devagit.springbootstudy.domain.Heart;
 import com.devagit.springbootstudy.domain.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Repository;
@@ -47,5 +48,11 @@ public class PostRepositoryImpl implements PostRepository {
     public List<Post> findByTitleContainsAndCreatedAtLessThanEqualOrderByCreatedAtDesc(String keyword, LocalDateTime searchCursor, Pageable page) {
         return postJpaRepository.findByTitleContainsAndCreatedAtLessThanEqualOrderByCreatedAtDesc(keyword, searchCursor, page);
     }
+
+    @Override
+    public List<Post> findByIdIn(List<Long> hearts) {
+        return postJpaRepository.findByIdIn(hearts);
+    }
+
 
 }

@@ -1,5 +1,6 @@
 package com.devagit.springbootstudy.repository.post;
 
+import com.devagit.springbootstudy.domain.Heart;
 import com.devagit.springbootstudy.domain.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,4 +21,6 @@ public interface PostJpaRepository extends JpaRepository<Post, Long> {
     List<Post> findBySubCategoryIdAndCreatedAtLessThanEqualOrderByCreatedAtDesc(int subCategoryId, LocalDateTime postCursor, Pageable page);
 
     List<Post> findByTitleContainsAndCreatedAtLessThanEqualOrderByCreatedAtDesc(String keyword, LocalDateTime searchCursor, Pageable page);
+
+    List<Post> findByIdIn(List<Long> hearts);
 }
