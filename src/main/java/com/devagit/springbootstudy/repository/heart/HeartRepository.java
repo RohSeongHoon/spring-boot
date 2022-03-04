@@ -2,6 +2,7 @@ package com.devagit.springbootstudy.repository.heart;
 
 import com.devagit.springbootstudy.domain.Heart;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface HeartRepository {
@@ -13,7 +14,7 @@ public interface HeartRepository {
 
     void save(Heart heart);
 
-    long countByPostId(long postId);
-
     void delete(Heart heart);
+
+    List<Heart> findByUserId(String userId);
 }
