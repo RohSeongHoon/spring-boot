@@ -126,8 +126,9 @@ public class PostService {
         postRepository.save(post);
     }
 
-    public List<PostListView> getLikedPost(String userId) {
+    public Page<PostListView> getLikedPost(String userId) {
         List<Long> hearts = heartRepository.findByUserId(userId).stream().map(Heart::getPostId).collect(Collectors.toList());
-        return postRepository.findByIdIn(hearts).stream().map(PostListView::from).collect(Collectors.toList());
+        List<PostListView> posts = postRepository.findByIdIn(hearts).stream().map(PostListView::from).collect(Collectors.toList());
+        return  Page.convert(posts,PostListView::getCreatedAt,posts.size(),null);
     }
 }
