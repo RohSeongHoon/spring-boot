@@ -5,12 +5,12 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class FindIdByUserPhoneNumRequest {
-    private String phoneNumber;
+public class FindIdByUserEmailRequest {
+    private String email;
     private String username;
 
-    public FindIdByUserPhoneNumRequest(String phoneNumber, String username) {
-        this.phoneNumber = phoneNumber;
+    public FindIdByUserEmailRequest(String email, String username) {
+        this.email = email;
         this.username = username;
     }
 }

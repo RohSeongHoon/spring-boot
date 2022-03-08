@@ -36,8 +36,8 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User findByPhoneNumber(String userPhoneNumber) {
-        return userJPARepository.findByPhoneNumber(userPhoneNumber);
+    public User findByEmail(String email) {
+        return userJPARepository.findByEmail(email);
     }
 
 

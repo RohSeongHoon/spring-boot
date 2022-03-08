@@ -10,12 +10,12 @@ import lombok.NoArgsConstructor;
 public class FindPasswordByUserIdRequest {
     private String userId;
     private String username;
-    private String phoneNumber;
+    private String email;
 
 
-    public FindPasswordByUserIdRequest(String userId, String username, String phoneNumber) {
+    public FindPasswordByUserIdRequest(String userId, String username, String email) {
         this.userId = userId;
         this.username = username;
-        this.phoneNumber = phoneNumber;
+        this.email = email;
     }
 }

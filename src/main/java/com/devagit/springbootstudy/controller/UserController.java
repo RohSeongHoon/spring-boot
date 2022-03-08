@@ -1,7 +1,6 @@
 package com.devagit.springbootstudy.controller;
 
 
-import com.devagit.springbootstudy.domain.User;
 import com.devagit.springbootstudy.request.user.*;
 import com.devagit.springbootstudy.service.UserService;
 import com.devagit.springbootstudy.view.UserView;
@@ -31,7 +30,7 @@ public class UserController {
     //회원 가입  ===================================
     @PostMapping("/api/v1/users")
     public UserView signUp(@RequestBody UserRequest req) {
-        return userService.signUp(req.getUserId(), req.getUsername(), req.getPassword(), req.getPhoneNumber(), req.getEmail(), req.getProfileImg(), req.getIntroduction(), req.getInstarId());
+        return userService.signUp(req.getUserId(),req.getBirthday(), req.getUsername(), req.getPassword(), req.getEmail(), req.getProfileImg(), req.getIntroduction(), req.getInstarId());
     }
 
     //로그인 ===================================
@@ -43,16 +42,16 @@ public class UserController {
     //회원 정보 조회 ===================================
     @PostMapping("api/v1/users/find-password") //대쉬
     public String findPasswordByUserId(@RequestBody FindPasswordByUserIdRequest req) {
-        return userService.findPasswordByUserId(req.getUserId(), req.getUsername(), req.getPhoneNumber());
+        return userService.findPasswordByUserId(req.getUserId(), req.getUsername(), req.getEmail());
     }
 
     @PostMapping("api/v1/users/find-id")
-    public String findIdByUserPhoneNumber(@RequestBody FindIdByUserPhoneNumRequest req) {
-        return userService.findIdByPhoneNumber(req.getPhoneNumber(), req.getUsername());
+    public String findIdByUserPhoneNumber(@RequestBody FindIdByUserEmailRequest req) {
+        return userService.findIdByEmail(req.getEmail(), req.getUsername());
     }
 
     @GetMapping("/api/v1/users")
-    public List<UserView> findAllUsers(@RequestParam(required = false) String username) {
+    public List<UserView> findAllUsers() {
         return userService.findAllUsers();
     }
 
@@ -73,8 +72,8 @@ public class UserController {
     }
 
     @PutMapping("api/v1/users/chang-personalInfo")
-    public void changePersonalInfo(@RequestBody User req) {
-        userService.changePersonalInfo(req.getUserId(), req.getPassword(), req.getUsername(), req.getPhoneNumber());
+    public void changePersonalInfo(@RequestBody UserRequest req) {
+        userService.changePersonalInfo(req.getUserId(), req.getPassword(), req.getUsername(), req.getEmail());
     }
 
     //회원 정보 삭제 ===================================

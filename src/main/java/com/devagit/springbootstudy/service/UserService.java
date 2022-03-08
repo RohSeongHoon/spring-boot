@@ -7,6 +7,7 @@ import com.devagit.springbootstudy.view.UserView;
 import com.devagit.springbootstudy.repository.user.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,12 +26,12 @@ public class UserService {
     }
 
     //회원 가입 ===================================
-    public UserView signUp(String userId, String username, String password, String phoneNumber, String email,String profileImg,String introduction,String instarId) {
+    public UserView signUp(String userId, LocalDateTime birthday, String username, String password, String email, String profileImg, String introduction, String instarId) {
         User user =  User.builder()
                 .username(username)
+                .birthday(birthday)
                 .userId(userId)
                 .password(password)
-                .phoneNumber(phoneNumber)
                 .email(email)
                 .introduction(introduction)
                 .profileImg(profileImg)
@@ -61,10 +62,10 @@ public class UserService {
     }
 
 
-    public String findPasswordByUserId(String userId, String username, String userPhoneNumber) {
+    public String findPasswordByUserId(String userId, String username, String email) {
         User user = Optional.ofNullable(userRepository.findByUserId(userId))
                 .orElseThrow(UserNotFoundException::new);
-        if (!username.equals(user.getUsername()) && userPhoneNumber.equals(user.getPhoneNumber())) {
+        if (!username.equals(user.getUsername()) && email.equals(user.getEmail())) {
             throw new UserBadRequestException("회원 정보가 일치하지 않습니다");
         }
         String password = blindUserInfo(user.getPassword());
@@ -72,10 +73,10 @@ public class UserService {
 
     }
 
-    public String findIdByPhoneNumber(String phoneNumber, String username) {
-        User user = Optional.ofNullable(userRepository.findByPhoneNumber(phoneNumber))
+    public String findIdByEmail(String email, String username) {
+        User user = Optional.ofNullable(userRepository.findByEmail(email))
                 .orElseThrow(UserNotFoundException::new);
-        if (!user.getPhoneNumber().equals(phoneNumber) && user.getUsername().equals(username)) {
+        if (!email.equals(user.getEmail()) && username.equals(user.getUsername())) {
             throw new UserBadRequestException("회원 정보가 일치하지 않습니다");
         }
         String userId = blindUserInfo(user.getUserId());
@@ -102,14 +103,14 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void changePersonalInfo(String userId, String password, String username, String phoneNumber) {
+    public void changePersonalInfo(String userId, String password, String username, String email) {
         User user = Optional.ofNullable(userRepository.findByUserId(userId))
                 .orElseThrow(UserNotFoundException::new);
         if (!user.getPassword().equals(password)) {
             throw new UserBadRequestException("회원정보가 일치하지 않습니다");
         }
         user.setUsername(username);
-        user.setPhoneNumber(phoneNumber);
+        user.setEmail(email);
         userRepository.save(user);
 
     }

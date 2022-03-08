@@ -11,7 +11,7 @@ public interface UserRepository {
 
     User findByUserId(String userId);
 
-    User findByPhoneNumber(String userPhoneNumber);
+    User findByEmail(String email);
 
     void deleteByUserId(String userId);
 
