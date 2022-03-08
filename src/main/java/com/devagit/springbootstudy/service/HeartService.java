@@ -41,7 +41,8 @@ public class HeartService {
         return false;
     }
     public List<Heart> findByUserId(String userId){
-        return heartRepository.findByUserId(userId);
+        List<Heart> hearts =  heartRepository.findByUserId(userId);
+        return hearts;
     }
 
 }

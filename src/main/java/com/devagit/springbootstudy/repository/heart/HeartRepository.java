@@ -17,4 +17,5 @@ public interface HeartRepository {
     void delete(Heart heart);
 
     List<Heart> findByUserId(String userId);
+
 }

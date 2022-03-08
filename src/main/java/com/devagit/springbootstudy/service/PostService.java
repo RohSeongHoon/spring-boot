@@ -114,14 +114,14 @@ public class PostService {
 
     @Transactional
     public void plusHeartCnt(long postId) {
-        Post post = postRepository.findById(postId); // optional추가 이것도 + - 나누기
+        Post post = postRepository.findById(postId);
         post.setHeartCnt(post.getHeartCnt() + 1);
         postRepository.save(post);
     }
 
     @Transactional
     public void minusHeartCnt(long postId) {
-        Post post = postRepository.findById(postId); // optional추가 이것도 + - 나누기
+        Post post = postRepository.findById(postId);
         post.setHeartCnt(post.getHeartCnt() - 1);
         postRepository.save(post);
     }
@@ -129,6 +129,7 @@ public class PostService {
     public Page<PostListView> getLikedPost(String userId) {
         List<Long> hearts = heartRepository.findByUserId(userId).stream().map(Heart::getPostId).collect(Collectors.toList());
         List<PostListView> posts = postRepository.findByIdIn(hearts).stream().map(PostListView::from).collect(Collectors.toList());
-        return  Page.convert(posts,PostListView::getCreatedAt,posts.size(),null);
+        int limit = 3;
+        return  Page.convert(posts,PostListView::getCreatedAt,limit,null);
     }
 }

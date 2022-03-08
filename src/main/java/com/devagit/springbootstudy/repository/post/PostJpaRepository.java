@@ -23,4 +23,5 @@ public interface PostJpaRepository extends JpaRepository<Post, Long> {
     List<Post> findByTitleContainsAndCreatedAtLessThanEqualOrderByCreatedAtDesc(String keyword, LocalDateTime searchCursor, Pageable page);
 
     List<Post> findByIdIn(List<Long> hearts);
+
 }
