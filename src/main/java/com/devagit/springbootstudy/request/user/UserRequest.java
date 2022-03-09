@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 public class UserRequest {
     private String username;
     private LocalDateTime birthday;
+    private String gender;
     private String userId;
     private String password;
     private String email;
@@ -21,9 +22,10 @@ public class UserRequest {
     private String instarId;
 
 
-    public UserRequest(String username,LocalDateTime birthday, String userId, String password, String email, String profileImg, String introduction, String instarId) {
+    public UserRequest(String username,LocalDateTime birthday,String gender, String userId, String password, String email, String profileImg, String introduction, String instarId) {
         this.username = username;
         this.birthday = birthday;
+        this.gender = gender;
         this.userId = userId;
         this.password = password;
         this.email = email;
