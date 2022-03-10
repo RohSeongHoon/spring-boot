@@ -7,6 +7,7 @@ import com.devagit.springbootstudy.view.UserView;
 import com.devagit.springbootstudy.repository.user.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +27,7 @@ public class UserService {
     }
 
     //회원 가입 ===================================
-    public UserView signUp(String userId, LocalDateTime birthday, String username, String password, String email, String profileImg, String introduction, String instarId) {
+    public UserView signUp(String userId, LocalDate birthday, String username, String password, String email, String profileImg, String introduction, String instarId) {
         User user =  User.builder()
                 .username(username)
                 .birthday(birthday)

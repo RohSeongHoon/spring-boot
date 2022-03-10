@@ -36,7 +36,6 @@ public class HeartRepositoryImpl implements HeartRepository {
     }
 
     @Override
-    @Transactional
     public void deleteByPostIdAndUserId(long postId, String userId) {
         heartJpaRepository.deleteByPostIdAndUserId(postId, userId);
     }
