@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -23,7 +24,7 @@ public class User {
     @Column(columnDefinition = "VARCHAR(20)", nullable = false)
     private String username;
     @Column(columnDefinition = "DATETIME", nullable = false)
-    private LocalDateTime birthday;
+    private LocalDate birthday;
     @Column(columnDefinition = "VARCHAR(20)", nullable = false, unique = true)
     private String userId;
     @Column(columnDefinition = "VARCHAR(32)", nullable = false)
@@ -40,7 +41,7 @@ public class User {
     private String instarId;
 
     @Builder
-    public User(String username, LocalDateTime birthday, String userId, String password, String gender, String email, String profileImg, String introduction, String instarId) {
+    public User(String username, LocalDate birthday, String userId, String password, String gender, String email, String profileImg, String introduction, String instarId) {
         this.username = username;
         this.birthday = birthday;
         this.userId = userId;
