@@ -4,8 +4,10 @@ package com.devagit.springbootstudy.controller;
 import com.devagit.springbootstudy.request.user.*;
 import com.devagit.springbootstudy.service.UserService;
 import com.devagit.springbootstudy.view.UserView;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:8080")
@@ -28,7 +30,7 @@ public class UserController {
 
 
     //회원 가입  ===================================
-    @PostMapping("/api/v1/users")
+    @PostMapping(value = "/api/v1/users")
     public UserView signUp(@RequestBody UserRequest req) {
         return userService.signUp(req.getUserId(),req.getBirthday(), req.getUsername(), req.getPassword(), req.getEmail(), req.getProfileImg(), req.getIntroduction(), req.getInstarId());
     }
@@ -43,11 +45,6 @@ public class UserController {
     @PostMapping("api/v1/users/find-password") //대쉬
     public String findPasswordByUserId(@RequestBody FindPasswordByUserIdRequest req) {
         return userService.findPasswordByUserId(req.getUserId(), req.getUsername(), req.getEmail());
-    }
-
-    @PostMapping("api/v1/users/find-id")
-    public String findIdByUserPhoneNumber(@RequestBody FindIdByUserEmailRequest req) {
-        return userService.findIdByEmail(req.getEmail(), req.getUsername());
     }
 
     @GetMapping("/api/v1/users")
