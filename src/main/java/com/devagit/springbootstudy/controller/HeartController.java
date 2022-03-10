@@ -15,10 +15,6 @@ public class HeartController {
         this.heartService = likeService;
     }
 
-    @GetMapping("api/v1/heart")
-    public List<Heart> test(@RequestParam String userId){
-        return heartService.findByUserId(userId);
-    }
     @PostMapping("api/v1/{postId}/heart")
     public boolean addHeart(@PathVariable("postId") long postId, @RequestBody AddOrDeleteHeartRequest req) {
         return heartService.addHeart(postId, req.getUserId());
