@@ -3,11 +3,12 @@ package com.devagit.springbootstudy.controller;
 
 import com.devagit.springbootstudy.request.user.*;
 import com.devagit.springbootstudy.service.UserService;
-import com.devagit.springbootstudy.view.UserView;
-import org.springframework.http.MediaType;
+import com.devagit.springbootstudy.util.Page;
+import com.devagit.springbootstudy.view.user.UserProfileView;
+import com.devagit.springbootstudy.view.user.UserView;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
+import java.awt.print.Pageable;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:8080")
@@ -61,7 +62,10 @@ public class UserController {
     public List<UserView> findUserByEmailDomain(@RequestParam(required = false) String emailDomain) {
         return userService.findUserByEmailDomain(emailDomain);
     }
-
+    @GetMapping("api/v1/user/profile")
+    public Page<UserProfileView> findUserByGender(@RequestParam(required = false) String gender,Integer page,Integer size ){
+        return userService.findUserByGender(gender,page,size);
+    }
     //회원 정보 변경 ===================================
     @PutMapping("api/v1/users/change-userPassword")
     public void changeId(@RequestBody ChangeUserPasswordRequest req) {
@@ -69,8 +73,8 @@ public class UserController {
     }
 
     @PutMapping("api/v1/users/chang-personalInfo")
-    public void changePersonalInfo(@RequestBody UserRequest req) {
-        userService.changePersonalInfo(req.getUserId(), req.getPassword(), req.getUsername(), req.getEmail());
+    public void changePersonalInfo(@RequestBody ChangeUserInfoRequest req) {
+        userService.changePersonalInfo(req.getUserId(), req.getPassword(), req.getUsername(), req.getEmail(),req.getUpdatedAt());
     }
 
     //회원 정보 삭제 ===================================
