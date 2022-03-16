@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -25,7 +26,7 @@ public class UserRequest {
     private String instarId;
 
 
-    public UserRequest(String username,LocalDate birthday,String gender, String userId, String password, String email, String profileImg, String introduction, String instarId) {
+    public UserRequest(String username, LocalDate birthday, String gender, String userId, String password, String email, @Nullable String profileImg, String introduction, String instarId) {
         this.username = username;
         this.birthday = birthday;
         this.gender = gender;
