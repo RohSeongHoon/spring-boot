@@ -1,9 +1,11 @@
 package com.devagit.springbootstudy.repository.user;
 
 import com.devagit.springbootstudy.domain.User;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +23,11 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public List<User> findByGenderAndUpdatedAtLessThanEqualOrderByUpdatedAtAsc(String gender, LocalDateTime updatedAt, Pageable pageable) {
+        return userJPARepository.findByGenderAndUpdatedAtLessThanEqualOrderByUpdatedAtAsc(gender,updatedAt,pageable);
+    }
+
+    @Override
     public User save(User user) {
         return userJPARepository.save(user);
     }
@@ -31,7 +38,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User findByUserId(String userId) {
+    public Optional<User> findByUserId(String userId) {
         return userJPARepository.findByUserId(userId);
     }
 
