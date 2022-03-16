@@ -22,8 +22,6 @@ public class Post {
     @Column(columnDefinition = "INT", nullable = false, unique = true)
     private long id;
     @Column(columnDefinition = "INT", nullable = false)
-    private int categoryId;
-    @Column(columnDefinition = "INT", nullable = false)
     private int subCategoryId;
     @Column(columnDefinition = "VARCHAR(32)", nullable = false)
     private String userId;
@@ -38,20 +36,22 @@ public class Post {
     @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP", nullable = false)
     private LocalDateTime updatedAt;
     @Column(columnDefinition = "VARCHAR(64)")
-    private String source;
+    private String videoSource;
+    @Column(columnDefinition = "VARCHAR(128)")
+    private String imgSource;
     @Column(columnDefinition = "INT DEFAULT 0")
     private long commentCnt;
     @Column(columnDefinition = "INT DEFAULT 0")
     private  long heartCnt;
 
     @Builder
-    public Post(int categoryId, int subCategoryId, String userId, String title, String contents, String source,long commentCnt,long heartCnt) {
-        this.categoryId = categoryId;
+    public Post( int subCategoryId, String userId, String title, String contents,String videoSource, String imgSource,long commentCnt,long heartCnt) {
         this.subCategoryId = subCategoryId;
         this.userId = userId;
         this.title = title;
         this.contents = contents;
-        this.source = source;
+        this.videoSource = videoSource;
+        this.imgSource = imgSource;
         this.commentCnt = commentCnt;
         this.heartCnt = heartCnt;
 

@@ -38,14 +38,14 @@ public class PostService {
     }
 
     @Transactional
-    public long addPost(int categoryId, int subCategoryId, String userId, String title, String contents, String source) {
+    public long addPost(int subCategoryId, String userId, String title, String contents, @Nullable String videoSource,@Nullable String imgSource) {
         Post post = Post.builder()
-                .categoryId(categoryId)
                 .subCategoryId(subCategoryId)
                 .userId(userId)
                 .title(title)
                 .contents(contents)
-                .source(source)
+                .videoSource(videoSource)
+                .imgSource(imgSource)
                 .build();
         postRepository.save(post);
         return post.getId();
@@ -87,16 +87,18 @@ public class PostService {
     }
 
     @Transactional
-    public long updatePost(long id, int subCategoryId, String userId, String title, String contents, @Nullable String source, LocalDateTime createAt) {
+    public long updatePost(long id, int subCategoryId, String userId, String title, String contents, @Nullable String videoSource,@Nullable String imgSource) {
         Post post = postRepository.findById(id);
         if (!userId.equals(post.getUserId())) {
             throw new PostBadRequestException("아이디가 일치하지 않습니다");
         }
+        LocalDateTime updatedAt = LocalDateTime.now();
         post.setSubCategoryId(subCategoryId);
         post.setTitle(title);
         post.setContents(contents);
-        post.setSource(source);
-        post.setUpdatedAt(createAt);
+        post.setVideoSource(videoSource);
+        post.setImgSource(imgSource);
+        post.setUpdatedAt(updatedAt);
         postRepository.save(post); //새로들어온걸 from으로 넣어서 save로 하면댄다 이럴때 이해 실패
         return post.getId();
 
@@ -127,8 +129,8 @@ public class PostService {
     }
 
     public Page<PostListView> getLikedPost(String userId) {
-        List<Long> hearts = heartRepository.findByUserId(userId).stream().map(Heart::getPostId).collect(Collectors.toList());
-        List<PostListView> posts = postRepository.findByIdIn(hearts).stream().map(PostListView::from).collect(Collectors.toList());
+        List<Long> likedPostIds = heartRepository.findByUserId(userId).stream().map(Heart::getPostId).collect(Collectors.toList());
+        List<PostListView> posts = postRepository.findByIdIn(likedPostIds).stream().map(PostListView::from).collect(Collectors.toList());
         int limit = 3;
         return  Page.convert(posts,PostListView::getCreatedAt,limit,null);
     }
