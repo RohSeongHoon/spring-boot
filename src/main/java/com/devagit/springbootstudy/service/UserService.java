@@ -9,7 +9,6 @@ import com.devagit.springbootstudy.view.user.UserProfileView;
 import com.devagit.springbootstudy.view.user.UserView;
 import com.devagit.springbootstudy.repository.user.UserRepository;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
@@ -148,13 +147,22 @@ public class UserService {
         return result;
     }
 
-    public Page<UserProfileView> findUserByGender(String gender, LocalDateTime updatedAt, Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page,size);
-        if (updatedAt == null){
-            updatedAt = LocalDateTime.now();
+    public Page<UserProfileView> findUserByGender(String gender,@Nullable Long age, LocalDateTime profileCursor,Pageable pageable) {
+        if (profileCursor == null){
+            profileCursor = LocalDateTime.now();
         }
-        List<UserProfileView> userList = userRepository.findByGenderAndUpdatedAtLessThanEqualOrderByUpdatedAtAsc(gender,updatedAt,pageable).stream().map(UserProfileView::from).collect(Collectors.toList());
-        return Page.convert(userList,UserProfileView::getUpdatedAt,10,null);
+        if (age == null){
+            List<UserProfileView> userList = userRepository.findByGenderAndUpdatedAtLessThanEqualOrderByUpdatedAtAsc(gender,profileCursor,pageable).stream().map(UserProfileView::from).collect(Collectors.toList());
+            return Page.convert(userList,UserProfileView::getUpdatedAt,10,null);
+        }
+        if (age < 10){
+            age = 10L;
+        }
+        LocalDate startDate = LocalDate.now().minusYears(age);
+        LocalDate endDate = LocalDate.now().minusYears(age-10);
+        List<UserProfileView> userProfileViews= userRepository.findByGenderAndBirthdayBetweenAndUpdatedAtLessThanEqualOrderByUpdatedAtAsc(gender,startDate,endDate,profileCursor,pageable);
+        userProfileViews.size();
+        return Page.convert(userProfileViews,UserProfileView::getUpdatedAt,10,null);
     }
 
 
@@ -162,5 +170,4 @@ public class UserService {
         User user = userRepository.findByUserId(userId).orElseThrow(UserNotFoundException::new);
          return DetailProfileView.from(user);
     }
-
 }
