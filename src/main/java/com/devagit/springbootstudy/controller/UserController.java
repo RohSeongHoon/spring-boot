@@ -60,8 +60,8 @@ public class UserController {
     }
 
     @GetMapping("/api/v1/profile")
-    public Page<UserProfileView> findUserByGender(@RequestParam(required = false) String gender, @Nullable String age, LocalDateTime updatedAt, Pageable pageable) {
-        return userService.findUserByGender(gender,gender, updatedAt, pageable);
+    public Page<UserProfileView> findUserByGender(@RequestParam(required = false) String gender, @Nullable Long age,@Nullable LocalDateTime profileCursor, Pageable pageable) {
+        return userService.findUserByGender(gender,age, profileCursor, pageable);
     }
 
     @GetMapping("/api/v1/{user}/profile")
