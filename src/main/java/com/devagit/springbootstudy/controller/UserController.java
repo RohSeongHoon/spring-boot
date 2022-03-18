@@ -7,6 +7,8 @@ import com.devagit.springbootstudy.util.Page;
 import com.devagit.springbootstudy.view.user.DetailProfileView;
 import com.devagit.springbootstudy.view.user.UserProfileView;
 import com.devagit.springbootstudy.view.user.UserView;
+import org.springframework.data.domain.Pageable;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -58,8 +60,8 @@ public class UserController {
     }
 
     @GetMapping("/api/v1/profile")
-    public Page<UserProfileView> findUserByGender(@RequestParam(required = false) String gender, LocalDateTime updatedAt, Integer page, Integer size) {
-        return userService.findUserByGender(gender, updatedAt, page, size);
+    public Page<UserProfileView> findUserByGender(@RequestParam(required = false) String gender, @Nullable String age, LocalDateTime updatedAt, Pageable pageable) {
+        return userService.findUserByGender(gender,gender, updatedAt, pageable);
     }
 
     @GetMapping("/api/v1/{user}/profile")
