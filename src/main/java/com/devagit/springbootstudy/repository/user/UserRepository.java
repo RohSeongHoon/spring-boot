@@ -24,4 +24,6 @@ public interface UserRepository {
     List<User> findByGenderAndUpdatedAtLessThanEqualOrderByUpdatedAtAsc(String gender, LocalDateTime updatedAt, Pageable pageable);
 
     List<UserProfileView> findByGenderAndBirthdayBetweenAndUpdatedAtLessThanEqualOrderByUpdatedAtAsc(String gender, LocalDate startDate, LocalDate endDate,LocalDateTime updatedAt,Pageable pageable);
+
+    Optional<User> findByToken(String token);
 }

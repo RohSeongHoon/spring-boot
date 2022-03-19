@@ -35,6 +35,11 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public Optional<User> findByToken(String token) {
+        return userJPARepository.findByToken(token);
+    }
+
+    @Override
     public User save(User user) {
         return userJPARepository.save(user);
     }
