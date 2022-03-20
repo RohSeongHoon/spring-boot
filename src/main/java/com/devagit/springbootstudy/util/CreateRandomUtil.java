@@ -2,7 +2,7 @@ package com.devagit.springbootstudy.util;
 
 import java.util.Random;
 
-public class CreateRandom {
+public class CreateRandomUtil {
 
     public static String str(int size) {
         int leftLimit = 97;
