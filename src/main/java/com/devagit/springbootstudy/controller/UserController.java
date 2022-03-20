@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -34,9 +35,14 @@ public class UserController {
 
     //로그인 ===================================
     @PostMapping("/api/v1/users/login")
-    public void login(@RequestBody LoginRequest req) {
-        userService.login(req.getUserId(), req.getPassword());
+    public String login(@RequestBody LoginRequest req) {
+        return userService.login(req.getUserId(), req.getPassword());
     }
+    @GetMapping("/api/v1/users/login")
+    public String checkToken(@RequestHeader(value = "token")String token,@RequestHeader(value = "refreshToken")String refreshToken, @RequestHeader(value = "expireDate")LocalDateTime expDate){
+        return userService.checkToken(token,refreshToken,expDate);
+    }
+
 
     //회원 정보 조회 ===================================
     @PostMapping("/api/v1/users/find-password") //대쉬
