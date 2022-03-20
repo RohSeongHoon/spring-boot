@@ -3,6 +3,7 @@ package com.devagit.springbootstudy.service;
 import com.devagit.springbootstudy.domain.User;
 import com.devagit.springbootstudy.exceptionHandler.badrequest.UserBadRequestException;
 import com.devagit.springbootstudy.exceptionHandler.notfound.UserNotFoundException;
+import com.devagit.springbootstudy.util.CreateRandomUtil;
 import com.devagit.springbootstudy.util.Page;
 import com.devagit.springbootstudy.view.user.DetailProfileView;
 import com.devagit.springbootstudy.view.user.UserProfileView;
@@ -28,6 +29,7 @@ import java.util.stream.Collectors;
 public class UserService {
     private final UserRepository userRepository;
 
+
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -52,13 +54,38 @@ public class UserService {
     }
 
     //로그인 ===================================
-    public void login(String userId, String password) {
+    public String login(String userId, String password) {
         User user = userRepository.findByUserId(userId)
                 .orElseThrow(() -> new UserBadRequestException("입력하신 정보가 일치하지 않습니다"));
         if (!user.getPassword().equals(password)) {
             throw new UserBadRequestException("입력하신 정보가 일치하지 않습니다");
         }
+        if (user.getToken() == null) {
+            String token = CreateRandomUtil.str(10);
+            String refreshToken = CreateRandomUtil.str(10);
+            user.setToken(token);
+            user.setRefreshToken(refreshToken);
+            userRepository.save(user);
+            return token;
+        }
+        return user.getToken();
     }
+
+    public String checkToken(String token, String refreshToken, LocalDateTime expDate) {
+        User user = userRepository.findByToken(token).orElseThrow(() -> new UserBadRequestException("잘못된 요청"));
+        LocalDateTime now = LocalDateTime.now();
+        if (now.isBefore(expDate)) {
+            if (!user.getRefreshToken().equals(refreshToken)) {
+                throw new UserBadRequestException("잘못된 정보");
+            }
+            String newToken = CreateRandomUtil.str(10);
+            user.setToken(newToken);
+            userRepository.save(user);
+            return newToken;
+        }
+        return token;
+    }
+
     //회원 정보 조회 ===================================
 
     public List<UserView> findAllUsers() {
@@ -147,27 +174,27 @@ public class UserService {
         return result;
     }
 
-    public Page<UserProfileView> findUserByGender(String gender,@Nullable Long age, LocalDateTime profileCursor,Pageable pageable) {
-        if (profileCursor == null){
+    public Page<UserProfileView> findUserByGender(String gender, @Nullable Long age, LocalDateTime profileCursor, Pageable pageable) {
+        if (profileCursor == null) {
             profileCursor = LocalDateTime.now();
         }
-        if (age == null){
-            List<UserProfileView> userList = userRepository.findByGenderAndUpdatedAtLessThanEqualOrderByUpdatedAtAsc(gender,profileCursor,pageable).stream().map(UserProfileView::from).collect(Collectors.toList());
-            return Page.convert(userList,UserProfileView::getUpdatedAt,10,null);
+        if (age == null) {
+            List<UserProfileView> userList = userRepository.findByGenderAndUpdatedAtLessThanEqualOrderByUpdatedAtAsc(gender, profileCursor, pageable).stream().map(UserProfileView::from).collect(Collectors.toList());
+            return Page.convert(userList, UserProfileView::getUpdatedAt, 10, null);
         }
-        if (age < 10){
+        if (age < 10) {
             age = 10L;
         }
         LocalDate startDate = LocalDate.now().minusYears(age);
-        LocalDate endDate = LocalDate.now().minusYears(age-10);
-        List<UserProfileView> userProfileViews= userRepository.findByGenderAndBirthdayBetweenAndUpdatedAtLessThanEqualOrderByUpdatedAtAsc(gender,startDate,endDate,profileCursor,pageable);
+        LocalDate endDate = LocalDate.now().minusYears(age - 10);
+        List<UserProfileView> userProfileViews = userRepository.findByGenderAndBirthdayBetweenAndUpdatedAtLessThanEqualOrderByUpdatedAtAsc(gender, startDate, endDate, profileCursor, pageable);
         userProfileViews.size();
-        return Page.convert(userProfileViews,UserProfileView::getUpdatedAt,10,null);
+        return Page.convert(userProfileViews, UserProfileView::getUpdatedAt, 10, null);
     }
 
 
     public DetailProfileView findByUserId(String userId) {
         User user = userRepository.findByUserId(userId).orElseThrow(UserNotFoundException::new);
-         return DetailProfileView.from(user);
+        return DetailProfileView.from(user);
     }
 }
