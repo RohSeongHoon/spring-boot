@@ -46,10 +46,15 @@ public class User {
     @CreationTimestamp
     @Column(columnDefinition = "DateTime DEFAULT CURRENT_TIMESTAMP",nullable = false)
     private LocalDateTime updatedAt;
+    @Column(columnDefinition = "VARCHAR(128)")
+    private String token;
+    @Column(columnDefinition = "VARCHAR(128)")
+    private String refreshToken;
+
 
 
     @Builder
-    public User(String username, LocalDate birthday, String userId, String password, String gender, String email, String profileImg, String introduction, String instarId,LocalDateTime createdAt,LocalDateTime updatedAt) {
+    public User(String username, LocalDate birthday, String userId, String password, String gender, String email, String profileImg, String introduction, String instarId,LocalDateTime createdAt,LocalDateTime updatedAt,String token,String refreshToken) {
         this.username = username;
         this.birthday = birthday;
         this.userId = userId;
@@ -61,5 +66,7 @@ public class User {
         this.instarId = instarId;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.token = token;
+        this.refreshToken = refreshToken;
     }
 }
