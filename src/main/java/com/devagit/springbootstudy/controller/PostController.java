@@ -4,7 +4,7 @@ import com.devagit.springbootstudy.request.post.DeletePostById;
 import com.devagit.springbootstudy.request.post.UpdateRequest;
 import com.devagit.springbootstudy.request.post.addPostRequest;
 import com.devagit.springbootstudy.service.PostService;
-import com.devagit.springbootstudy.util.Page;
+import response.Page;
 import com.devagit.springbootstudy.view.post.PostListView;
 import com.devagit.springbootstudy.view.post.PostView;
 import org.springframework.lang.Nullable;

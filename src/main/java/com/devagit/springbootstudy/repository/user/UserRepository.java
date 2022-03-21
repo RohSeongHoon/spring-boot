@@ -1,7 +1,6 @@
 package com.devagit.springbootstudy.repository.user;
 
 import com.devagit.springbootstudy.domain.User;
-import com.devagit.springbootstudy.util.Page;
 import com.devagit.springbootstudy.view.user.UserProfileView;
 import org.springframework.data.domain.Pageable;
 

@@ -3,15 +3,15 @@ package com.devagit.springbootstudy.controller;
 
 import com.devagit.springbootstudy.request.user.*;
 import com.devagit.springbootstudy.service.UserService;
-import com.devagit.springbootstudy.util.Page;
+import response.Page;
 import com.devagit.springbootstudy.view.user.DetailProfileView;
 import com.devagit.springbootstudy.view.user.UserProfileView;
 import com.devagit.springbootstudy.view.user.UserView;
 import org.springframework.data.domain.Pageable;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
+import response.LoginResponseEntity;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class UserController {
 
     //로그인 ===================================
     @PostMapping("/api/v1/users/login")
-    public String login(@RequestBody LoginRequest req) {
+    public LoginResponseEntity login(@RequestBody LoginRequest req) {
         return userService.login(req.getUserId(), req.getPassword());
     }
     @GetMapping("/api/v1/users/login")
