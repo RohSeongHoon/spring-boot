@@ -3,6 +3,7 @@ package com.devagit.springbootstudy.controller;
 
 import com.devagit.springbootstudy.request.user.*;
 import com.devagit.springbootstudy.service.UserService;
+import response.CheckTokenResponseEntity;
 import response.Page;
 import com.devagit.springbootstudy.view.user.DetailProfileView;
 import com.devagit.springbootstudy.view.user.UserProfileView;
@@ -38,9 +39,9 @@ public class UserController {
     public LoginResponseEntity login(@RequestBody LoginRequest req) {
         return userService.login(req.getUserId(), req.getPassword());
     }
-    @GetMapping("/api/v1/users/login")
-    public String checkToken(@RequestHeader(value = "token")String token,@RequestHeader(value = "refreshToken")String refreshToken, @RequestHeader(value = "expireDate")LocalDateTime expDate){
-        return userService.checkToken(token,refreshToken,expDate);
+    @PostMapping("/api/v1/users/login/check")
+    public CheckTokenResponseEntity checkToken(@RequestBody CheckTokenRequest req){
+        return userService.checkToken(req.getToken(),req.getRefreshToken(),req.getExpDate());
     }
 
 

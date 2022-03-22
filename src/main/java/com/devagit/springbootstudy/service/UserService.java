@@ -4,7 +4,8 @@ import com.devagit.springbootstudy.domain.User;
 import com.devagit.springbootstudy.exceptionHandler.badrequest.UserBadRequestException;
 import com.devagit.springbootstudy.exceptionHandler.notfound.UserNotFoundException;
 import com.devagit.springbootstudy.util.CreateRandomUtil;
-import com.devagit.springbootstudy.util.Page;
+import response.CheckTokenResponseEntity;
+import response.Page;
 import com.devagit.springbootstudy.view.user.DetailProfileView;
 import com.devagit.springbootstudy.view.user.UserProfileView;
 import com.devagit.springbootstudy.view.user.UserView;
@@ -12,6 +13,7 @@ import com.devagit.springbootstudy.repository.user.UserRepository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
+import response.LoginResponseEntity;
 
 
 import java.time.LocalDate;
@@ -54,7 +56,7 @@ public class UserService {
     }
 
     //로그인 ===================================
-    public String login(String userId, String password) {
+    public LoginResponseEntity login(String userId, String password) {
         User user = userRepository.findByUserId(userId)
                 .orElseThrow(() -> new UserBadRequestException("입력하신 정보가 일치하지 않습니다"));
         if (!user.getPassword().equals(password)) {
@@ -66,12 +68,12 @@ public class UserService {
             user.setToken(token);
             user.setRefreshToken(refreshToken);
             userRepository.save(user);
-            return token;
+            return LoginResponseEntity.from(token,refreshToken);
         }
-        return user.getToken();
+        return LoginResponseEntity.from(user.getToken(),user.getRefreshToken());
     }
 
-    public String checkToken(String token, String refreshToken, LocalDateTime expDate) {
+    public CheckTokenResponseEntity checkToken(String token, String refreshToken, LocalDateTime expDate) {
         User user = userRepository.findByToken(token).orElseThrow(() -> new UserBadRequestException("잘못된 요청"));
         LocalDateTime now = LocalDateTime.now();
         if (now.isBefore(expDate)) {
@@ -81,9 +83,9 @@ public class UserService {
             String newToken = CreateRandomUtil.str(10);
             user.setToken(newToken);
             userRepository.save(user);
-            return newToken;
+            return CheckTokenResponseEntity.from(newToken);
         }
-        return token;
+        return new CheckTokenResponseEntity(token);
     }
 
     //회원 정보 조회 ===================================
