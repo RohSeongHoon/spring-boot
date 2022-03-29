@@ -7,7 +7,7 @@ import com.devagit.springbootstudy.exceptionHandler.badrequest.PostBadRequestExc
 import com.devagit.springbootstudy.exceptionHandler.notfound.PostNotFoundException;
 import com.devagit.springbootstudy.repository.heart.HeartRepository;
 import com.devagit.springbootstudy.repository.post.PostRepository;
-import response.Page;
+import com.devagit.springbootstudy.response.Page;
 import com.devagit.springbootstudy.view.post.PostListView;
 import com.devagit.springbootstudy.view.post.PostView;
 import org.springframework.data.domain.PageRequest;

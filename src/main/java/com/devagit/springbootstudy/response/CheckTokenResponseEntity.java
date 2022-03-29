@@ -1,6 +1,5 @@
-package response;
+package com.devagit.springbootstudy.response;
 
-import com.devagit.springbootstudy.request.user.CheckTokenRequest;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor

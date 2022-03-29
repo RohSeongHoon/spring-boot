@@ -4,8 +4,8 @@ import com.devagit.springbootstudy.domain.User;
 import com.devagit.springbootstudy.exceptionHandler.badrequest.UserBadRequestException;
 import com.devagit.springbootstudy.exceptionHandler.notfound.UserNotFoundException;
 import com.devagit.springbootstudy.util.CreateRandomUtil;
-import response.CheckTokenResponseEntity;
-import response.Page;
+import com.devagit.springbootstudy.response.CheckTokenResponseEntity;
+import com.devagit.springbootstudy.response.Page;
 import com.devagit.springbootstudy.view.user.DetailProfileView;
 import com.devagit.springbootstudy.view.user.UserProfileView;
 import com.devagit.springbootstudy.view.user.UserView;
@@ -13,7 +13,7 @@ import com.devagit.springbootstudy.repository.user.UserRepository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
-import response.LoginResponseEntity;
+import com.devagit.springbootstudy.response.LoginResponseEntity;
 
 
 import java.time.LocalDate;

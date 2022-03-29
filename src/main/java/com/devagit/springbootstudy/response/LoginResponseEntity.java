@@ -1,7 +1,6 @@
-package response;
+package com.devagit.springbootstudy.response;
 
 import lombok.NoArgsConstructor;
-import org.springframework.lang.Nullable;
 
 @NoArgsConstructor
 public class LoginResponseEntity {

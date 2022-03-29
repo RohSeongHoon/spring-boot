@@ -3,15 +3,15 @@ package com.devagit.springbootstudy.controller;
 
 import com.devagit.springbootstudy.request.user.*;
 import com.devagit.springbootstudy.service.UserService;
-import response.CheckTokenResponseEntity;
-import response.Page;
+import com.devagit.springbootstudy.response.CheckTokenResponseEntity;
+import com.devagit.springbootstudy.response.Page;
 import com.devagit.springbootstudy.view.user.DetailProfileView;
 import com.devagit.springbootstudy.view.user.UserProfileView;
 import com.devagit.springbootstudy.view.user.UserView;
 import org.springframework.data.domain.Pageable;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
-import response.LoginResponseEntity;
+import com.devagit.springbootstudy.response.LoginResponseEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -1,4 +1,4 @@
-package response;
+package com.devagit.springbootstudy.response;
 
 import lombok.NoArgsConstructor;
 
