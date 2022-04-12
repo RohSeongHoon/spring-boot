@@ -1,10 +1,12 @@
 package com.devagit.springbootstudy.infra;
 
 
-import org.springframework.context.annotation.Bean;
+import com.devagit.springbootstudy.exceptionHandler.restTemplateExceptionHandler.TimeOutExceptionHandler;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
 @Component
@@ -16,8 +18,15 @@ public class NaverMapClient {
     }
 
     public String getNaverMap() {
-        ResponseEntity<String> data = restTemplate.exchange("http://localhost:3000/categories", HttpMethod.GET, null, String.class);
-        return data.getBody();
+        try {
+            ResponseEntity<String> data = restTemplate.exchange("http://localhost:3000/categories", HttpMethod.GET, null, String.class);
+            return data.getBody();
+        } catch (ResourceAccessException e) {
+            throw new TimeOutExceptionHandler();
+        }
     }
+
+
+
 }
 
