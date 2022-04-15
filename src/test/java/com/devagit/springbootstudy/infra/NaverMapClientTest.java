@@ -1,5 +1,6 @@
 package com.devagit.springbootstudy.infra;
 
+import com.devagit.springbootstudy.request.tempOpenApi.NaverUser;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,8 +17,14 @@ class NaverMapClientTest {
             System.out.println("category id =" + naverMapClient.getNaverMap().get(i).getId());
             System.out.println("category name =" + naverMapClient.getNaverMap().get(i).getName());
             System.out.println("category name_kr =" + naverMapClient.getNaverMap().get(i).getNameKr());
-
         }
+    }
+
+    @Test
+    public void setNaverMapClient() {
+        NaverUser user = new NaverUser("asdf", "123", "겅구", "닉네임", "이메일", "남");
+        System.out.println(naverMapClient.setNaverUser(user));
+
     }
 
 }
