@@ -1,9 +1,9 @@
 package com.devagit.springbootstudy.infra;
 
 
-import com.devagit.springbootstudy.exceptionHandler.restTemplateExceptionHandler.TimeOutExceptionHandler;
+import com.devagit.springbootstudy.exceptionHandler.restTemplateExceptionHandler.TimeOutException;
 import com.devagit.springbootstudy.request.tempOpenApi.NaverUser;
-import com.devagit.springbootstudy.response.CategoriesResponseEntity;
+import com.devagit.springbootstudy.response.NaverMapCategoriesResponse;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -22,25 +22,29 @@ public class NaverMapClient {
         this.restTemplate = restTemplate;
     }
 
-    public List<CategoriesResponseEntity> getNaverMap() {
+    public List<NaverMapCategoriesResponse> getNaverMap() {
         try {
-            ResponseEntity<List<CategoriesResponseEntity>> data = restTemplate.exchange("http://localhost:3000/categories/main", HttpMethod.GET, null, new ParameterizedTypeReference<List<CategoriesResponseEntity>>() { //
+            ResponseEntity<List<NaverMapCategoriesResponse>> data = restTemplate.exchange("http://localhost:3000/categories/main", HttpMethod.GET, null, new ParameterizedTypeReference<List<NaverMapCategoriesResponse>>() { //
             });
             return data.getBody();
         } catch (ResourceAccessException e) {
-            throw new TimeOutExceptionHandler();
+            throw new TimeOutException();
         }
     }
 
     public String setNaverUser(NaverUser naverUser) {
         HttpEntity<NaverUser> request = new HttpEntity<>(naverUser);
-        ResponseEntity<String> data = restTemplate.exchange("http://localhost:3000/users/signUp", HttpMethod.POST, request, String.class);
-        return data.getBody();
+        try {
+            ResponseEntity<String> data = restTemplate.exchange("http://localhost:3000/users/signUp", HttpMethod.POST, request, String.class);
+            return data.getBody();
+        }catch (ResourceAccessException e){
+            throw new TimeOutException();
+        }
     }
     //네이밍 수정
     //api연결
     //예외처리 강화
-    //네트워크 
+    //네트워크
 }
 
 
