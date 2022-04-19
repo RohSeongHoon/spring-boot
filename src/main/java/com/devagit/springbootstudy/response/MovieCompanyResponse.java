@@ -1,5 +1,6 @@
 package com.devagit.springbootstudy.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +21,7 @@ public class MovieCompanyResponse {
     @Setter
     public static class CompanyListResult {
         private int totCnt;
+        @JsonProperty("companyList")
         private List<CompanyList> companyLists;
 
         public CompanyListResult(int totCnt, List<CompanyList> companyLists) {
@@ -27,5 +29,21 @@ public class MovieCompanyResponse {
             this.companyLists = companyLists;
         }
     }
+
+    @NoArgsConstructor
+    @Getter
+    @Setter
+    public static class CompanyList {
+        private String companyNm;
+        private String companyPartNames;
+        private String filmoNames;
+
+        public CompanyList(String companyNm, String companyPartNames, String filmoNames) {
+            this.companyNm = companyNm;
+            this.companyPartNames = companyPartNames;
+            this.filmoNames = filmoNames;
+        }
+    }
+
 
 }
