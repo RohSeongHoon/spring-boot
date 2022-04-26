@@ -3,7 +3,6 @@ package com.devagit.springbootstudy.infra;
 
 import com.devagit.springbootstudy.exceptionHandler.restTemplateExceptionHandler.TimeOutException;
 import com.devagit.springbootstudy.request.tempOpenApi.NaverUser;
-import com.devagit.springbootstudy.response.NaverMapCategoriesResponse;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -24,7 +23,7 @@ public class NaverMapClient {
 
     public List<NaverMapCategoriesResponse> getNaverMap() {
         try {
-            ResponseEntity<List<NaverMapCategoriesResponse>> data = restTemplate.exchange("http://localhost:3000/categories/main", HttpMethod.GET, null, new ParameterizedTypeReference<List<NaverMapCategoriesResponse>>() { //
+            ResponseEntity<List<NaverMapCategoriesResponse>> data = restTemplate.exchange("http://localhost:3000/categories/main", HttpMethod.GET, null, new ParameterizedTypeReference<List<NaverMapCategoriesResponse>>() {
             });
             return data.getBody();
         } catch (ResourceAccessException e) {
@@ -37,7 +36,7 @@ public class NaverMapClient {
         try {
             ResponseEntity<String> data = restTemplate.exchange("http://localhost:3000/users/signUp", HttpMethod.POST, request, String.class);
             return data.getBody();
-        }catch (ResourceAccessException e){
+        } catch (ResourceAccessException e) {
             throw new TimeOutException();
         }
     }
