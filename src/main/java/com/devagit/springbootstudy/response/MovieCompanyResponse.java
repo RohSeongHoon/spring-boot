@@ -8,6 +8,7 @@ import lombok.Setter;
 import java.util.List;
 
 @Getter
+@Setter
 @NoArgsConstructor
 public class MovieCompanyResponse {
     private CompanyListResult companyListResult;
@@ -36,11 +37,13 @@ public class MovieCompanyResponse {
     public static class CompanyList {
         private String companyNm;
         private String companyPartNames;
+        private String ceoNm;
         private String filmoNames;
 
-        public CompanyList(String companyNm, String companyPartNames, String filmoNames) {
+        public CompanyList(String companyNm, String companyPartNames, String ceoNm, String filmoNames) {
             this.companyNm = companyNm;
             this.companyPartNames = companyPartNames;
+            this.ceoNm = ceoNm;
             this.filmoNames = filmoNames;
         }
     }

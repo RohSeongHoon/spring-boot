@@ -19,12 +19,9 @@ class NaverMapClientTest {
 
         }
     }
-
     @Test
     public void setNaverMapClient() {
         NaverUser user = new NaverUser("asdf", "123", "겅구", "닉네임", "이메일", "남");
         System.out.println(naverMapClient.setNaverUser(user));
-
     }
-
 }
