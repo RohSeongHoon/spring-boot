@@ -18,7 +18,7 @@ public class MovieCompanyClient {
         this.restTemplate = restTemplate;
     }
 
-    public MovieCompanyResponse.CompanyListResult getMovieCompanyList(@Nullable Integer curPage,@Nullable Integer itemPerPage) {
+    public MovieCompanyResponse.CompanyListResult getMovieCompanyList(Integer curPage, Integer itemPerPage) {
         String uri = UriComponentsBuilder
                 .newInstance()
                 .scheme("https")
