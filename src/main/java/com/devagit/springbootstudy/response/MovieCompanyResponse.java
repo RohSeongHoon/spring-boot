@@ -38,12 +38,14 @@ public class MovieCompanyResponse {
         private String companyNm;
         private String companyPartNames;
         private String ceoNm;
+        private String companyCd;
         private String filmoNames;
 
-        public CompanyList(String companyNm, String companyPartNames, String ceoNm, String filmoNames) {
+        public CompanyList(String companyNm, String companyPartNames, String ceoNm, String companyCd, String filmoNames) {
             this.companyNm = companyNm;
             this.companyPartNames = companyPartNames;
             this.ceoNm = ceoNm;
+            this.companyCd = companyCd;
             this.filmoNames = filmoNames;
         }
     }
