@@ -1,5 +1,6 @@
 package com.devagit.springbootstudy.controller;
 
+import com.devagit.springbootstudy.response.DetailCompanyInfoResponse.CompanyInfo;
 import com.devagit.springbootstudy.response.MovieCompanyResponse;
 import com.devagit.springbootstudy.service.MovieCompanyService;
 import org.springframework.lang.Nullable;
@@ -17,7 +18,11 @@ public class MovieCompanyController {
     }
 
     @GetMapping("/api/v1/movieCompany")
-    public MovieCompanyResponse.CompanyListResult getCompanyList(@RequestParam @Nullable Integer curPage,@RequestParam @Nullable Integer itemPerPage) {
-        return movieCompanyService.getMovieCompanyList(curPage, itemPerPage);
+    public MovieCompanyResponse.CompanyListResult getCompanyList(@RequestParam @Nullable Integer curPage, @RequestParam @Nullable Integer itemPerPage, @RequestParam @Nullable String ceoNm, @RequestParam @Nullable String companyNm) {
+        return movieCompanyService.getMovieCompanyList(curPage, itemPerPage, ceoNm, companyNm);
+    }
+    @GetMapping("/api/v1/movieCompany/detail")
+    public CompanyInfo getDetailCompanyInfo(@RequestParam String companyCd){
+        return movieCompanyService.getDetailCompanyInfo(companyCd);
     }
 }
