@@ -61,10 +61,12 @@ public class DetailCompanyInfoResponse {
     public static class Filmo {
         private String movieNm;
         private String companyPartNm;
+        private String movieCd;
 
-        public Filmo(String movieNm, String companyPartNm) {
+        public Filmo(String movieNm, String companyPartNm, String movieCd) {
             this.movieNm = movieNm;
             this.companyPartNm = companyPartNm;
+            this.movieCd = movieCd;
         }
     }
 }
