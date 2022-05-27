@@ -4,7 +4,7 @@ import com.devagit.springbootstudy.domain.MovieCompany;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class MovieCompanyImpl implements MovieCompanyRepository{
+public class MovieCompanyImpl implements MovieCompanyRepository {
 
     private final MovieCompanyJpaRepository jpaRepository;
 
@@ -12,7 +12,13 @@ public class MovieCompanyImpl implements MovieCompanyRepository{
         this.jpaRepository = jpaRepository;
     }
 
-    public void save(MovieCompany movieCompany){
+    @Override
+    public void save(MovieCompany movieCompany) {
         jpaRepository.save(movieCompany);
+    }
+
+    @Override
+    public MovieCompany findByCompanyCd(String companyCd) {
+        return jpaRepository.findByCompanyCd(companyCd);
     }
 }
