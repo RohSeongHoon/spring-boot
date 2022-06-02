@@ -1,10 +1,11 @@
 package com.devagit.springbootstudy.domain;
 
-import com.mysql.cj.protocol.ColumnDefinition;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
@@ -17,17 +18,14 @@ public class MovieCompany {
     @Id
     private String companyCd;
     @Column(columnDefinition = "varchar(32)", nullable = false)
-    private String companyNm;
-    @Column(columnDefinition = "varchar(8)", nullable = false)
+    private String companyName;
+    @Column(columnDefinition = "varchar(64)", nullable = false)
     private String companyPartNames;
-    @Column(columnDefinition = "varchar(64)")
-    private String address;
 
     @Builder
-    public MovieCompany(String companyCd, String companyNm, String companyPartNames, String address) {
+    public MovieCompany(String companyCd, String companyName, String companyPartNames) {
         this.companyCd = companyCd;
-        this.companyNm = companyNm;
+        this.companyName = companyName;
         this.companyPartNames = companyPartNames;
-        this.address = address;
     }
 }
