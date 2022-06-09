@@ -23,9 +23,9 @@ public class MovieCompanyResponse {
     public static class CompanyListResult {
         private int totCnt;
         @JsonProperty("companyList")
-        private List<CompanyList> companyLists;
+        private List<Company> companyLists;
 
-        public CompanyListResult(int totCnt, List<CompanyList> companyLists) {
+        public CompanyListResult(int totCnt, List<Company> companyLists) {
             this.totCnt = totCnt;
             this.companyLists = companyLists;
         }
@@ -34,14 +34,14 @@ public class MovieCompanyResponse {
     @NoArgsConstructor
     @Getter
     @Setter
-    public static class CompanyList {
+    public static class Company {
         private String companyNm;
         private String companyPartNames;
         private String ceoNm;
         private String companyCd;
         private String filmoNames;
 
-        public CompanyList(String companyNm, String companyPartNames, String ceoNm, String companyCd, String filmoNames) {
+        public Company(String companyNm, String companyPartNames, String ceoNm, String companyCd, String filmoNames) {
             this.companyNm = companyNm;
             this.companyPartNames = companyPartNames;
             this.ceoNm = ceoNm;

@@ -1,7 +1,5 @@
 package com.devagit.springbootstudy.infra;
 
-import com.devagit.springbootstudy.response.AddressResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -33,8 +31,7 @@ public class KakaoMapClient {
                 .get(uri)
                 .header("Authorization","KakaoAK " + "0e057614f227f19627d37df78b497c1f")
                 .build();
-
-        ResponseEntity<String> result = restTemplate.exchange(requestEntity, String.class);
+        ResponseEntity<String > result = restTemplate.exchange(requestEntity, String.class);
         return result.getBody();
     }
 }

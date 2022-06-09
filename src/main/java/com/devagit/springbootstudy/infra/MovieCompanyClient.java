@@ -6,6 +6,7 @@ import com.devagit.springbootstudy.response.MovieCompanyResponse;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -20,7 +21,7 @@ public class MovieCompanyClient {
         this.restTemplate = restTemplate;
     }
 
-    public MovieCompanyResponse.CompanyListResult getMovieCompanyList(@Nullable Integer curPage, @Nullable Integer itemPerPage, @Nullable String ceoNm, @Nullable String companyNm) {
+    public MovieCompanyResponse.CompanyListResult getMovieCompanyList(@Nullable Integer curPage, @Nullable Integer itemPerPage, @Nullable String ceoNm, @Nullable String companyName) {
         String uri = UriComponentsBuilder
                 .newInstance()
                 .scheme("https")
@@ -30,12 +31,13 @@ public class MovieCompanyClient {
                 .queryParamIfPresent("curPage", Optional.ofNullable(curPage))
                 .queryParamIfPresent("itemPerPage", Optional.ofNullable(itemPerPage))
                 .queryParamIfPresent("ceoNm", Optional.ofNullable(ceoNm))
-                .queryParamIfPresent("companyNm", Optional.ofNullable(companyNm))
+                .queryParamIfPresent("companyNm", Optional.ofNullable(companyName))
                 .build()
                 .toUriString();
         ResponseEntity<MovieCompanyResponse> movieCompanyList = restTemplate.exchange(uri, HttpMethod.GET, null, MovieCompanyResponse.class);
         return movieCompanyList.getBody().getCompanyListResult();
     }
+
 
     public CompanyInfo getDetailCompanyInfo(String companyCd) {
         String uri = UriComponentsBuilder
